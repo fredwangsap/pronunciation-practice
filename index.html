@@ -3,118 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🗣️ English Pronunciation Practice</title>
+<title>🗣️ English Pronunciation — Master Every Sound</title>
 <style>
 :root{--pri:#2d6a4f;--pri-lt:#95d5b2;--pri-dk:#1b4332;--gold:#c9a227;--bg:#f0fdf4;--card:#fff;--green:#1e6e30;--red:#922020;--blue:#1565c0;--orange:#e65100;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:#2d2d2d;min-height:100vh;}
-header{background:linear-gradient(160deg,var(--pri-dk),var(--pri),#40916c);color:#fff;padding:24px 20px;text-align:center;border-bottom:4px solid var(--gold);}
-header h1{font-size:clamp(1.4em,5vw,2.2em);color:#fff;margin-bottom:4px;}
-header p{font-size:.88em;color:rgba(255,255,255,.75);}
-.sticky{position:sticky;top:0;z-index:100;background:var(--pri-dk);padding:8px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
-.badge{background:rgba(149,213,178,.2);border:2px solid var(--pri-lt);border-radius:20px;padding:4px 12px;color:var(--pri-lt);font-weight:700;font-size:.85em;}
+header{background:linear-gradient(160deg,var(--pri-dk),var(--pri),#40916c);color:#fff;padding:22px 20px;text-align:center;border-bottom:4px solid var(--gold);}
+header h1{font-size:clamp(1.4em,5vw,2.1em);color:#fff;margin-bottom:4px;}
+header p{font-size:.85em;color:rgba(255,255,255,.75);}
+.sticky{position:sticky;top:0;z-index:100;background:var(--pri-dk);padding:7px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.badge{background:rgba(149,213,178,.2);border:2px solid var(--pri-lt);border-radius:20px;padding:3px 11px;color:var(--pri-lt);font-weight:700;font-size:.82em;}
 .stage-tabs{display:flex;flex-wrap:wrap;gap:3px;}
-.stab{padding:4px 10px;border-radius:14px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);color:#fff;font-size:.72em;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.stab{padding:4px 9px;border-radius:14px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);color:#fff;font-size:.7em;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
 .stab:hover{background:rgba(255,255,255,.15);}
 .stab.active{border-color:var(--pri-lt);background:rgba(149,213,178,.2);}
-main{max-width:900px;margin:12px auto 40px;padding:0 14px;}
+main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 .stage{display:none;animation:fadeIn .3s ease;}
 .stage.show{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.card{background:var(--card);border-radius:14px;border:2px solid rgba(45,106,79,.15);box-shadow:0 3px 16px rgba(0,0,0,.06);padding:20px;margin-bottom:14px;}
-.card h2{font-size:1.15em;color:var(--pri-dk);margin-bottom:4px;}
-.card h3{font-size:.95em;color:var(--pri);margin:14px 0 8px;}
-.card p,.card li{font-size:.88em;line-height:1.6;color:#444;}
-.tip{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.84em;line-height:1.5;color:var(--green);}
+.card{background:var(--card);border-radius:14px;border:2px solid rgba(45,106,79,.12);box-shadow:0 3px 14px rgba(0,0,0,.05);padding:18px;margin-bottom:12px;}
+.card h2{font-size:1.1em;color:var(--pri-dk);margin-bottom:6px;}
+.card h3{font-size:.92em;color:var(--pri);margin:12px 0 6px;}
+.card p{font-size:.86em;line-height:1.55;color:#444;}
+.tip{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:10px;padding:9px 12px;margin:8px 0;font-size:.82em;line-height:1.5;color:var(--green);}
 .tip strong{color:var(--pri-dk);}
-.warn{background:#fff3e0;border:2px solid #ffcc80;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.84em;line-height:1.5;color:var(--orange);}
 
-/* Sound grid */
-.sound-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin:12px 0;}
-.sound-card{background:#f0fdf4;border:2px solid #b7e4c7;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;}
-.sound-card:hover{border-color:var(--pri);transform:scale(1.05);box-shadow:0 4px 12px rgba(45,106,79,.2);}
-.sound-card:active{transform:scale(.95);}
-.sound-card .letter{font-size:1.5em;font-weight:700;color:var(--pri-dk);display:block;}
-.sound-card .ipa{font-size:.72em;color:#666;font-style:italic;}
-.sound-card .word{font-size:.7em;color:var(--pri);margin-top:2px;}
-.sound-card.playing{border-color:var(--gold);background:#fffde7;animation:pulse .6s;}
-.sound-card.vowel-card{background:#fff3e0;border-color:#ffcc80;}
-.sound-card.vowel-card:hover{border-color:var(--orange);}
-@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+/* Letter cards */
+.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:10px 0;}
+.letter-card{background:#f8fdf8;border:2px solid #c8e6c9;border-radius:12px;padding:12px;transition:all .2s;cursor:pointer;}
+.letter-card:hover{border-color:var(--pri);box-shadow:0 4px 12px rgba(45,106,79,.15);}
+.letter-card .top{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.letter-card .big{font-size:2em;font-weight:700;color:var(--pri-dk);width:44px;height:44px;background:#d4edda;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.letter-card .ipa-sym{font-size:1em;color:var(--orange);font-weight:600;font-style:italic;}
+.letter-card .how{font-size:.8em;color:#555;line-height:1.4;margin-bottom:6px;}
+.letter-card .examples{display:flex;flex-wrap:wrap;gap:4px;}
+.ex-btn{background:#fff;border:1.5px solid #ddd;border-radius:16px;padding:3px 10px;font-size:.78em;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:3px;}
+.ex-btn:hover{border-color:var(--pri);background:#f0fdf4;transform:scale(1.05);}
+.ex-btn:active{transform:scale(.95);}
 
-/* Tables */
-.ipa-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.82em;}
-.ipa-table th{background:var(--pri-dk);color:#fff;padding:7px 8px;text-align:left;font-size:.85em;}
-.ipa-table td{padding:6px 8px;border-bottom:1px solid #eee;}
-.ipa-table tr:nth-child(even){background:#f8fdf8;}
-.ipa-table .sym{font-weight:700;color:var(--orange);font-size:1.05em;}
-.ipa-table .long-row{background:#e3f2fd !important;}
-.ipa-table .diph-row{background:#fff3e0 !important;}
+/* IPA tables */
+.ipa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:10px 0;}
+.ipa-card{background:#fff;border:2px solid #e0e0e0;border-radius:12px;padding:12px;transition:all .2s;}
+.ipa-card:hover{border-color:var(--gold);box-shadow:0 3px 10px rgba(201,162,39,.2);}
+.ipa-card.short{border-left:4px solid var(--pri);}
+.ipa-card.long{border-left:4px solid var(--blue);}
+.ipa-card.diph{border-left:4px solid var(--orange);}
+.ipa-card.voiceless{border-left:4px solid #666;}
+.ipa-card.voiced{border-left:4px solid var(--pri);}
+.ipa-card .sym{font-size:1.4em;font-weight:700;color:var(--orange);}
+.ipa-card .type-badge{font-size:.65em;background:#eee;border-radius:10px;padding:2px 8px;color:#666;font-weight:600;margin-left:6px;}
+.ipa-card .desc{font-size:.8em;color:#555;margin:4px 0;line-height:1.4;}
+.ipa-card .words{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
 
-/* Minimal pairs */
-.pair-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
-.pair-btn{background:#fff;border:2px solid #ddd;border-radius:20px;padding:8px 16px;cursor:pointer;font-size:.9em;font-weight:600;transition:all .2s;min-width:80px;text-align:center;}
-.pair-btn:hover{border-color:var(--pri);background:#f0fdf4;}
-.pair-btn:active{transform:scale(.95);}
-.pair-vs{font-size:.8em;color:#999;font-weight:700;}
-
-/* Mic/Record */
-.mic-area{text-align:center;margin:14px 0;padding:16px;background:#f5f5f5;border-radius:12px;border:2px dashed #ccc;}
-.mic-btn{width:60px;height:60px;border-radius:50%;border:3px solid var(--pri);background:#fff;cursor:pointer;font-size:1.5em;display:inline-flex;align-items:center;justify-content:center;transition:all .3s;}
-.mic-btn:hover{background:#f0fdf4;transform:scale(1.1);}
-.mic-btn.recording{border-color:var(--red);background:#ffebee;animation:recPulse 1s infinite;}
-@keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(146,32,32,.4);}50%{box-shadow:0 0 0 12px rgba(146,32,32,0);}}
-.mic-status{font-size:.82em;color:#666;margin-top:8px;}
-.mic-result{margin-top:8px;font-size:.9em;font-weight:600;padding:6px 12px;border-radius:8px;display:inline-block;}
-.mic-result.ok{background:#e8f5e9;color:var(--green);}
-.mic-result.bad{background:#ffebee;color:var(--red);}
+/* Combo section */
+.combo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:10px 0;}
+.combo-card{background:#fffde7;border:2px solid #fff176;border-radius:12px;padding:12px;transition:all .2s;}
+.combo-card:hover{border-color:var(--gold);box-shadow:0 3px 10px rgba(201,162,39,.2);}
+.combo-card .combo-top{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.combo-card .combo-letters{font-size:1.5em;font-weight:700;color:var(--orange);background:#fff8e1;border-radius:8px;padding:4px 10px;}
+.combo-card .combo-ipa{font-size:.9em;color:#666;font-style:italic;}
+.combo-card .combo-tip{font-size:.78em;color:#555;margin:4px 0;line-height:1.4;}
+.combo-card .words{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
 
 /* Stress */
-.stress-word{display:inline-flex;gap:2px;margin:6px 8px;}
-.syl{padding:6px 10px;border-radius:8px;font-size:1em;border:2px solid #ddd;background:#f9f9f9;cursor:pointer;transition:all .2s;}
-.syl:hover{border-color:var(--pri);}
-.syl.stressed{background:var(--pri);color:#fff;border-color:var(--pri);font-weight:700;font-size:1.15em;}
-.syl.correct{background:var(--green);color:#fff;border-color:var(--green);}
-.syl.wrong{background:var(--red);color:#fff;border-color:var(--red);}
-
-/* Sentence */
-.sentence-box{background:#f9f9f9;border:2px solid #e8e8e8;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:.92em;line-height:1.8;}
-.sentence-box .strong{background:#bbdefb;padding:2px 6px;border-radius:4px;font-weight:700;}
-.sentence-box .weak{color:#999;font-size:.85em;}
-.sentence-box .link{background:#c8e6c9;padding:2px 6px;border-radius:4px;font-weight:600;color:var(--green);}
-
-/* Buttons */
-.btn{background:linear-gradient(135deg,var(--pri-dk),var(--pri));color:#fff;border:none;border-radius:22px;padding:9px 22px;font-size:.88em;font-weight:700;cursor:pointer;transition:all .2s;margin:4px;}
-.btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,106,79,.3);}
-.btn-sm{padding:6px 14px;font-size:.8em;}
-.btn-outline{background:transparent;border:2px solid var(--pri);color:var(--pri);}
-.btn-outline:hover{background:var(--pri);color:#fff;}
-.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:12px;border-top:1px solid #eee;}
-.nav-btn{background:transparent;border:2px solid var(--gold);color:#5c3d1a;border-radius:18px;padding:7px 16px;cursor:pointer;font-size:.86em;font-weight:600;transition:all .2s;}
-.nav-btn:hover{background:var(--gold);color:#1a1a2e;}
-.nav-btn.fwd{background:var(--gold);color:#1a1a2e;}
-
-.fb{margin-top:10px;padding:10px 14px;border-radius:8px;font-weight:600;font-size:.86em;display:none;line-height:1.4;}
-.fb.ok{background:#e8f5e9;color:var(--green);border:2px solid #a5d6a7;display:block;}
-.fb.part{background:#fff8e1;color:#856404;border:2px solid #ffe082;display:block;}
+.stress-word-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;padding:8px;background:#f9f9f9;border-radius:8px;}
+.stress-word-row .syl{padding:6px 10px;border-radius:8px;font-size:1em;border:2px solid #ddd;background:#fff;cursor:pointer;transition:all .2s;}
+.stress-word-row .syl:hover{border-color:var(--pri);}
+.stress-word-row .syl.stressed{background:var(--pri);color:#fff;border-color:var(--pri);font-weight:700;font-size:1.1em;}
+.stress-word-row .syl.correct{background:var(--green);color:#fff;border-color:var(--green);}
+.stress-word-row .syl.wrong{background:var(--red);color:#fff;border-color:var(--red);}
+.sentence-box{background:#f9f9f9;border:2px solid #e8e8e8;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.88em;line-height:1.7;}
+.sentence-box .strong{background:#bbdefb;padding:1px 5px;border-radius:4px;font-weight:700;}
+.sentence-box .weak{color:#aaa;font-size:.85em;}
 
 /* Game */
-.game-score{display:flex;gap:12px;justify-content:center;margin:10px 0;flex-wrap:wrap;}
-.game-badge{background:rgba(45,106,79,.08);border:2px solid var(--pri);border-radius:20px;padding:5px 14px;font-size:.85em;font-weight:600;color:var(--pri-dk);}
 .game-word{font-size:clamp(2em,8vw,3.5em);font-weight:700;color:var(--pri-dk);letter-spacing:3px;text-align:center;margin:16px 0 8px;}
 .game-patterns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0;}
 .game-pattern{background:#e8f5e9;border:2px solid #a5d6a7;border-radius:8px;padding:4px 10px;font-size:.85em;}
 .game-pattern strong{color:var(--pri-dk);}
 .game-pattern em{color:var(--orange);}
-.game-history-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #eee;font-size:.85em;}
+.game-badge{background:rgba(45,106,79,.08);border:2px solid var(--pri);border-radius:20px;padding:4px 12px;font-size:.82em;font-weight:600;color:var(--pri-dk);}
 
-@media(max-width:500px){.sound-grid{grid-template-columns:repeat(auto-fill,minmax(65px,1fr));}.pair-row{flex-direction:column;align-items:flex-start;}.ipa-table{font-size:.75em;}}
+/* Mic */
+.mic-area{text-align:center;margin:12px 0;padding:14px;background:#f5f5f5;border-radius:12px;border:2px dashed #ccc;}
+.mic-btn{width:56px;height:56px;border-radius:50%;border:3px solid var(--pri);background:#fff;cursor:pointer;font-size:1.4em;display:inline-flex;align-items:center;justify-content:center;transition:all .3s;}
+.mic-btn:hover{background:#f0fdf4;transform:scale(1.1);}
+.mic-btn.recording{border-color:var(--red);background:#ffebee;animation:recPulse 1s infinite;}
+@keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(146,32,32,.4);}50%{box-shadow:0 0 0 10px rgba(146,32,32,0);}}
+.mic-status{font-size:.8em;color:#666;margin-top:6px;}
+.mic-result{margin-top:6px;font-size:.88em;font-weight:600;padding:5px 10px;border-radius:8px;display:inline-block;}
+.mic-result.ok{background:#e8f5e9;color:var(--green);}
+.mic-result.bad{background:#ffebee;color:var(--red);}
+
+/* Buttons */
+.btn{background:linear-gradient(135deg,var(--pri-dk),var(--pri));color:#fff;border:none;border-radius:22px;padding:8px 20px;font-size:.85em;font-weight:700;cursor:pointer;transition:all .2s;margin:3px;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,106,79,.3);}
+.btn-sm{padding:5px 12px;font-size:.78em;}
+.btn-outline{background:transparent;border:2px solid var(--pri);color:var(--pri);}
+.btn-outline:hover{background:var(--pri);color:#fff;}
+.nav{display:flex;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px solid #eee;}
+.nav-btn{background:transparent;border:2px solid var(--gold);color:#5c3d1a;border-radius:18px;padding:6px 14px;cursor:pointer;font-size:.84em;font-weight:600;transition:all .2s;}
+.nav-btn:hover{background:var(--gold);color:#1a1a2e;}
+.nav-btn.fwd{background:var(--gold);color:#1a1a2e;}
+.fb{margin-top:8px;padding:8px 12px;border-radius:8px;font-weight:600;font-size:.84em;display:none;line-height:1.4;}
+.fb.ok{background:#e8f5e9;color:var(--green);border:2px solid #a5d6a7;display:block;}
+.fb.part{background:#fff8e1;color:#856404;border:2px solid #ffe082;display:block;}
+@media(max-width:600px){.letter-grid,.ipa-grid,.combo-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <header>
-<h1>🗣️ English Pronunciation Practice</h1>
-<p>5 steps to clear English pronunciation · Listen · Practice · Record</p>
+<h1>🗣️ Master Every English Sound</h1>
+<p>A-Z letters · 44 IPA sounds · Letter combinations · Stress · Game</p>
 </header>
 <div class="sticky">
 <div class="badge">Step <span id="cur-stage">1</span>/6</div>
@@ -124,855 +124,438 @@ main{max-width:900px;margin:12px auto 40px;padding:0 14px;}
 
 <script>
 // ═══════════════════════════════
-// TTS & SPEECH RECOGNITION
+// TTS
 // ═══════════════════════════════
-function speak(text,rate=0.75,pitch=1.0,cb){
+function speak(text,rate=0.7){
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-US';u.rate=rate;u.pitch=pitch;
-  if(cb)u.onend=cb;
+  u.lang='en-US';u.rate=rate;u.pitch=1.05;
   speechSynthesis.speak(u);
 }
-function speakSlow(text){speak(text,0.55,1.0);}
-function speakNormal(text){speak(text,0.85,1.0);}
 
+// Speech Recognition
 let recognition=null,isRecording=false;
-function initRecognition(){
-  if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window))return null;
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  const r=new SR();r.lang='en-US';r.continuous=false;r.interimResults=false;return r;
-}
 function startListening(onResult,onEnd){
-  recognition=initRecognition();
-  if(!recognition){onEnd('Speech recognition not supported in this browser');return;}
-  recognition.onresult=(e)=>{const text=e.results[0][0].transcript.toLowerCase().trim();onResult(text);};
-  recognition.onerror=()=>{onEnd('Could not hear you. Try again!');};
+  if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){onEnd('Not supported');return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();recognition.lang='en-US';recognition.continuous=false;recognition.interimResults=false;
+  recognition.onresult=(e)=>{onResult(e.results[0][0].transcript.toLowerCase().trim());};
+  recognition.onerror=()=>{onEnd('Could not hear. Try again!');};
   recognition.onend=()=>{isRecording=false;};
   recognition.start();isRecording=true;
 }
 function stopListening(){if(recognition)recognition.stop();isRecording=false;}
 
+// Helper: make a speak button
+function spkBtn(word,label){
+  return `<button class="ex-btn" onclick="speak('${word.replace(/'/g,"\\'")}',0.65)">🔊 ${label||word}</button>`;
+}
+
 // ═══════════════════════════════
 // DATA
 // ═══════════════════════════════
 
-// -- IPA: All 44 phonemes --
-const VOWELS_IPA=[
-  {n:1,sym:'/æ/',type:'short',desc:'Open mouth wide, tongue flat',ex:'cat, hat, man',word:'cat'},
-  {n:2,sym:'/ɛ/',type:'short',desc:'Mouth slightly open, relaxed',ex:'bed, red, ten',word:'bed'},
-  {n:3,sym:'/ɪ/',type:'short',desc:'Small smile, tongue slightly raised',ex:'sit, fish, big',word:'sit'},
-  {n:4,sym:'/ɒ/',type:'short',desc:'Round open mouth, tongue low back',ex:'hot, dog, box',word:'hot'},
-  {n:5,sym:'/ʌ/',type:'short',desc:'Relaxed open mouth, tongue centre',ex:'cup, bus, run',word:'cup'},
-  {n:6,sym:'/ʊ/',type:'short',desc:'Lips slightly rounded, relaxed',ex:'book, put, look',word:'book'},
-  {n:7,sym:'/ə/',type:'short',desc:'Schwa — the laziest, most common sound',ex:'about, teacher, sofa',word:'about'},
-  {n:8,sym:'/iː/',type:'long',desc:'Wide smile, tongue high front',ex:'see, tree, eat',word:'see'},
-  {n:9,sym:'/ɑː/',type:'long',desc:'Mouth wide open, tongue low back',ex:'car, far, star',word:'car'},
-  {n:10,sym:'/ɔː/',type:'long',desc:'Round lips, tongue low back',ex:'call, door, four',word:'call'},
-  {n:11,sym:'/uː/',type:'long',desc:'Lips tightly rounded forward',ex:'blue, food, moon',word:'blue'},
-  {n:12,sym:'/ɜː/',type:'long',desc:'Tongue centre, lips slightly rounded',ex:'bird, her, nurse',word:'bird'},
-  {n:13,sym:'/eɪ/',type:'diphthong',desc:'Start "eh" glide to "ee"',ex:'cake, day, rain',word:'cake'},
-  {n:14,sym:'/aɪ/',type:'diphthong',desc:'Start "ah" glide to "ee"',ex:'like, night, my',word:'like'},
-  {n:15,sym:'/ɔɪ/',type:'diphthong',desc:'Start round "or" glide to "ee"',ex:'boy, coin, voice',word:'boy'},
-  {n:16,sym:'/aʊ/',type:'diphthong',desc:'Start "ah" glide to round "oo"',ex:'house, cow, out',word:'house'},
-  {n:17,sym:'/oʊ/',type:'diphthong',desc:'Start "oh" glide to round "oo"',ex:'go, home, show',word:'go'},
-  {n:18,sym:'/ɪə/',type:'diphthong',desc:'Start "ih" glide to "uh"',ex:'ear, here, near',word:'ear'},
-  {n:19,sym:'/eə/',type:'diphthong',desc:'Start "eh" glide to "uh"',ex:'air, there, care',word:'air'},
-  {n:20,sym:'/ʊə/',type:'diphthong',desc:'Start "oo" glide to "uh"',ex:'tour, pure, sure',word:'tour'},
+const LETTERS=[
+{l:'A',ipa:'/æ/',how:'Open mouth wide, tongue flat and low',ex:['apple','ant','ask','cat','hat','man']},
+{l:'B',ipa:'/b/',how:'Press lips together, pop open WITH voice (feel throat buzz)',ex:['ball','bed','big','bus','baby','book']},
+{l:'C',ipa:'/k/ or /s/',how:'Hard C: back of tongue hits palate (cat). Soft C before e/i: like S (city)',ex:['cat','cup','car','city','circle','nice']},
+{l:'D',ipa:'/d/',how:'Tongue tip taps ridge behind top teeth, WITH voice',ex:['dog','dad','day','door','duck','dinner']},
+{l:'E',ipa:'/ɛ/',how:'Mouth slightly open, tongue in middle',ex:['egg','end','ten','bed','red','get']},
+{l:'F',ipa:'/f/',how:'Top teeth gently on lower lip, blow air (NO voice)',ex:['fish','fun','five','food','finger','family']},
+{l:'G',ipa:'/g/',how:'Back of tongue hits soft palate, WITH voice',ex:['go','get','girl','good','game','green']},
+{l:'H',ipa:'/h/',how:'Open mouth, gentle breath out (like fogging a mirror)',ex:['hat','home','help','hot','happy','hand']},
+{l:'I',ipa:'/ɪ/',how:'Small smile, tongue slightly raised in front',ex:['it','in','is','big','sit','swim']},
+{l:'J',ipa:'/dʒ/',how:'Tongue on roof, release like D+ZH together',ex:['jump','job','juice','jam','jelly','join']},
+{l:'K',ipa:'/k/',how:'Back tongue hits soft palate, no voice (same as hard C)',ex:['kite','king','keep','kick','kind','key']},
+{l:'L',ipa:'/l/',how:'Tongue tip touches ridge, air flows around sides',ex:['leg','look','like','let','love','little']},
+{l:'M',ipa:'/m/',how:'Press lips together, hum through nose',ex:['map','mum','milk','moon','money','morning']},
+{l:'N',ipa:'/n/',how:'Tongue tip on ridge, hum through nose',ex:['nose','no','name','new','night','number']},
+{l:'O',ipa:'/ɒ/',how:'Round lips, mouth open, tongue low and back',ex:['on','off','hot','dog','orange','box']},
+{l:'P',ipa:'/p/',how:'Lips pop with a puff of air (NO voice — like B but silent throat)',ex:['pen','park','pig','put','play','people']},
+{l:'Q',ipa:'/kw/',how:'Say K then quickly round lips for W (always with U)',ex:['queen','quick','quiz','quiet','quite','question']},
+{l:'R',ipa:'/r/',how:'Tongue curls back, does NOT touch the roof!',ex:['run','red','rain','room','right','read']},
+{l:'S',ipa:'/s/',how:'Tongue near ridge, air hisses through (like a snake: sss)',ex:['sun','see','sit','say','school','stop']},
+{l:'T',ipa:'/t/',how:'Tongue tip taps ridge, puff of air (NO voice — like D but silent throat)',ex:['ten','top','time','two','table','teacher']},
+{l:'U',ipa:'/ʌ/',how:'Relaxed open mouth, tongue in centre, short',ex:['up','us','under','cup','bus','fun']},
+{l:'V',ipa:'/v/',how:'Top teeth on lower lip (like F) but ADD voice — feel buzz!',ex:['van','very','voice','visit','video','village']},
+{l:'W',ipa:'/w/',how:'Round lips tightly (like blowing a candle), then open',ex:['wet','win','walk','water','want','window']},
+{l:'X',ipa:'/ks/',how:'Two sounds together: K+S (usually at end of words)',ex:['box','six','fox','mix','next','taxi']},
+{l:'Y',ipa:'/j/',how:'Tongue raised near roof, quick "ee" then open',ex:['yes','you','year','yellow','young','yesterday']},
+{l:'Z',ipa:'/z/',how:'Same tongue as S but ADD voice — feel the buzz (like a bee: zzz)',ex:['zoo','zip','zero','zone','pizza','amazing']},
 ];
 
-const CONSONANTS_IPA=[
-  {n:1,sym:'/p/',type:'stop',voice:'voiceless',desc:'Lips pop, no voice',ex:'pen, cup',word:'pen'},
-  {n:2,sym:'/b/',type:'stop',voice:'voiced',desc:'Lips pop, WITH voice',ex:'ball, cab',word:'ball'},
-  {n:3,sym:'/t/',type:'stop',voice:'voiceless',desc:'Tongue taps ridge, no voice',ex:'ten, cat',word:'ten'},
-  {n:4,sym:'/d/',type:'stop',voice:'voiced',desc:'Tongue taps ridge, WITH voice',ex:'dog, bed',word:'dog'},
-  {n:5,sym:'/k/',type:'stop',voice:'voiceless',desc:'Back tongue hits palate, no voice',ex:'cat, book',word:'cat'},
-  {n:6,sym:'/g/',type:'stop',voice:'voiced',desc:'Back tongue hits palate, WITH voice',ex:'go, big',word:'go'},
-  {n:7,sym:'/f/',type:'fricative',voice:'voiceless',desc:'Top teeth on lower lip, blow',ex:'fish, leaf',word:'fish'},
-  {n:8,sym:'/v/',type:'fricative',voice:'voiced',desc:'Top teeth on lower lip, buzz',ex:'van, love',word:'van'},
-  {n:9,sym:'/θ/',type:'fricative',voice:'voiceless',desc:'Tongue between teeth, blow',ex:'think, bath',word:'think'},
-  {n:10,sym:'/ð/',type:'fricative',voice:'voiced',desc:'Tongue between teeth, buzz',ex:'this, mother',word:'this'},
-  {n:11,sym:'/s/',type:'fricative',voice:'voiceless',desc:'Tongue near ridge, hiss',ex:'sun, bus',word:'sun'},
-  {n:12,sym:'/z/',type:'fricative',voice:'voiced',desc:'Tongue near ridge, buzz',ex:'zoo, is',word:'zoo'},
-  {n:13,sym:'/ʃ/',type:'fricative',voice:'voiceless',desc:'Lips forward, "shh!"',ex:'ship, fish',word:'ship'},
-  {n:14,sym:'/ʒ/',type:'fricative',voice:'voiced',desc:'Lips forward, buzzy "zh"',ex:'measure, vision',word:'measure'},
-  {n:15,sym:'/tʃ/',type:'affricate',voice:'voiceless',desc:'Start /t/ release as /ʃ/',ex:'chip, lunch',word:'chip'},
-  {n:16,sym:'/dʒ/',type:'affricate',voice:'voiced',desc:'Start /d/ release as /ʒ/',ex:'jump, bridge',word:'jump'},
-  {n:17,sym:'/m/',type:'nasal',voice:'voiced',desc:'Lips together, hum through nose',ex:'map, swim',word:'map'},
-  {n:18,sym:'/n/',type:'nasal',voice:'voiced',desc:'Tongue on ridge, hum nose',ex:'nose, sun',word:'nose'},
-  {n:19,sym:'/ŋ/',type:'nasal',voice:'voiced',desc:'Back tongue up, hum nose',ex:'sing, thing',word:'sing'},
-  {n:20,sym:'/l/',type:'lateral',voice:'voiced',desc:'Tongue tip on ridge, air sides',ex:'leg, ball',word:'leg'},
-  {n:21,sym:'/r/',type:'approximant',voice:'voiced',desc:'Tongue curls back, no touch',ex:'run, car',word:'run'},
-  {n:22,sym:'/w/',type:'glide',voice:'voiced',desc:'Round lips then open quickly',ex:'wet, swim',word:'wet'},
-  {n:23,sym:'/j/',type:'glide',voice:'voiced',desc:'Tongue high, quick "ee" then open',ex:'yes, use',word:'yes'},
-  {n:24,sym:'/h/',type:'glottal',voice:'voiceless',desc:'Open throat, gentle breath',ex:'hat, home',word:'hat'},
+const VOWELS=[
+{n:1,sym:'/æ/',type:'short',how:'Open mouth WIDE, tongue flat and low. Like saying "ahh" at the doctor but shorter.',ex:['cat','hat','man','bad','ran','apple','hand','black']},
+{n:2,sym:'/ɛ/',type:'short',how:'Mouth slightly open. Tongue in the middle — not too high, not too low.',ex:['bed','red','ten','pen','leg','head','bread','said']},
+{n:3,sym:'/ɪ/',type:'short',how:'Small smile. Tongue slightly raised at the front. Quick and short!',ex:['sit','big','lip','hit','pin','fish','give','swim']},
+{n:4,sym:'/ɒ/',type:'short',how:'Round your lips into a circle. Mouth open. Tongue low and back.',ex:['hot','dog','pot','box','top','stop','clock','sock']},
+{n:5,sym:'/ʌ/',type:'short',how:'Relaxed open mouth. Tongue in the centre. Like a surprised "uh!"',ex:['cup','bus','run','sun','fun','love','money','come']},
+{n:6,sym:'/ʊ/',type:'short',how:'Lips slightly rounded but relaxed. Quick and light.',ex:['book','look','good','put','push','pull','foot','wood']},
+{n:7,sym:'/ə/',type:'short',how:'The LAZIEST sound! Mouth barely open, totally relaxed. The most common English sound!',ex:['about','banana','teacher','water','sofa','computer','famous','again']},
+{n:8,sym:'/iː/',type:'long',how:'Wide smile! Tongue HIGH and forward. Hold it longer than /ɪ/.',ex:['see','tree','me','eat','read','sleep','feet','cheese']},
+{n:9,sym:'/ɑː/',type:'long',how:'Open mouth WIDE. Tongue low and back. Say "ahhh" and hold it.',ex:['car','far','star','park','arm','heart','father','garden']},
+{n:10,sym:'/ɔː/',type:'long',how:'Round your lips. Tongue low and back. Hold the sound.',ex:['call','door','four','more','horse','water','walk','talk']},
+{n:11,sym:'/uː/',type:'long',how:'Lips TIGHTLY rounded forward (like a small circle). Hold it.',ex:['blue','food','moon','too','school','room','juice','true']},
+{n:12,sym:'/ɜː/',type:'long',how:'Tongue in the centre of mouth. Lips slightly rounded. Like "errr".',ex:['bird','her','nurse','turn','word','world','learn','early']},
+{n:13,sym:'/eɪ/',type:'diphthong',how:'Start with "eh" then GLIDE to "ee". Two sounds in one!',ex:['cake','day','rain','name','make','play','train','eight']},
+{n:14,sym:'/aɪ/',type:'diphthong',how:'Start with "ah" then GLIDE to "ee". Like saying "eye"!',ex:['like','time','fly','night','my','ride','five','ice']},
+{n:15,sym:'/ɔɪ/',type:'diphthong',how:'Start with round "or" then GLIDE to "ee".',ex:['boy','toy','coin','join','noise','voice','enjoy','point']},
+{n:16,sym:'/aʊ/',type:'diphthong',how:'Start with "ah" (open) then GLIDE to round "oo". Like "ow!" when hurt.',ex:['house','cow','out','now','down','town','cloud','mouth']},
+{n:17,sym:'/oʊ/',type:'diphthong',how:'Start with "oh" then GLIDE to round "oo". Like saying "oh!"',ex:['go','no','home','boat','show','snow','road','coat']},
+{n:18,sym:'/ɪə/',type:'diphthong',how:'Start with short "ih" then GLIDE to weak "uh".',ex:['ear','here','near','deer','beer','fear','clear','idea']},
+{n:19,sym:'/eə/',type:'diphthong',how:'Start with "eh" then GLIDE to weak "uh".',ex:['air','there','care','hair','pair','share','chair','wear']},
+{n:20,sym:'/ʊə/',type:'diphthong',how:'Start with short "oo" then GLIDE to weak "uh".',ex:['tour','pure','sure','cure','poor','moor']},
 ];
 
-// -- Minimal Pairs --
-const MINIMAL_PAIRS=[
-  {a:'ship',b:'sheep',focus:'/ɪ/ vs /iː/ — short vs long'},
-  {a:'bit',b:'beat',focus:'/ɪ/ vs /iː/'},
-  {a:'cat',b:'cut',focus:'/æ/ vs /ʌ/'},
-  {a:'bed',b:'bad',focus:'/ɛ/ vs /æ/'},
-  {a:'pull',b:'pool',focus:'/ʊ/ vs /uː/'},
-  {a:'live',b:'leave',focus:'/ɪ/ vs /iː/'},
-  {a:'fan',b:'van',focus:'/f/ vs /v/'},
-  {a:'think',b:'this',focus:'/θ/ vs /ð/'},
-  {a:'light',b:'right',focus:'/l/ vs /r/'},
-  {a:'wet',b:'vet',focus:'/w/ vs /v/'},
-  {a:'pin',b:'bin',focus:'/p/ vs /b/'},
-  {a:'coat',b:'goat',focus:'/k/ vs /g/'},
+const CONSONANTS=[
+{n:1,sym:'/p/',type:'stop',v:'voiceless',how:'Press lips together, then POP them open with a puff of air. NO throat buzz.',ex:['pen','cup','play','pig','people','stop']},
+{n:2,sym:'/b/',type:'stop',v:'voiced',how:'Same as /p/ but ADD voice. Feel your throat buzz!',ex:['ball','cab','big','baby','book','job']},
+{n:3,sym:'/t/',type:'stop',v:'voiceless',how:'Tongue tip TAPS the ridge behind top teeth. Puff of air. No buzz.',ex:['ten','cat','time','top','teacher','sit']},
+{n:4,sym:'/d/',type:'stop',v:'voiced',how:'Same as /t/ but ADD voice. Feel the buzz!',ex:['dog','bed','day','door','did','good']},
+{n:5,sym:'/k/',type:'stop',v:'voiceless',how:'BACK of tongue hits the soft palate (roof). No buzz.',ex:['cat','book','kick','school','clock','back']},
+{n:6,sym:'/g/',type:'stop',v:'voiced',how:'Same as /k/ but ADD voice. Feel the buzz!',ex:['go','big','game','girl','dog','egg']},
+{n:7,sym:'/f/',type:'fricative',v:'voiceless',how:'Top teeth on lower lip. Blow air through. No buzz.',ex:['fish','leaf','five','off','family','laugh']},
+{n:8,sym:'/v/',type:'fricative',v:'voiced',how:'Same as /f/ but ADD voice. Feel the buzz on your lip!',ex:['van','love','very','give','over','have']},
+{n:9,sym:'/θ/',type:'fricative',v:'voiceless',how:'Tongue tip BETWEEN your teeth! Blow air. No buzz. (Hard for many learners!)',ex:['think','bath','three','mouth','teeth','birthday']},
+{n:10,sym:'/ð/',type:'fricative',v:'voiced',how:'Same as /θ/ but ADD voice. Tongue between teeth + buzz!',ex:['this','that','mother','father','weather','brother']},
+{n:11,sym:'/s/',type:'fricative',v:'voiceless',how:'Tongue near ridge. Air HISSES through. Like a snake: sssss!',ex:['sun','bus','see','nice','class','face']},
+{n:12,sym:'/z/',type:'fricative',v:'voiced',how:'Same as /s/ but ADD voice. Like a bee: zzzzz!',ex:['zoo','is','nose','music','easy','because']},
+{n:13,sym:'/ʃ/',type:'fricative',v:'voiceless',how:'Lips pushed FORWARD. Wide tongue. Like telling someone "shhhh!"',ex:['ship','fish','she','wash','nation','special']},
+{n:14,sym:'/ʒ/',type:'fricative',v:'voiced',how:'Same as /ʃ/ but ADD voice. Buzzy "zh" sound.',ex:['measure','vision','usual','treasure','decision','television']},
+{n:15,sym:'/tʃ/',type:'affricate',v:'voiceless',how:'Start like /t/ then release as /ʃ/. Like "t-sh" fast together.',ex:['chip','lunch','church','watch','teacher','catch']},
+{n:16,sym:'/dʒ/',type:'affricate',v:'voiced',how:'Start like /d/ then release as /ʒ/. Like "d-zh" fast together.',ex:['jump','bridge','page','age','orange','manager']},
+{n:17,sym:'/m/',type:'nasal',v:'voiced',how:'Press lips together. Hum through your NOSE. Mmmmm!',ex:['map','swim','mum','home','morning','remember']},
+{n:18,sym:'/n/',type:'nasal',v:'voiced',how:'Tongue tip on ridge. Hum through your NOSE. Nnnnn!',ex:['nose','sun','name','run','dinner','nine']},
+{n:19,sym:'/ŋ/',type:'nasal',v:'voiced',how:'BACK of tongue pressed up. Hum through nose. Like end of "sing".',ex:['sing','ring','thing','morning','finger','young']},
+{n:20,sym:'/l/',type:'lateral',v:'voiced',how:'Tongue tip on ridge. Air flows around the SIDES of your tongue.',ex:['leg','ball','like','feel','little','family']},
+{n:21,sym:'/r/',type:'approximant',v:'voiced',how:'Tongue curls back. Does NOT touch anything! Lips slightly rounded.',ex:['run','car','red','right','very','around']},
+{n:22,sym:'/w/',type:'glide',v:'voiced',how:'Round lips TIGHTLY (small circle), then open quickly.',ex:['wet','swim','want','water','window','always']},
+{n:23,sym:'/j/',type:'glide',v:'voiced',how:'Tongue HIGH and forward. Quick "ee" sound then open to next vowel.',ex:['yes','you','year','use','Europe','beautiful']},
+{n:24,sym:'/h/',type:'glottal',v:'voiceless',how:'Open throat wide. Gentle breath out. Like panting after running.',ex:['hat','home','help','behind','happy','who']},
 ];
 
-// -- Letter Combos --
 const COMBOS=[
-  {combo:'sh',ipa:'/ʃ/',words:['ship','shop','fish','wish']},
-  {combo:'ch',ipa:'/tʃ/',words:['chip','lunch','teacher']},
-  {combo:'th',ipa:'/θ/ /ð/',words:['think','this','bath','mother']},
-  {combo:'ng',ipa:'/ŋ/',words:['sing','ring','morning']},
-  {combo:'oo',ipa:'/uː/ /ʊ/',words:['moon','food','book','look']},
-  {combo:'ee',ipa:'/iː/',words:['see','tree','sleep']},
-  {combo:'ea',ipa:'/iː/ /ɛ/',words:['eat','sea','head','bread']},
-  {combo:'ou',ipa:'/aʊ/',words:['out','house','cloud']},
-  {combo:'ow',ipa:'/aʊ/ /oʊ/',words:['cow','now','snow','show']},
-  {combo:'igh',ipa:'/aɪ/',words:['night','light','right']},
-  {combo:'er',ipa:'/ɜː/',words:['her','water','teacher']},
-  {combo:'ir',ipa:'/ɜː/',words:['bird','girl','first']},
-  {combo:'ur',ipa:'/ɜː/',words:['turn','nurse','purple']},
-  {combo:'ar',ipa:'/ɑː/',words:['car','star','park']},
-  {combo:'or',ipa:'/ɔː/',words:['for','horse','morning']},
-  {combo:'ai/ay',ipa:'/eɪ/',words:['rain','day','play']},
-  {combo:'oi/oy',ipa:'/ɔɪ/',words:['coin','boy','enjoy']},
-  {combo:'ph',ipa:'/f/',words:['phone','photo','elephant']},
-  {combo:'kn',ipa:'/n/',words:['know','knife','knight']},
-  {combo:'wr',ipa:'/r/',words:['write','wrong','wrap']},
+{c:'sh',ipa:'/ʃ/',how:'Lips pushed forward, wide tongue, blow: "shhhh!"',ex:['ship','shop','she','fish','wish','wash','push','rush']},
+{c:'ch',ipa:'/tʃ/',how:'Start with tongue on roof (like T), release as "sh"',ex:['chip','chair','lunch','much','teacher','catch','beach','cheese']},
+{c:'th (voiceless)',ipa:'/θ/',how:'Tongue tip BETWEEN teeth, blow air gently (no buzz)',ex:['think','three','bath','mouth','teeth','Thursday','birthday','math']},
+{c:'th (voiced)',ipa:'/ð/',how:'Tongue between teeth + voice (feel buzz)',ex:['this','that','the','mother','father','weather','together','other']},
+{c:'ck',ipa:'/k/',how:'Same as K — used after a short vowel sound',ex:['back','duck','kick','clock','stick','black','sock','check']},
+{c:'ng',ipa:'/ŋ/',how:'Back of tongue pressed up, hum through nose',ex:['sing','ring','long','thing','morning','young','strong','along']},
+{c:'oo (long)',ipa:'/uː/',how:'Round lips tightly into a small circle. Long sound.',ex:['moon','food','too','school','room','cool','pool','spoon']},
+{c:'oo (short)',ipa:'/ʊ/',how:'Lips slightly rounded, relaxed. Short and quick.',ex:['book','look','good','cook','wood','foot','hook','wool']},
+{c:'ee',ipa:'/iː/',how:'Wide smile! Tongue high and forward. Long "eee".',ex:['see','tree','feet','week','sleep','green','cheese','three']},
+{c:'ea (long)',ipa:'/iː/',how:'Usually sounds like "ee" — same wide smile.',ex:['eat','read','sea','team','clean','beach','dream','speak']},
+{c:'ea (short)',ipa:'/ɛ/',how:'Sometimes sounds like short "e" — memorize these!',ex:['head','bread','ready','heavy','weather','breakfast','death','health']},
+{c:'ou',ipa:'/aʊ/',how:'Start "ah" (open mouth) then glide to "oo" (round lips)',ex:['out','house','mouse','cloud','round','loud','mouth','south']},
+{c:'ow (as in cow)',ipa:'/aʊ/',how:'Same sound as "ou" — open then round',ex:['cow','now','how','down','town','brown','flower','power']},
+{c:'ow (as in snow)',ipa:'/oʊ/',how:'Start "oh" then glide to "oo" — a gentler sound',ex:['snow','show','grow','know','slow','blow','flow','low']},
+{c:'igh',ipa:'/aɪ/',how:'Long "eye" sound! The GH is completely silent.',ex:['night','light','high','right','fight','bright','might','sight']},
+{c:'er',ipa:'/ɜː/',how:'Tongue in centre, lips slightly rounded, add R colour',ex:['her','water','sister','teacher','dinner','never','under','over']},
+{c:'ir',ipa:'/ɜː/',how:'Same sound as "er" — tongue centre with R',ex:['bird','girl','first','shirt','third','stir','circle','dirty']},
+{c:'ur',ipa:'/ɜː/',how:'Same sound as "er" and "ir" — all three = same!',ex:['turn','burn','hurt','nurse','purple','church','curtain','Thursday']},
+{c:'ar',ipa:'/ɑː/',how:'Open mouth wide, tongue low and back, then add R',ex:['car','star','park','far','arm','garden','dark','heart']},
+{c:'or',ipa:'/ɔː/',how:'Round lips, tongue back, then add R',ex:['for','door','more','horse','morning','short','sport','forty']},
+{c:'ai',ipa:'/eɪ/',how:'Long A — start "eh" glide to "ee"',ex:['rain','train','wait','paint','tail','sail','main','brain']},
+{c:'ay',ipa:'/eɪ/',how:'Same as "ai" — long A, usually at end of word',ex:['day','play','say','way','today','stay','birthday','Monday']},
+{c:'oi',ipa:'/ɔɪ/',how:'Start round "or" then glide to "ee"',ex:['oil','coin','join','point','noise','voice','boil','soil']},
+{c:'oy',ipa:'/ɔɪ/',how:'Same as "oi" — usually at end of word',ex:['boy','toy','enjoy','joy','annoy','destroy','royal','employ']},
+{c:'aw',ipa:'/ɔː/',how:'Open mouth with round lips, tongue low and back',ex:['saw','draw','paw','law','straw','yawn','jaw','raw']},
+{c:'ew',ipa:'/juː/',how:'Start with "y" sound then "oo"',ex:['new','few','knew','grew','flew','drew','threw','chew']},
+{c:'oa',ipa:'/oʊ/',how:'Long O — start "oh" glide to "oo"',ex:['boat','coat','road','toast','goal','soap','load','float']},
+{c:'ph',ipa:'/f/',how:'Same sound as F! Top teeth on lower lip, blow.',ex:['phone','photo','elephant','dolphin','alphabet','pharmacy','graph','phrase']},
+{c:'kn',ipa:'/n/',how:'The K is completely SILENT! Just say N.',ex:['know','knee','knife','knock','knight','knit','knot','kneel']},
+{c:'wr',ipa:'/r/',how:'The W is completely SILENT! Just say R.',ex:['write','wrong','wrap','wrist','wreck','wring','written','wrestle']},
+{c:'wh',ipa:'/w/',how:'Same as W for most speakers — round lips then open',ex:['what','when','where','why','which','white','while','wheel']},
+{c:'mb',ipa:'/m/',how:'The B is SILENT at end of words!',ex:['lamb','climb','thumb','comb','bomb','dumb','crumb','limb']},
+{c:'tion',ipa:'/ʃən/',how:'Says "shun" — very common word ending!',ex:['station','nation','question','education','information','action','direction','vacation']},
+{c:'sion',ipa:'/ʒən/ or /ʃən/',how:'Says "zhun" or "shun"',ex:['vision','television','decision','occasion','discussion','expression','mission','passion']},
+{c:'ture',ipa:'/tʃər/',how:'Says "cher" — like teacher without the "tea"',ex:['picture','future','nature','culture','adventure','creature','furniture','structure']},
+{c:'ght',ipa:'/t/',how:'GH is always SILENT! Only the T is said.',ex:['night','light','right','eight','thought','caught','bought','daughter']},
+{c:'ough',ipa:'varies!',how:'The trickiest combo! Can be 6+ different sounds.',ex:['though /oʊ/','through /uː/','cough /ɒf/','rough /ʌf/','thought /ɔː/','bough /aʊ/']},
 ];
 
-// -- Stress words --
 const STRESS_WORDS=[
-  {word:'teacher',syls:['TEA','cher'],stress:0},
-  {word:'banana',syls:['ba','NA','na'],stress:1},
-  {word:'computer',syls:['com','PU','ter'],stress:1},
-  {word:'beautiful',syls:['BEAU','ti','ful'],stress:0},
-  {word:'today',syls:['to','DAY'],stress:1},
-  {word:'animal',syls:['AN','i','mal'],stress:0},
-  {word:'begin',syls:['be','GIN'],stress:1},
-  {word:'important',syls:['im','POR','tant'],stress:1},
-  {word:'elephant',syls:['EL','e','phant'],stress:0},
-  {word:'understand',syls:['un','der','STAND'],stress:2},
+{word:'teacher',syls:['TEA','cher'],stress:0},
+{word:'banana',syls:['ba','NA','na'],stress:1},
+{word:'computer',syls:['com','PU','ter'],stress:1},
+{word:'beautiful',syls:['BEAU','ti','ful'],stress:0},
+{word:'today',syls:['to','DAY'],stress:1},
+{word:'animal',syls:['AN','i','mal'],stress:0},
+{word:'begin',syls:['be','GIN'],stress:1},
+{word:'important',syls:['im','POR','tant'],stress:1},
+{word:'elephant',syls:['EL','e','phant'],stress:0},
+{word:'understand',syls:['un','der','STAND'],stress:2},
+{word:'information',syls:['in','for','MA','tion'],stress:2},
+{word:'comfortable',syls:['COM','for','ta','ble'],stress:0},
 ];
 
-// -- Connected speech examples --
-const LINKING_EXAMPLES=[
-  {written:'I love it',spoken:'I lov-it',rule:'Consonant + Vowel linking'},
-  {written:'turn off',spoken:'tur-noff',rule:'Final consonant links to next vowel'},
-  {written:'go away',spoken:'go-waway',rule:'Vowel + Vowel: insert /w/'},
-  {written:'the end',spoken:'thee-yend',rule:'Vowel + Vowel: insert /j/'},
-  {written:'nice shirt',spoken:'nai-shirt',rule:'Similar sounds merge'},
-  {written:'want to',spoken:'wanna',rule:'Reduction: want to → wanna'},
-  {written:'going to',spoken:'gonna',rule:'Reduction: going to → gonna'},
-  {written:'kind of',spoken:'kinda',rule:'Reduction: of → a'},
-];
-
-// -- Shadowing sentences --
-const SHADOW_SENTENCES=[
-  {text:"I'd like a cup of coffee, please.",speed:'slow'},
-  {text:"What time does the train leave?",speed:'slow'},
-  {text:"She's been living here for three years.",speed:'medium'},
-  {text:"Could you tell me where the station is?",speed:'medium'},
-  {text:"I was going to call you, but I forgot.",speed:'fast'},
-  {text:"He wouldn't have known if she hadn't told him.",speed:'fast'},
-];
-
-// -- Tongue Twisters --
-const TONGUE_TWISTERS=[
-  {text:'She sells sea shells by the sea shore.',focus:'/ʃ/ and /s/'},
-  {text:'Red lorry, yellow lorry.',focus:'/r/ and /l/'},
-  {text:'The thirty-three thieves thought they thrilled the throne.',focus:'/θ/ sounds'},
-  {text:'Peter Piper picked a peck of pickled peppers.',focus:'/p/ sound'},
-  {text:'How much wood would a woodchuck chuck?',focus:'/w/ and /ʊ/'},
-  {text:'Eleven benevolent elephants.',focus:'/ɛ/ and /l/'},
-];
-
-// -- Game words --
 const GAME_WORDS=[
-  {word:'cat',level:1,patterns:['c→/k/','a→/æ/','t→/t/'],hint:'3 simple sounds'},
-  {word:'dog',level:1,patterns:['d→/d/','o→/ɒ/','g→/g/'],hint:'3 simple sounds'},
-  {word:'pen',level:1,patterns:['p→/p/','e→/ɛ/','n→/n/'],hint:'3 simple sounds'},
-  {word:'bus',level:1,patterns:['b→/b/','u→/ʌ/','s→/s/'],hint:'3 simple sounds'},
-  {word:'hat',level:1,patterns:['h→/h/','a→/æ/','t→/t/'],hint:'3 simple sounds'},
-  {word:'run',level:1,patterns:['r→/r/','u→/ʌ/','n→/n/'],hint:'3 simple sounds'},
-  {word:'ship',level:2,patterns:['sh→/ʃ/','i→/ɪ/','p→/p/'],hint:'sh = one sound: "shh"'},
-  {word:'fish',level:2,patterns:['f→/f/','i→/ɪ/','sh→/ʃ/'],hint:'sh at the end'},
-  {word:'chip',level:2,patterns:['ch→/tʃ/','i→/ɪ/','p→/p/'],hint:'ch = t + sh'},
-  {word:'think',level:2,patterns:['th→/θ/','i→/ɪ/','nk→/ŋk/'],hint:'th = tongue between teeth'},
-  {word:'ring',level:2,patterns:['r→/r/','i→/ɪ/','ng→/ŋ/'],hint:'ng = back tongue hum'},
-  {word:'night',level:3,patterns:['n→/n/','igh→/aɪ/','t→/t/'],hint:'igh = long "eye", gh silent'},
-  {word:'rain',level:3,patterns:['r→/r/','ai→/eɪ/','n→/n/'],hint:'ai = long A'},
-  {word:'moon',level:3,patterns:['m→/m/','oo→/uː/','n→/n/'],hint:'oo = round lips'},
-  {word:'house',level:3,patterns:['h→/h/','ou→/aʊ/','se→/s/'],hint:'ou = "ah" then "oo"'},
-  {word:'snow',level:3,patterns:['sn→/sn/','ow→/oʊ/'],hint:'ow here = long O'},
-  {word:'bird',level:4,patterns:['b→/b/','ir→/ɜː/','d→/d/'],hint:'ir = tongue centre + R'},
-  {word:'star',level:4,patterns:['st→/st/','ar→/ɑː/'],hint:'ar = wide mouth + R'},
-  {word:'phone',level:4,patterns:['ph→/f/','o→/oʊ/','ne→silent'],hint:'ph = F, e silent'},
-  {word:'knife',level:4,patterns:['kn→/n/','i→/aɪ/','fe→/f/'],hint:'k is silent!'},
-  {word:'teacher',level:4,patterns:['t→/t/','ea→/iː/','ch→/tʃ/','er→/ə/'],hint:'ea=ee, ch=tch, er=weak'},
-  {word:'knight',level:5,patterns:['kn→/n/','igh→/aɪ/','t→/t/'],hint:'k silent, gh silent!'},
-  {word:'daughter',level:5,patterns:['d→/d/','augh→/ɔː/','t→/t/','er→/ə/'],hint:'augh = "aw", gh silent'},
-  {word:'through',level:5,patterns:['thr→/θr/','ough→/uː/'],hint:'th+r, ough = "oo"'},
-  {word:'beautiful',level:5,patterns:['b→/b/','eau→/juː/','t→/t/','i→/ə/','ful→/fəl/'],hint:'eau="you", stress BEAU'},
-  {word:'Wednesday',level:5,patterns:['We→/wɛ/','d→silent','nes→/nz/','day→/deɪ/'],hint:'First d silent! "WENZ-day"'},
+{word:'cat',level:1,patterns:['c→/k/','a→/æ/','t→/t/'],hint:'3 simple letter sounds'},
+{word:'dog',level:1,patterns:['d→/d/','o→/ɒ/','g→/g/'],hint:'3 simple letter sounds'},
+{word:'fish',level:1,patterns:['f→/f/','i→/ɪ/','sh→/ʃ/'],hint:'sh = "shh" sound'},
+{word:'ship',level:2,patterns:['sh→/ʃ/','i→/ɪ/','p→/p/'],hint:'sh = lips forward'},
+{word:'think',level:2,patterns:['th→/θ/','i→/ɪ/','nk→/ŋk/'],hint:'th = tongue between teeth'},
+{word:'ring',level:2,patterns:['r→/r/','i→/ɪ/','ng→/ŋ/'],hint:'ng = nasal hum'},
+{word:'night',level:3,patterns:['n→/n/','igh→/aɪ/','t→/t/'],hint:'igh = long "eye", gh silent'},
+{word:'rain',level:3,patterns:['r→/r/','ai→/eɪ/','n→/n/'],hint:'ai = long A'},
+{word:'moon',level:3,patterns:['m→/m/','oo→/uː/','n→/n/'],hint:'oo = round lips long'},
+{word:'house',level:3,patterns:['h→/h/','ou→/aʊ/','se→/s/'],hint:'ou = "ah" then "oo"'},
+{word:'bird',level:4,patterns:['b→/b/','ir→/ɜː/','d→/d/'],hint:'ir = centre tongue + R'},
+{word:'phone',level:4,patterns:['ph→/f/','o→/oʊ/','ne→silent'],hint:'ph = F, e silent'},
+{word:'knife',level:4,patterns:['kn→/n/','i→/aɪ/','fe→/f/'],hint:'k is silent!'},
+{word:'station',level:4,patterns:['st→/st/','a→/eɪ/','tion→/ʃən/'],hint:'tion = "shun"'},
+{word:'knight',level:5,patterns:['kn→/n/','igh→/aɪ/','t→/t/'],hint:'k silent, gh silent!'},
+{word:'through',level:5,patterns:['thr→/θr/','ough→/uː/'],hint:'th+r, ough = "oo"'},
+{word:'daughter',level:5,patterns:['d→/d/','augh→/ɔː/','ter→/tə/'],hint:'augh = "aw", gh silent'},
+{word:'beautiful',level:5,patterns:['b→/b/','eau→/juː/','ti→/tɪ/','ful→/fəl/'],hint:'eau = "you"'},
+{word:'comfortable',level:5,patterns:['com→/kʌm/','for→silent','ta→/tə/','ble→/bəl/'],hint:'3 syllables: KUMF-tuh-bul'},
+{word:'Wednesday',level:5,patterns:['Wed→/wɛnz/','nes→silent','day→/deɪ/'],hint:'d silent! "WENZ-day"'},
 ];
 
 // ═══════════════════════════════
-// STAGES (restructured to 5-step guideline + game)
+// APP STRUCTURE
 // ═══════════════════════════════
-const STAGES=[
-  '1. Master Sounds',
-  '2. Word & Sentence Stress',
-  '3. Connected Speech',
-  '4. Shadowing',
-  '5. Record & Feedback',
-  '🎮 Game'
-];
+const STAGES=['A–Z Letters','20 Vowels','24 Consonants','Combinations','Stress','🎮 Game'];
 let currentStage=0;
 
 function init(){
-  buildStageTabs();
+  buildTabs();
   const main=document.getElementById('main');main.innerHTML='';
-  [renderStep1,renderStep2,renderStep3,renderStep4,renderStep5,renderStep6].forEach((fn,i)=>{
-    const div=document.createElement('div');div.className='stage';div.id='stage-'+i;
-    fn(div);main.appendChild(div);
+  [renderS1,renderS2,renderS3,renderS4,renderS5,renderS6].forEach((fn,i)=>{
+    const d=document.createElement('div');d.className='stage';d.id='stage-'+i;
+    fn(d);main.appendChild(d);
   });
   goStage(0);
 }
-
-function buildStageTabs(){
-  const tabs=document.getElementById('stage-tabs');tabs.innerHTML='';
-  STAGES.forEach((s,i)=>{
-    const b=document.createElement('button');b.className='stab'+(i===currentStage?' active':'');
-    b.textContent=s;b.onclick=()=>goStage(i);tabs.appendChild(b);
-  });
+function buildTabs(){
+  const t=document.getElementById('stage-tabs');t.innerHTML='';
+  STAGES.forEach((s,i)=>{const b=document.createElement('button');b.className='stab'+(i===currentStage?' active':'');b.textContent=s;b.onclick=()=>goStage(i);t.appendChild(b);});
 }
-function goStage(n){
-  currentStage=n;
-  document.querySelectorAll('.stage').forEach(s=>s.classList.remove('show'));
-  document.getElementById('stage-'+n).classList.add('show');
-  document.getElementById('cur-stage').textContent=n+1;
-  buildStageTabs();window.scrollTo({top:0,behavior:'smooth'});
-}
+function goStage(n){currentStage=n;document.querySelectorAll('.stage').forEach(s=>s.classList.remove('show'));document.getElementById('stage-'+n).classList.add('show');document.getElementById('cur-stage').textContent=n+1;buildTabs();window.scrollTo({top:0,behavior:'smooth'});}
 
 // ═══════════════════════════════
-// STEP 1: Master Individual Sounds
+// STEP 1: A-Z LETTERS
 // ═══════════════════════════════
-function renderStep1(div){
-  let h=`<div class="card">
-    <h2>1. Identify and Master Individual Sounds (Phonemes)</h2>
-    <p>English has <strong>44 individual sounds</strong> (20 vowels + 24 consonants). Focus on the ones that are hardest for you.</p>
-    <div class="tip"><strong>💡 Key techniques:</strong><br>
-    • <strong>Use a mirror:</strong> Watch your mouth, lips, and tongue to ensure correct mouth shapes<br>
-    • <strong>Study the IPA:</strong> The International Phonetic Alphabet lets you read the exact pronunciation of any word in a dictionary<br>
-    • <strong>Practice Minimal Pairs:</strong> Train your ear with similar words (ship vs. sheep, live vs. leave)</div>
-  </div>`;
-
-  // IPA Table - Vowels
-  h+=`<div class="card"><h3>📖 All 20 Vowel Sounds (IPA)</h3>
-    <p style="font-size:.82em;color:#666;">7 short + 5 long + 8 diphthongs. Click 🔊 to hear each sound.</p>
-    <table class="ipa-table"><tr><th>#</th><th>IPA</th><th>Type</th><th>Mouth Position</th><th>Examples</th><th>Hear</th></tr>`;
-  VOWELS_IPA.forEach(v=>{
-    const cls=v.type==='long'?'long-row':v.type==='diphthong'?'diph-row':'';
-    h+=`<tr class="${cls}"><td>${v.n}</td><td class="sym">${v.sym}</td><td>${v.type}</td><td style="font-size:.82em;">${v.desc}</td><td style="font-size:.82em;">${v.ex}</td><td><button class="btn btn-sm" onclick="speak('${v.word}',0.6)">🔊</button></td></tr>`;
+function renderS1(div){
+  let h=`<div class="card"><h2>🔤 Step 1: Pronunciation of Every Letter (A–Z)</h2>
+    <p>Learn the <strong>SOUND</strong> each letter makes. Click any word to hear it pronounced.</p>
+    <div class="tip"><strong>💡 Remember:</strong> The letter NAME (A = "ay") is different from the letter SOUND (A = /æ/ as in "apple"). Focus on the SOUND!</div>
+  </div><div class="letter-grid">`;
+  LETTERS.forEach(lt=>{
+    h+=`<div class="letter-card">
+      <div class="top"><span class="big">${lt.l}</span><span class="ipa-sym">${lt.ipa}</span></div>
+      <div class="how">🗣️ ${lt.how}</div>
+      <div class="examples">${lt.ex.map(w=>spkBtn(w)).join('')}</div>
+    </div>`;
   });
-  h+=`</table></div>`;
-
-  // IPA Table - Consonants
-  h+=`<div class="card"><h3>📖 All 24 Consonant Sounds (IPA)</h3>
-    <p style="font-size:.82em;color:#666;">Paired as voiceless/voiced. Put hand on throat — voiced sounds make it vibrate!</p>
-    <table class="ipa-table"><tr><th>#</th><th>IPA</th><th>Type</th><th>Voice</th><th>How to Make It</th><th>Examples</th><th>Hear</th></tr>`;
-  CONSONANTS_IPA.forEach(c=>{
-    h+=`<tr><td>${c.n}</td><td class="sym">${c.sym}</td><td>${c.type}</td><td>${c.voice}</td><td style="font-size:.82em;">${c.desc}</td><td style="font-size:.82em;">${c.ex}</td><td><button class="btn btn-sm" onclick="speak('${c.word}',0.6)">🔊</button></td></tr>`;
-  });
-  h+=`</table>
-    <div class="tip"><strong>💡 Reading IPA in a dictionary:</strong> "knight" = <strong>/naɪt/</strong> → /n/ + /aɪ/ + /t/ = "nite" (k and gh are silent!)</div>
-  </div>`;
-
-  // Common Letter Combinations
-  h+=`<div class="card"><h3>🔗 Common Letter Combinations</h3>
-    <p>When letters combine, they often make different sounds. Click to hear!</p>
-    <div class="sound-grid" id="combo-grid-s1"></div></div>`;
-
-  // Minimal Pairs
-  h+=`<div class="card"><h3>👂 Minimal Pairs — Train Your Ear</h3>
-    <p>These words differ by just <strong>one sound</strong>. Click each to hear the difference!</p>
-    <div id="pairs-s1"></div>
-    <div class="mic-area">
-      <p style="font-size:.85em;color:#666;margin-bottom:8px;">Click a word above, then record yourself saying it:</p>
-      <div style="font-size:1.2em;font-weight:700;color:var(--pri-dk);margin-bottom:8px;" id="mic1-target">Click a word first</div>
-      <button class="mic-btn" id="mic1-btn" onclick="recordGeneric('mic1')">🎤</button>
-      <div class="mic-status" id="mic1-status">Click to record</div>
-      <div id="mic1-result"></div>
-    </div>
-  </div>`;
-  h+=`<div class="nav"><span></span><button class="nav-btn fwd" onclick="goStage(1)">Step 2: Stress ▶</button></div>`;
+  h+=`</div><div class="nav"><span></span><button class="nav-btn fwd" onclick="goStage(1)">Step 2: Vowels ▶</button></div>`;
   div.innerHTML=h;
-
-  setTimeout(()=>{
-    // Combo grid
-    const cg=document.getElementById('combo-grid-s1');if(!cg)return;
-    COMBOS.forEach(c=>{
-      const card=document.createElement('div');card.className='sound-card vowel-card';
-      card.innerHTML=`<span class="letter" style="font-size:1.2em;">${c.combo}</span><span class="ipa">${c.ipa}</span><span class="word">${c.words[0]}</span>`;
-      card.onclick=()=>{speak(c.words[0],0.6);setMicTarget('mic1',c.words[0]);};
-      cg.appendChild(card);
-    });
-    // Pairs
-    const pp=document.getElementById('pairs-s1');
-    MINIMAL_PAIRS.forEach(p=>{
-      const row=document.createElement('div');row.className='pair-row';
-      row.innerHTML=`<button class="pair-btn" onclick="speak('${p.a}',0.6);setMicTarget('mic1','${p.a}')">${p.a}</button><span class="pair-vs">vs</span><button class="pair-btn" onclick="speak('${p.b}',0.6);setMicTarget('mic1','${p.b}')">${p.b}</button><span style="font-size:.75em;color:#888;">(${p.focus})</span>`;
-      pp.appendChild(row);
-    });
-  },50);
 }
 
 // ═══════════════════════════════
-// STEP 2: Word and Sentence Stress
+// STEP 2: 20 VOWELS
 // ═══════════════════════════════
-function renderStep2(div){
-  let h=`<div class="card">
-    <h2>2. Focus on Word and Sentence Stress</h2>
-    <p>English is a <strong>"stress-timed"</strong> language. Certain syllables and words are louder and longer, while others are reduced or swallowed.</p>
-    <div class="tip"><strong>💡 Key concepts:</strong><br>
-    • <strong>Word Stress:</strong> Multisyllabic words always have one dominant syllable (TEA-cher, ba-NA-na)<br>
-    • <strong>Sentence Stress:</strong> Content words (nouns, verbs, adjectives) are stressed; grammar words (the, a, is, to) are relaxed<br>
-    • Use rhythmic activities or tap a pencil to match the natural "music" of English</div>
-  </div>`;
+function renderS2(div){
+  let h=`<div class="card"><h2>🔊 Step 2: All 20 Vowel Sounds</h2>
+    <p>The <strong>5 vowel letters</strong> (A E I O U) make <strong>20 different sounds</strong>: 7 short + 5 long + 8 diphthongs.</p>
+    <div class="tip"><strong>💡 Vowels</strong> = open sounds where air flows freely. Your mouth changes SHAPE to make different vowels.<br>
+    • <strong>Short:</strong> Quick and sharp<br>• <strong>Long:</strong> Held longer<br>• <strong>Diphthong:</strong> Two sounds gliding together (your mouth moves!)</div>
+  </div><div class="ipa-grid">`;
+  VOWELS.forEach(v=>{
+    const cls=v.type==='short'?'short':v.type==='long'?'long':'diph';
+    h+=`<div class="ipa-card ${cls}">
+      <div><span class="sym">${v.sym}</span><span class="type-badge">${v.type}</span></div>
+      <div class="desc">🗣️ ${v.how}</div>
+      <div class="words">${v.ex.map(w=>spkBtn(w)).join('')}</div>
+    </div>`;
+  });
+  h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(0)">◀ Step 1</button><button class="nav-btn fwd" onclick="goStage(2)">Step 3: Consonants ▶</button></div>`;
+  div.innerHTML=h;
+}
 
-  // Word stress exercise
-  h+=`<div class="card"><h3>🥁 Word Stress: Click the Stressed Syllable</h3>
-    <p>Listen to each word, then click which syllable is <strong>LOUDER</strong> and <strong>LONGER</strong>.</p>
-    <div id="stress-ex"></div>
-    <button class="btn" onclick="chkStress()">✓ Check Answers</button>
-    <div class="fb" id="fb-stress"></div>
-  </div>`;
+// ═══════════════════════════════
+// STEP 3: 24 CONSONANTS
+// ═══════════════════════════════
+function renderS3(div){
+  let h=`<div class="card"><h2>🦷 Step 3: All 24 Consonant Sounds</h2>
+    <p>The <strong>21 consonant letters</strong> (B C D F G H J K L M N P Q R S T V W X Y Z) make <strong>24 sounds</strong>.</p>
+    <div class="tip"><strong>💡 Consonants</strong> = sounds where lips, tongue, or teeth BLOCK the air.<br>
+    • <strong>Voiceless:</strong> No throat buzz (whisper-like): /p/ /t/ /k/ /f/ /θ/ /s/ /ʃ/ /tʃ/ /h/<br>
+    • <strong>Voiced:</strong> Throat BUZZES: /b/ /d/ /g/ /v/ /ð/ /z/ /ʒ/ /dʒ/ /m/ /n/ /ŋ/ /l/ /r/ /w/ /j/<br>
+    Put your hand on your throat to feel the difference!</div>
+  </div><div class="ipa-grid">`;
+  CONSONANTS.forEach(c=>{
+    const cls=c.v==='voiceless'?'voiceless':'voiced';
+    h+=`<div class="ipa-card ${cls}">
+      <div><span class="sym">${c.sym}</span><span class="type-badge">${c.type} · ${c.v}</span></div>
+      <div class="desc">🗣️ ${c.how}</div>
+      <div class="words">${c.ex.map(w=>spkBtn(w)).join('')}</div>
+    </div>`;
+  });
+  h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(1)">◀ Step 2</button><button class="nav-btn fwd" onclick="goStage(3)">Step 4: Combinations ▶</button></div>`;
+  div.innerHTML=h;
+}
 
+// ═══════════════════════════════
+// STEP 4: LETTER COMBINATIONS
+// ═══════════════════════════════
+function renderS4(div){
+  let h=`<div class="card"><h2>🔗 Step 4: Common Letter Combinations</h2>
+    <p>When letters come together, they often make a <strong>completely different sound</strong>. These are essential to know!</p>
+    <div class="tip"><strong>💡 Key idea:</strong> S + H together = "sh" (not "s" then "h"). Learn these patterns and you can pronounce most English words correctly!</div>
+  </div><div class="combo-grid">`;
+  COMBOS.forEach(cb=>{
+    h+=`<div class="combo-card">
+      <div class="combo-top"><span class="combo-letters">${cb.c}</span><span class="combo-ipa">${cb.ipa}</span></div>
+      <div class="combo-tip">🗣️ ${cb.how}</div>
+      <div class="words">${cb.ex.map(w=>{const clean=w.replace(/ \/.*\//,'');return spkBtn(clean,w);}).join('')}</div>
+    </div>`;
+  });
+  h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(2)">◀ Step 3</button><button class="nav-btn fwd" onclick="goStage(4)">Step 5: Stress ▶</button></div>`;
+  div.innerHTML=h;
+}
+
+// ═══════════════════════════════
+// STEP 5: WORD & SENTENCE STRESS
+// ═══════════════════════════════
+function renderS5(div){
+  let h=`<div class="card"><h2>🥁 Step 5: Word & Sentence Stress</h2>
+    <p>English is a <strong>"stress-timed"</strong> language. One syllable in each word is LOUDER and LONGER.</p>
+    <div class="tip"><strong>💡 Word Stress:</strong> Every multisyllable word has ONE dominant beat: TEA-cher, ba-NA-na, com-PU-ter<br>
+    <strong>💡 Sentence Stress:</strong> Content words (nouns, verbs, adjectives) are strong. Grammar words (the, a, is) are weak and fast.</div>
+  </div>`;
+  h+=`<div class="card"><h3>Click the STRESSED syllable (listen first!):</h3><div id="stress-ex"></div>
+    <button class="btn" onclick="chkStress()">✓ Check</button><div class="fb" id="fb-stress"></div></div>`;
   // Sentence stress
-  h+=`<div class="card"><h3>🎵 Sentence Stress: Hear the Rhythm</h3>
-    <p><span class="strong" style="background:#bbdefb;padding:2px 6px;border-radius:4px;">Blue = STRESSED</span> (loud & clear) · <span style="color:#999;">Grey = weak</span> (quick & quiet)</p>`;
-  const sentenceData=[
-    {text:'I WANT a BIG cake',parts:[{w:'I',s:false},{w:'WANT',s:true},{w:'a',s:false},{w:'BIG',s:true},{w:'cake',s:true}]},
-    {text:'She WENT to the PARK',parts:[{w:'She',s:false},{w:'WENT',s:true},{w:'to',s:false},{w:'the',s:false},{w:'PARK',s:true}]},
-    {text:'The CHILDREN are PLAYING in the GARDEN',parts:[{w:'The',s:false},{w:'CHILDREN',s:true},{w:'are',s:false},{w:'PLAYING',s:true},{w:'in',s:false},{w:'the',s:false},{w:'GARDEN',s:true}]},
+  h+=`<div class="card"><h3>🎵 Sentence Stress</h3><p style="margin-bottom:8px;"><span class="strong" style="background:#bbdefb;padding:2px 5px;border-radius:4px;">Blue = LOUD</span> · <span style="color:#aaa;">Grey = quiet & fast</span></p>`;
+  const sents=[
+    {text:'I WANT a BIG cake',parts:[{w:'I',s:0},{w:'WANT',s:1},{w:'a',s:0},{w:'BIG',s:1},{w:'cake',s:1}]},
+    {text:'She WENT to the PARK yesterday',parts:[{w:'She',s:0},{w:'WENT',s:1},{w:'to',s:0},{w:'the',s:0},{w:'PARK',s:1},{w:'yesterday',s:1}]},
+    {text:'The CHILDREN are PLAYING in the GARDEN',parts:[{w:'The',s:0},{w:'CHILDREN',s:1},{w:'are',s:0},{w:'PLAYING',s:1},{w:'in',s:0},{w:'the',s:0},{w:'GARDEN',s:1}]},
+    {text:'Can you HELP me FIND the STATION',parts:[{w:'Can',s:0},{w:'you',s:0},{w:'HELP',s:1},{w:'me',s:0},{w:'FIND',s:1},{w:'the',s:0},{w:'STATION',s:1}]},
   ];
-  sentenceData.forEach(s=>{
-    const words=s.parts.map(p=>p.s?`<span class="strong">${p.w}</span>`:`<span class="weak">${p.w}</span>`).join(' ');
-    h+=`<div class="sentence-box"><button class="btn btn-sm" onclick="speakNormal('${s.text}')">🔊</button> ${words}</div>`;
+  sents.forEach(s=>{
+    const ws=s.parts.map(p=>p.s?`<span class="strong">${p.w}</span>`:`<span class="weak">${p.w}</span>`).join(' ');
+    h+=`<div class="sentence-box">${spkBtn(s.text,'🔊')} ${ws}</div>`;
   });
-  h+=`</div>`;
-
-  // GAP 3 FIX: Add rhythm tapping exercise
-  h+=`<div class="card"><h3>🥁 Rhythm Tapping: Tap the Beat!</h3>
-    <p>English has a <strong>DA-da-DA-da</strong> rhythm. Stressed syllables are like strong drum beats. Press the <strong>spacebar</strong> or tap the button along with the rhythm!</p>
-    <div id="rhythm-ex" style="margin:12px 0;"></div>
-    <div class="tip"><strong>💡 Try this:</strong> Listen to the sentence, then tap spacebar on each STRESSED word. The dots will light up green if you tap in rhythm!</div>
-  </div>`;
-
-  h+=`<div class="nav"><button class="nav-btn" onclick="goStage(0)">◀ Step 1</button><button class="nav-btn fwd" onclick="goStage(2)">Step 3: Connected Speech ▶</button></div>`;
+  h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(3)">◀ Step 4</button><button class="nav-btn fwd" onclick="goStage(5)">🎮 Game ▶</button></div>`;
   div.innerHTML=h;
-
   setTimeout(()=>{
     const ex=document.getElementById('stress-ex');if(!ex)return;
     STRESS_WORDS.forEach((w,wi)=>{
-      const row=document.createElement('div');
-      row.style.cssText='margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;';
-      let inner=`<button class="btn btn-sm" onclick="speak('${w.word}',0.7)">🔊</button>`;
-      inner+=`<span class="stress-word" id="sw-${wi}">`;
-      w.syls.forEach((s,si)=>{inner+=`<span class="syl" onclick="pickStress(${wi},${si})">${s.toLowerCase()}</span>`;});
-      inner+=`</span>`;
-      row.innerHTML=inner;ex.appendChild(row);
+      const row=document.createElement('div');row.className='stress-word-row';
+      row.innerHTML=`<button class="btn btn-sm" onclick="speak('${w.word}',0.7)">🔊</button><span style="min-width:90px;font-size:.85em;color:#666;">${w.word}:</span>
+        ${w.syls.map((s,si)=>`<span class="syl" onclick="pickS(${wi},${si})">${s.toLowerCase()}</span>`).join('')}`;
+      ex.appendChild(row);
     });
-
-    // Rhythm tapping exercise
-    const rhythmEx=document.getElementById('rhythm-ex');if(!rhythmEx)return;
-    const rhythmSentences=[
-      {text:'I WANT a BIG CAKE',beats:[1,1,0,1,1]},
-      {text:'She WENT to the PARK',beats:[0,1,0,0,1]},
-      {text:'The CHILDREN are PLAYING',beats:[0,1,0,1]},
-    ];
-    rhythmSentences.forEach((rs,ri)=>{
-      const row=document.createElement('div');
-      row.style.cssText='margin-bottom:14px;padding:12px;background:#f9f9f9;border-radius:10px;border:2px solid #e8e8e8;';
-      const words=rs.text.split(' ');
-      let dotsHtml=words.map((w,wi)=>{
-        const isStrong=rs.beats[wi]===1;
-        return `<span style="display:inline-flex;flex-direction:column;align-items:center;margin:0 4px;">
-          <span id="rdot-${ri}-${wi}" style="width:${isStrong?'18px':'12px'};height:${isStrong?'18px':'12px'};border-radius:50%;background:${isStrong?'#1565c0':'#ccc'};display:inline-block;margin-bottom:4px;transition:all .2s;"></span>
-          <span style="font-size:.8em;${isStrong?'font-weight:700;color:var(--pri-dk);':'color:#999;'}">${w}</span>
-        </span>`;
-      }).join('');
-      row.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-sm" onclick="playRhythm(${ri})">▶ Play</button>
-        <button class="btn btn-sm btn-outline" onclick="startTapping(${ri})">🥁 Tap Along</button>
-        <div style="display:flex;align-items:flex-end;gap:2px;flex-wrap:wrap;" id="rhythm-dots-${ri}">${dotsHtml}</div>
-      </div>`;
-      rhythmEx.appendChild(row);
-    });
-
-    // Store rhythm data globally
-    window._rhythmData=rhythmSentences;
   },50);
 }
-
-function pickStress(wi,si){
-  const c=document.getElementById(`sw-${wi}`);
-  c.querySelectorAll('.syl').forEach(s=>s.classList.remove('stressed'));
-  c.querySelectorAll('.syl')[si].classList.add('stressed');
+function pickS(wi,si){
+  const row=document.querySelectorAll('.stress-word-row')[wi];
+  row.querySelectorAll('.syl').forEach(s=>s.classList.remove('stressed'));
+  row.querySelectorAll('.syl')[si].classList.add('stressed');
 }
 function chkStress(){
   let ok=0;
   STRESS_WORDS.forEach((w,wi)=>{
-    const c=document.getElementById(`sw-${wi}`);const syls=c.querySelectorAll('.syl');
+    const row=document.querySelectorAll('.stress-word-row')[wi];
+    const syls=row.querySelectorAll('.syl');
     syls.forEach(s=>s.classList.remove('correct','wrong'));
     const picked=[...syls].findIndex(s=>s.classList.contains('stressed'));
     syls[w.stress].classList.add('correct');
-    if(picked===w.stress)ok++;
-    else if(picked>=0)syls[picked].classList.add('wrong');
+    if(picked===w.stress)ok++;else if(picked>=0)syls[picked].classList.add('wrong');
   });
   const fb=document.getElementById('fb-stress');
   fb.className=ok===STRESS_WORDS.length?'fb ok':'fb part';
-  fb.textContent=ok===STRESS_WORDS.length?`🎉 Perfect! ${ok}/${STRESS_WORDS.length}`:`👍 ${ok}/${STRESS_WORDS.length}. Green = correct stress.`;
-}
-
-// Rhythm functions
-function playRhythm(ri){
-  const rs=window._rhythmData[ri];
-  const words=rs.text.split(' ');
-  let i=0;
-  const interval=setInterval(()=>{
-    if(i>=words.length){clearInterval(interval);return;}
-    const dot=document.getElementById(`rdot-${ri}-${i}`);
-    if(dot){dot.style.background=rs.beats[i]?'#ffd700':'#90caf9';dot.style.transform='scale(1.4)';
-      setTimeout(()=>{dot.style.transform='scale(1)';},300);}
-    if(rs.beats[i])speak(words[i],1.0);
-    i++;
-  },500);
-}
-function startTapping(ri){
-  const rs=window._rhythmData[ri];
-  const words=rs.text.split(' ');
-  let beatIdx=0,startTime=Date.now();
-  // Reset dots
-  words.forEach((_,wi)=>{const d=document.getElementById(`rdot-${ri}-${wi}`);if(d){d.style.background=rs.beats[wi]?'#1565c0':'#ccc';}});
-  // Play the sentence
-  speakNormal(rs.text);
-  // Listen for spacebar taps
-  const handler=(e)=>{
-    if(e.code!=='Space'||beatIdx>=words.length)return;
-    e.preventDefault();
-    const dot=document.getElementById(`rdot-${ri}-${beatIdx}`);
-    if(dot){
-      if(rs.beats[beatIdx]){dot.style.background='#4caf50';dot.style.transform='scale(1.5)';}
-      else{dot.style.background='#ff5722';dot.style.transform='scale(1.3)';}
-      setTimeout(()=>{dot.style.transform='scale(1)';},200);
-    }
-    beatIdx++;
-    if(beatIdx>=words.length){document.removeEventListener('keydown',handler);}
-  };
-  document.addEventListener('keydown',handler);
-  setTimeout(()=>document.removeEventListener('keydown',handler),5000);
-}
-
-// ═══════════════════════════════
-// STEP 3: Connected Speech
-// ═══════════════════════════════
-function renderStep3(div){
-  let h=`<div class="card">
-    <h2>3. Learn Connected Speech</h2>
-    <p>Native speakers don't pronounce words in isolation — they <strong>link them together</strong> to speak more fluidly.</p>
-    <div class="tip"><strong>💡 Key patterns:</strong><br>
-    • <strong>Linking:</strong> When a word ends in a consonant and the next begins with a vowel, they join ("I love it" → "I lov-it")<br>
-    • <strong>Reductions:</strong> Grammar words are often reduced ("to" → "tuh", "and" → "n", "going to" → "gonna")</div>
-  </div>`;
-
-  h+=`<div class="card"><h3>🔗 Linking & Reduction Examples</h3>
-    <p>Click to hear the difference between careful and natural pronunciation:</p>`;
-  LINKING_EXAMPLES.forEach(ex=>{
-    h+=`<div class="sentence-box">
-      <button class="btn btn-sm" onclick="speakSlow('${ex.written}')">🐢 Careful</button>
-      <button class="btn btn-sm" onclick="speakNormal('${ex.written}')">🐇 Natural</button>
-      <br><span style="margin-top:6px;display:inline-block;">
-        "${ex.written}" → <span class="link">${ex.spoken}</span>
-        <span style="font-size:.78em;color:#888;"> (${ex.rule})</span>
-      </span>
-    </div>`;
-  });
-  h+=`</div>`;
-
-  // GAP 2 FIX: Add mic practice to Connected Speech
-  h+=`<div class="card"><h3>🎤 Practice: Say It Naturally</h3>
-    <p>Try saying these linked phrases naturally — the speech recognition checks if you sound connected!</p>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;" id="link-words-s3"></div>
-    <div class="mic-area">
-      <div style="font-size:1.1em;font-weight:600;color:var(--pri-dk);margin-bottom:8px;" id="mic3-target">Click a phrase above</div>
-      <button class="mic-btn" id="mic3-btn" onclick="genericRecord('mic3',document.getElementById('mic3-target').dataset.word,true)">🎤</button>
-      <div class="mic-status" id="mic3-status">Click to record</div>
-      <div id="mic3-result"></div>
-    </div>
-  </div>`;
-
-  h+=`<div class="nav"><button class="nav-btn" onclick="goStage(1)">◀ Step 2</button><button class="nav-btn fwd" onclick="goStage(3)">Step 4: Shadowing ▶</button></div>`;
-  div.innerHTML=h;
-
-  setTimeout(()=>{
-    const lw=document.getElementById('link-words-s3');if(!lw)return;
-    LINKING_EXAMPLES.slice(0,6).forEach(ex=>{
-      const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=ex.written;
-      b.onclick=()=>{speakNormal(ex.written);setMicTarget('mic3',ex.written);};
-      lw.appendChild(b);
-    });
-  },50);
-}
-
-// ═══════════════════════════════
-// STEP 4: Shadowing and Imitation
-// ═══════════════════════════════
-function renderStep4(div){
-  let h=`<div class="card">
-    <h2>4. Shadowing and Imitation</h2>
-    <p>Shadowing is one of the most effective techniques to improve rhythm and intonation.</p>
-    <div class="tip"><strong>💡 How to shadow:</strong><br>
-    • <strong>Listen and repeat:</strong> Pick a short audio clip and repeat immediately after<br>
-    • <strong>Pause and mimic:</strong> Pause after every sentence and repeat it exactly — tone, pace, and rhythm<br>
-    • Start slow, then match normal speed</div>
-  </div>`;
-
-  h+=`<div class="card"><h3>🎧 Shadowing Practice</h3>
-    <p>Click 🐢 for slow speed, 🐇 for normal speed. Then click 🎤 to say it yourself!</p>`;
-  SHADOW_SENTENCES.forEach((s,i)=>{
-    h+=`<div class="sentence-box">
-      <button class="btn btn-sm" onclick="speak('${s.text.replace(/'/g,"\\'")}',0.6)">🐢</button>
-      <button class="btn btn-sm" onclick="speak('${s.text.replace(/'/g,"\\'")}',0.9)">🐇</button>
-      <span style="margin-left:8px;font-size:.9em;">${s.text}</span>
-      <span style="font-size:.72em;color:#888;"> (${s.speed})</span>
-    </div>`;
-  });
-  h+=`<div class="mic-area">
-      <p style="font-size:.85em;color:#666;margin-bottom:8px;">Click a sentence above, then shadow it:</p>
-      <div style="font-size:1em;font-weight:600;color:var(--pri-dk);margin-bottom:8px;" id="mic4-target">Click a sentence first</div>
-      <button class="mic-btn" id="mic4-btn" onclick="recordShadow()">🎤</button>
-      <div class="mic-status" id="mic4-status">Listen first, then record</div>
-      <div id="mic4-result"></div>
-    </div></div>`;
-
-  h+=`<div class="card"><h3>👅 Tongue Twisters</h3><p>Challenge yourself! Start slow, then speed up.</p>`;
-  TONGUE_TWISTERS.forEach(tt=>{
-    h+=`<div class="sentence-box">
-      <button class="btn btn-sm" onclick="speak('${tt.text.replace(/'/g,"\\'")}',0.5)">🐢</button>
-      <button class="btn btn-sm" onclick="speak('${tt.text.replace(/'/g,"\\'")}',0.95)">🐇</button>
-      <span style="margin-left:8px;">${tt.text}</span>
-      <span style="font-size:.72em;color:#888;"> (${tt.focus})</span>
-    </div>`;
-  });
-  h+=`</div>`;
-  h+=`<div class="nav"><button class="nav-btn" onclick="goStage(2)">◀ Step 3</button><button class="nav-btn fwd" onclick="goStage(4)">Step 5: Record & Feedback ▶</button></div>`;
-  div.innerHTML=h;
-
-  setTimeout(()=>{
-    // Make sentence boxes clickable to set mic target
-    document.querySelectorAll('#stage-3 .sentence-box').forEach(box=>{
-      box.style.cursor='pointer';
-      box.addEventListener('click',e=>{
-        if(e.target.tagName==='BUTTON')return;
-        const text=box.querySelector('span').textContent.trim();
-        document.getElementById('mic4-target').textContent=text;
-        document.getElementById('mic4-target').dataset.word=text;
-      });
-    });
-  },50);
-}
-
-function recordShadow(){
-  const target=document.getElementById('mic4-target').dataset.word;
-  if(!target){document.getElementById('mic4-status').textContent='Click a sentence first!';return;}
-  genericRecord('mic4',target,true);
-}
-
-// ═══════════════════════════════
-// STEP 5: Record Yourself & Feedback
-// ═══════════════════════════════
-function renderStep5(div){
-  let h=`<div class="card">
-    <h2>5. Record Yourself and Ask for Feedback</h2>
-    <p>Self-assessment is crucial for building awareness of your own pronunciation habits.</p>
-    <div class="tip"><strong>💡 Practice methods:</strong><br>
-    • <strong>Record yourself</strong> shadowing or reading paragraphs out loud<br>
-    • <strong>Listen to your recording</strong> and compare it directly to native speaker audio<br>
-    • <strong>Use voice-to-text apps</strong> (dictation) to test if the software accurately transcribes what you say — if it writes the wrong word, work on that sound!</div>
-  </div>`;
-
-  h+=`<div class="card"><h3>🎤 Voice-to-Text Test</h3>
-    <p>Say the word or sentence below. If your phone/browser writes the <strong>correct word</strong>, your pronunciation is clear!</p>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;" id="vtt-words"></div>
-    <div class="mic-area">
-      <div style="font-size:1.3em;font-weight:700;color:var(--pri-dk);margin-bottom:8px;" id="mic5-target">Click a word above</div>
-      <button class="mic-btn" id="mic5-btn" onclick="recordGeneric('mic5')">🎤</button>
-      <div class="mic-status" id="mic5-status">Click to record</div>
-      <div id="mic5-result"></div>
-    </div>
-  </div>`;
-
-  // GAP 1 FIX: Audio recording + playback for self-comparison
-  h+=`<div class="card"><h3>🎙️ Record & Compare</h3>
-    <p>Record yourself saying a word or sentence, then <strong>play it back</strong> and compare with the native pronunciation side by side!</p>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;" id="rec-words"></div>
-    <div style="text-align:center;margin:14px 0;padding:16px;background:#f5f5f5;border-radius:12px;border:2px dashed #ccc;">
-      <div style="font-size:1.1em;font-weight:700;color:var(--pri-dk);margin-bottom:10px;" id="rec-target">Click a word above to practice</div>
-      <div style="display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
-        <div style="text-align:center;">
-          <div style="font-size:.75em;color:#888;margin-bottom:4px;">Native:</div>
-          <button class="btn btn-sm" id="rec-native-btn" onclick="hearRecTarget()">🔊 Hear Native</button>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:.75em;color:#888;margin-bottom:4px;">Your recording:</div>
-          <button class="mic-btn" id="rec-mic-btn" onclick="toggleRecording()" style="width:50px;height:50px;font-size:1.2em;">🎙️</button>
-        </div>
-      </div>
-      <div class="mic-status" id="rec-status">Click 🎙️ to start recording</div>
-      <div id="rec-playback" style="margin-top:10px;display:none;">
-        <p style="font-size:.82em;color:var(--green);font-weight:600;margin-bottom:6px;">✅ Recording saved! Play it back:</p>
-        <audio id="rec-audio" controls style="width:100%;max-width:300px;"></audio>
-        <div style="margin-top:8px;">
-          <button class="btn btn-sm btn-outline" onclick="hearRecTarget()">🔊 Hear Native Again</button>
-          <button class="btn btn-sm btn-outline" onclick="clearRecording()">🗑️ Delete & Retry</button>
-        </div>
-      </div>
-    </div>
-    <div class="warn"><strong>💡 How to use:</strong><br>
-    1. Click a word/sentence → 2. Click 🔊 to hear the native version → 3. Click 🎙️ to record yourself → 4. Play back your recording → 5. Compare! Do you sound the same?</div>
-  </div>`;
-
-  h+=`<div class="card"><h3>📋 Daily Practice Checklist (15–20 min)</h3>
-    <ul style="padding-left:20px;margin-top:8px;line-height:2;">
-      <li>🔤 Review 5 sounds — focus on your weak ones (3 min)</li>
-      <li>👂 Listen to 3 minimal pairs (3 min)</li>
-      <li>🥁 Practice 3 word stress patterns (2 min)</li>
-      <li>🎧 Shadow 3 sentences (5 min)</li>
-      <li>👅 1 tongue twister: slow → fast (2 min)</li>
-      <li>📱 Voice-to-text test: 5 words (2 min)</li>
-    </ul>
-  </div>`;
-  h+=`<div class="nav"><button class="nav-btn" onclick="goStage(3)">◀ Step 4</button><button class="nav-btn fwd" onclick="goStage(5)">🎮 Game ▶</button></div>`;
-  div.innerHTML=h;
-
-  setTimeout(()=>{
-    const vtt=document.getElementById('vtt-words');if(!vtt)return;
-    const testWords=['ship','sheep','think','this','light','right','bird','world','three','comfortable','Wednesday','beautiful'];
-    testWords.forEach(w=>{
-      const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=w;
-      b.onclick=()=>{speak(w,0.6);setMicTarget('mic5',w);};
-      vtt.appendChild(b);
-    });
-    // Record & Compare section words
-    const recW=document.getElementById('rec-words');if(!recW)return;
-    const recWords=['ship','sheep','think','three','light','right','bird','nurse','beautiful','comfortable','I love it','turn off the light'];
-    recWords.forEach(w=>{
-      const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=w;
-      b.onclick=()=>{document.getElementById('rec-target').textContent=w;document.getElementById('rec-target').dataset.word=w;speak(w,0.65);};
-      recW.appendChild(b);
-    });
-  },50);
+  fb.textContent=ok===STRESS_WORDS.length?`🎉 Perfect! ${ok}/${STRESS_WORDS.length}`:`👍 ${ok}/${STRESS_WORDS.length}. Green = correct.`;
 }
 
 // ═══════════════════════════════
 // STEP 6: GAME
 // ═══════════════════════════════
-let gameState={level:1,score:0,streak:0,total:0,current:null,history:[]};
+let G={level:1,score:0,streak:0,total:0,cur:null,hist:[]};
 
-function renderStep6(div){
-  div.innerHTML=`
-    <div class="card">
-      <h2>🎮 Pronunciation Game</h2>
-      <p>A random word appears — figure out how to pronounce it using what you learned, then say it!</p>
-      <div class="tip"><strong>How to play:</strong> Look at the word → Think about the sounds → Click 💡 for hints → Click 🔊 to hear → Click 🎤 to test yourself!</div>
+function renderS6(div){
+  div.innerHTML=`<div class="card"><h2>🎮 Pronunciation Game</h2>
+    <p>A word appears — figure out how to say it using letter sounds and combinations!</p>
+    <div class="tip"><strong>How to play:</strong> See the word → Think about sounds → Click 💡 for hints → Click 🔊 to hear → Click 🎤 to test yourself!</div></div>
+  <div class="card" style="text-align:center;">
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">
+      <span class="game-badge">Level <span id="g-lv">1</span>/5</span>
+      <span class="game-badge">Score: <span id="g-sc">0</span></span>
+      <span class="game-badge">🔥<span id="g-st">0</span></span>
     </div>
-    <div class="card" style="text-align:center;">
-      <div class="game-score">
-        <span class="game-badge">Level <span id="g-level">1</span>/5</span>
-        <span class="game-badge">Score: <span id="g-score">0</span></span>
-        <span class="game-badge">Streak: <span id="g-streak">0</span>🔥</span>
-      </div>
-      <div class="game-word" id="g-word"></div>
-      <div style="font-size:.8em;color:#888;" id="g-level-label"></div>
-      <div class="game-patterns" id="g-patterns" style="display:none;"></div>
-      <div id="g-hint" style="display:none;" class="warn"></div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0;">
-        <button class="btn btn-outline" onclick="showGameHints()">💡 Hints</button>
-        <button class="btn btn-outline" onclick="hearGameWord()">🔊 Hear It</button>
-        <button class="btn" onclick="skipGame()">⏭️ Skip</button>
-      </div>
-      <div class="mic-area">
-        <button class="mic-btn" id="g-mic-btn" onclick="recordGame()">🎤</button>
-        <div class="mic-status" id="g-mic-status">Say the word!</div>
-        <div id="g-mic-result"></div>
-      </div>
+    <div class="game-word" id="g-w"></div>
+    <div style="font-size:.8em;color:#888;" id="g-ll"></div>
+    <div class="game-patterns" id="g-p" style="display:none;"></div>
+    <div id="g-h" style="display:none;background:#fff3e0;border:2px solid #ffcc80;border-radius:8px;padding:6px 10px;margin:8px auto;max-width:350px;font-size:.82em;color:#e65100;"></div>
+    <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0;">
+      <button class="btn btn-outline" onclick="showHints()">💡 Hints</button>
+      <button class="btn btn-outline" onclick="hearGW()">🔊 Hear</button>
+      <button class="btn" onclick="skipGW()">⏭️ Skip</button>
     </div>
-    <div class="card" id="g-hist-card" style="display:none;"><h3>📊 History</h3><div id="g-hist"></div></div>
-    <div class="card"><h3>⚙️ Level</h3><div style="display:flex;gap:6px;flex-wrap:wrap;">
-      ${[1,2,3,4,5].map(l=>`<button class="btn btn-sm btn-outline" onclick="setLevel(${l})">Level ${l}</button>`).join('')}
-    </div></div>
-    <div class="nav"><button class="nav-btn" onclick="goStage(4)">◀ Step 5</button><span style="font-size:.85em;color:var(--pri);">Have fun! 🎉</span></div>`;
-  setTimeout(loadGameWord,100);
+    <div class="mic-area">
+      <button class="mic-btn" id="g-mic" onclick="recGame()">🎤</button>
+      <div class="mic-status" id="g-ms">Say the word!</div>
+      <div id="g-mr"></div>
+    </div>
+  </div>
+  <div class="card" id="g-hc" style="display:none;"><h3>📊 History</h3><div id="g-hi"></div></div>
+  <div class="card"><h3>⚙️ Level</h3><div style="display:flex;gap:5px;flex-wrap:wrap;">${[1,2,3,4,5].map(l=>`<button class="btn btn-sm btn-outline" onclick="setLv(${l})">Level ${l}</button>`).join('')}</div></div>
+  <div class="nav"><button class="nav-btn" onclick="goStage(4)">◀ Step 5</button><span style="font-size:.82em;color:var(--pri);">Have fun! 🎉</span></div>`;
+  setTimeout(loadGW,100);
 }
 
-function setLevel(l){gameState={level:l,score:0,streak:0,total:0,current:null,history:[]};document.getElementById('g-hist-card').style.display='none';loadGameWord();}
-
-function loadGameWord(){
-  const pool=GAME_WORDS.filter(w=>w.level<=gameState.level);
-  const lvlPool=pool.filter(w=>w.level===gameState.level);
-  const use=(Math.random()<0.7&&lvlPool.length)?lvlPool:pool;
-  gameState.current=use[Math.floor(Math.random()*use.length)];
-  const w=gameState.current;
-  document.getElementById('g-word').textContent=w.word;
-  document.getElementById('g-level-label').textContent=`Level ${w.level}`;
-  document.getElementById('g-level').textContent=gameState.level;
-  document.getElementById('g-score').textContent=gameState.score;
-  document.getElementById('g-streak').textContent=gameState.streak;
-  document.getElementById('g-patterns').style.display='none';
-  document.getElementById('g-hint').style.display='none';
-  document.getElementById('g-mic-result').innerHTML='';
-  document.getElementById('g-mic-status').textContent='Say the word!';
+function setLv(l){G={level:l,score:0,streak:0,total:0,cur:null,hist:[]};document.getElementById('g-hc').style.display='none';loadGW();}
+function loadGW(){
+  const pool=GAME_WORDS.filter(w=>w.level<=G.level);
+  const lp=pool.filter(w=>w.level===G.level);
+  G.cur=(Math.random()<.7&&lp.length?lp:pool)[Math.floor(Math.random()*(Math.random()<.7&&lp.length?lp:pool).length)];
+  document.getElementById('g-w').textContent=G.cur.word;
+  document.getElementById('g-ll').textContent='Level '+G.cur.level;
+  document.getElementById('g-lv').textContent=G.level;
+  document.getElementById('g-sc').textContent=G.score;
+  document.getElementById('g-st').textContent=G.streak;
+  document.getElementById('g-p').style.display='none';
+  document.getElementById('g-h').style.display='none';
+  document.getElementById('g-mr').innerHTML='';
+  document.getElementById('g-ms').textContent='Say the word!';
 }
-
-function showGameHints(){
-  const w=gameState.current;if(!w)return;
-  document.getElementById('g-patterns').style.display='flex';
-  document.getElementById('g-patterns').innerHTML=w.patterns.map(p=>{const[l,s]=p.split('→');return`<span class="game-pattern"><strong>${l}</strong> → <em>${s}</em></span>`;}).join('');
-  document.getElementById('g-hint').style.display='block';
-  document.getElementById('g-hint').textContent='💡 '+w.hint;
+function showHints(){
+  const w=G.cur;if(!w)return;
+  document.getElementById('g-p').style.display='flex';
+  document.getElementById('g-p').innerHTML=w.patterns.map(p=>{const[l,s]=p.split('→');return`<span class="game-pattern"><strong>${l}</strong> → <em>${s}</em></span>`;}).join('');
+  document.getElementById('g-h').style.display='block';
+  document.getElementById('g-h').textContent='💡 '+w.hint;
 }
-function hearGameWord(){if(gameState.current)speak(gameState.current.word,0.6);}
-function skipGame(){addHist(gameState.current.word,false,'skipped');gameState.streak=0;gameState.total++;loadGameWord();}
-
-function recordGame(){
-  const target=gameState.current?.word;if(!target)return;
-  const btn=document.getElementById('g-mic-btn'),st=document.getElementById('g-mic-status'),res=document.getElementById('g-mic-result');
+function hearGW(){if(G.cur)speak(G.cur.word,0.6);}
+function skipGW(){addH(G.cur.word,false,'skipped');G.streak=0;G.total++;loadGW();}
+function recGame(){
+  if(!G.cur)return;const target=G.cur.word;
+  const btn=document.getElementById('g-mic'),st=document.getElementById('g-ms'),res=document.getElementById('g-mr');
   if(isRecording){stopListening();btn.classList.remove('recording');st.textContent='Say the word!';return;}
   btn.classList.add('recording');st.textContent='🔴 Listening...';res.innerHTML='';
   startListening(text=>{
     btn.classList.remove('recording');st.textContent='Say the word!';
-    if(text.includes(target.toLowerCase())||target.toLowerCase().includes(text)){
-      const pts=gameState.current.level*10;gameState.score+=pts;gameState.streak++;gameState.total++;
-      res.innerHTML=`<span class="mic-result ok">✅ Correct! "${text}" +${pts}pts ${gameState.streak>=3?'🔥'+gameState.streak:''}</span>`;
-      addHist(target,true,text);
-      if(gameState.streak>=5&&gameState.level<5){gameState.level++;gameState.streak=0;setTimeout(()=>{res.innerHTML+=`<br><span class="mic-result ok">⬆️ Level Up! Level ${gameState.level}!</span>`;},400);}
-      setTimeout(loadGameWord,1800);
-    } else {
-      gameState.streak=0;gameState.total++;
-      res.innerHTML=`<span class="mic-result bad">❌ "${text}" — target: "${target}". Click 🔊!</span>`;
-      addHist(target,false,text);setTimeout(()=>speak(target,0.6),800);
+    if(text.includes(target.toLowerCase())||target.toLowerCase()===text){
+      const pts=G.cur.level*10;G.score+=pts;G.streak++;G.total++;
+      res.innerHTML=`<span class="mic-result ok">✅ "${text}" +${pts}pts ${G.streak>=3?'🔥'+G.streak:''}</span>`;
+      addH(target,true,text);
+      if(G.streak>=5&&G.level<5){G.level++;G.streak=0;setTimeout(()=>{res.innerHTML+=`<br><span class="mic-result ok">⬆️ Level ${G.level}!</span>`;},300);}
+      setTimeout(loadGW,1500);
+    }else{
+      G.streak=0;G.total++;
+      res.innerHTML=`<span class="mic-result bad">❌ "${text}" — target: "${target}"</span>`;
+      addH(target,false,text);setTimeout(()=>speak(target,0.6),600);
     }
   },err=>{btn.classList.remove('recording');st.textContent=err;});
 }
-
-function addHist(word,ok,spoken){
-  gameState.history.unshift({word,ok,spoken});if(gameState.history.length>15)gameState.history.pop();
-  const card=document.getElementById('g-hist-card'),el=document.getElementById('g-hist');
-  card.style.display='block';
-  el.innerHTML=gameState.history.slice(0,8).map(h=>`<div class="game-history-item">${h.ok?'✅':'❌'} <strong>${h.word}</strong> <span style="color:#888;">— "${h.spoken}"</span></div>`).join('');
+function addH(word,ok,spoken){
+  G.hist.unshift({word,ok,spoken});if(G.hist.length>12)G.hist.pop();
+  const c=document.getElementById('g-hc'),el=document.getElementById('g-hi');c.style.display='block';
+  el.innerHTML=G.hist.slice(0,8).map(h=>`<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #eee;font-size:.82em;">${h.ok?'✅':'❌'} <strong>${h.word}</strong> <span style="color:#888;">"${h.spoken}"</span></div>`).join('');
 }
 
-// ═══════════════════════════════
-// GENERIC MIC HELPERS
-// ═══════════════════════════════
-function setMicTarget(prefix,word){
-  const el=document.getElementById(prefix+'-target');
-  el.textContent=`Say: "${word}"`;el.dataset.word=word;
-}
-
-function recordGeneric(prefix){
-  const target=document.getElementById(prefix+'-target').dataset.word;
-  if(!target){document.getElementById(prefix+'-status').textContent='Click a word first!';return;}
-  genericRecord(prefix,target,false);
-}
-
-function genericRecord(prefix,target,isSentence){
-  const btn=document.getElementById(prefix+'-btn'),st=document.getElementById(prefix+'-status'),res=document.getElementById(prefix+'-result');
-  if(isRecording){stopListening();btn.classList.remove('recording');st.textContent='Click to record';return;}
-  btn.classList.add('recording');st.textContent='🔴 Listening...';res.innerHTML='';
-  startListening(text=>{
-    btn.classList.remove('recording');st.textContent='Click to record';
-    if(isSentence){
-      const tw=target.toLowerCase().replace(/[.,!?']/g,'').split(' ');
-      const sw=text.toLowerCase().split(' ');
-      const m=tw.filter(w=>sw.includes(w)).length;
-      const pct=Math.round(m/tw.length*100);
-      res.innerHTML=pct>=75?`<span class="mic-result ok">✅ ${pct}% match! "${text}"</span>`:`<span class="mic-result bad">🔄 ${pct}% — "${text}". Try again!</span>`;
-    } else {
-      if(text.includes(target.toLowerCase())||target.toLowerCase().includes(text)){
-        res.innerHTML=`<span class="mic-result ok">✅ Correct! "${text}"</span>`;
-      } else {
-        res.innerHTML=`<span class="mic-result bad">❌ "${text}" — target: "${target}"</span>`;
-      }
-    }
-  },err=>{btn.classList.remove('recording');st.textContent=err;});
-}
-
-// ═══════════════════════════════
-// MEDIARECORDER: Record & Playback
-// ═══════════════════════════════
-let mediaRecorder=null,audioChunks=[],recStream=null;
-
-function hearRecTarget(){
-  const word=document.getElementById('rec-target').dataset.word;
-  if(word)speak(word,0.65);
-}
-
-async function toggleRecording(){
-  const btn=document.getElementById('rec-mic-btn');
-  const status=document.getElementById('rec-status');
-  const playback=document.getElementById('rec-playback');
-
-  if(mediaRecorder&&mediaRecorder.state==='recording'){
-    // Stop recording
-    mediaRecorder.stop();
-    btn.classList.remove('recording');
-    btn.textContent='🎙️';
-    status.textContent='Processing...';
-    return;
-  }
-
-  // Start recording
-  try{
-    recStream=await navigator.mediaDevices.getUserMedia({audio:true});
-    mediaRecorder=new MediaRecorder(recStream);
-    audioChunks=[];
-    mediaRecorder.ondataavailable=(e)=>{if(e.data.size>0)audioChunks.push(e.data);};
-    mediaRecorder.onstop=()=>{
-      const blob=new Blob(audioChunks,{type:'audio/webm'});
-      const url=URL.createObjectURL(blob);
-      const audio=document.getElementById('rec-audio');
-      audio.src=url;
-      playback.style.display='block';
-      status.textContent='Done! Play back your recording and compare.';
-      // Stop mic access
-      recStream.getTracks().forEach(t=>t.stop());
-    };
-    mediaRecorder.start();
-    btn.classList.add('recording');
-    btn.textContent='⏹️';
-    status.textContent='🔴 Recording... Click ⏹️ to stop';
-    playback.style.display='none';
-  }catch(e){
-    status.textContent='⚠️ Microphone access denied. Please allow microphone.';
-  }
-}
-
-function clearRecording(){
-  document.getElementById('rec-playback').style.display='none';
-  document.getElementById('rec-status').textContent='Click 🎙️ to start recording';
-  document.getElementById('rec-audio').src='';
-}
-
-// START
 init();
 </script>
 </body>
