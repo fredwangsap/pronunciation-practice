@@ -120,41 +120,123 @@ main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 <div class="badge">Step <span id="cur-stage">1</span>/6</div>
 <div class="stage-tabs" id="stage-tabs"></div>
 </div>
+<div id="tts-diag" style="background:#fff8e1;border-bottom:1px solid #ffe082;padding:4px 12px;font-size:.72em;color:#856404;font-family:monospace;text-align:center;">Loading TTS...</div>
 <main id="main"></main>
 
 <script>
 // ═══════════════════════════════
-// TTS (with Chrome desktop fix)
+// TTS — Chrome/Safari compatible with diagnostics
 // ═══════════════════════════════
-// Chrome desktop bug: speechSynthesis gets "paused/stuck" state.
-// Fix: resume it on first user interaction + use a warm-up utterance.
-(function chromeTTSFix(){
-  var fixed=false;
-  function warmup(){
-    if(fixed)return;
-    fixed=true;
-    var u=new SpeechSynthesisUtterance('');
-    u.volume=0;
-    speechSynthesis.speak(u);
-    speechSynthesis.cancel();
-    document.removeEventListener('click',warmup);
-    document.removeEventListener('touchstart',warmup);
-  }
-  document.addEventListener('click',warmup);
-  document.addEventListener('touchstart',warmup);
-  // Also fix Chrome's pause-after-15s bug
-  setInterval(function(){
-    if(speechSynthesis.speaking&&!speechSynthesis.paused)return;
-    speechSynthesis.resume();
-  },5000);
-})();
+var TTS = {
+  voices: [],
+  preferredVoice: null,
+  ready: false,
+  audioUnlocked: false,
+  lastStatus: 'idle',
 
-function speak(text,rate){
-  rate=rate||0.7;
-  speechSynthesis.cancel();
-  var u=new SpeechSynthesisUtterance(text);
-  u.lang='en-US';u.rate=rate;u.pitch=1.05;
-  speechSynthesis.speak(u);
+  init: function() {
+    var self = this;
+    function loadVoices() {
+      self.voices = window.speechSynthesis.getVoices();
+      if (self.voices.length > 0) {
+        // Prefer high-quality English voices in this order
+        var preferred = ['Google US English', 'Microsoft Aria Online (Natural)', 'Samantha', 'Alex', 'Karen', 'Daniel'];
+        for (var i = 0; i < preferred.length; i++) {
+          self.preferredVoice = self.voices.find(function(v) { return v.name === preferred[i]; });
+          if (self.preferredVoice) break;
+        }
+        // Fallback: any en-US voice
+        if (!self.preferredVoice) {
+          self.preferredVoice = self.voices.find(function(v) { return v.lang === 'en-US'; });
+        }
+        // Ultimate fallback: any English voice
+        if (!self.preferredVoice) {
+          self.preferredVoice = self.voices.find(function(v) { return v.lang.startsWith('en'); });
+        }
+        self.ready = true;
+      }
+    }
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+    // Chrome resume-every-10s trick (keeps engine alive)
+    setInterval(function() {
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+    }, 10000);
+  },
+
+  unlock: function() {
+    if (this.audioUnlocked) return;
+    this.audioUnlocked = true;
+    // Force voices to load
+    if (this.voices.length === 0) this.voices = window.speechSynthesis.getVoices();
+    // AudioContext unlock (helps some browsers)
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) {
+        var ctx = new AC();
+        var buf = ctx.createBuffer(1, 1, 22050);
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.connect(ctx.destination);
+        src.start(0);
+      }
+    } catch(e) {}
+    // SpeechSynthesis warmup
+    try {
+      var u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
+    } catch(e) {}
+  },
+
+  speak: function(text, rate) {
+    this.unlock();
+    rate = rate || 0.7;
+    var self = this;
+    self.lastStatus = 'requested: ' + text;
+    self.updateDiag();
+
+    // Chrome bug: cancel without a queued utterance can hang. Only cancel if speaking.
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+    }
+    // Chrome bug: paused engine needs resume before speaking
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    }
+
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = rate;
+    u.pitch = 1.05;
+    u.volume = 1.0;
+    if (this.preferredVoice) u.voice = this.preferredVoice;
+
+    u.onstart = function() { self.lastStatus = '🔊 speaking: ' + text; self.updateDiag(); };
+    u.onend = function() { self.lastStatus = '✅ done: ' + text; self.updateDiag(); };
+    u.onerror = function(e) { self.lastStatus = '❌ error: ' + (e.error || 'unknown'); self.updateDiag(); };
+
+    window.speechSynthesis.speak(u);
+  },
+
+  updateDiag: function() {
+    var el = document.getElementById('tts-diag');
+    if (el) {
+      el.textContent = this.lastStatus + ' | voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + ' | voices: ' + this.voices.length;
+    }
+  }
+};
+
+TTS.init();
+
+// Auto-unlock on first user interaction
+document.addEventListener('click', function() { TTS.unlock(); }, { once: true });
+document.addEventListener('touchstart', function() { TTS.unlock(); }, { once: true });
+
+function speak(text, rate) {
+  TTS.speak(text, rate);
 }
 
 // Speech Recognition
