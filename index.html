@@ -213,16 +213,50 @@ var TTS = {
 
   speakAudio: function(text, rate) {
     var self = this;
-    var url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=' + encodeURIComponent(text);
-    self.lastStatus = '🔊 [audio] loading: ' + text;
+    // Note: Google Translate TTS blocks CORS from browsers. This is a placeholder.
+    // If synth mode fails, best option is to instruct user to try Safari or check Chrome settings.
+    self.lastStatus = '⚠️ Audio fallback unavailable (Google TTS blocks CORS). Try Synth mode or Safari.';
     self.updateDiag();
-    self.audioEl.src = url;
-    self.audioEl.playbackRate = rate < 1 ? Math.max(0.5, rate + 0.2) : rate;
-    self.audioEl.onplaying = function() { self.lastStatus = '🔊 [audio] playing: ' + text; self.updateDiag(); };
-    self.audioEl.onended = function() { self.lastStatus = '✅ [audio] done: ' + text; self.updateDiag(); };
-    self.audioEl.onerror = function() { self.lastStatus = '❌ [audio] failed to load. Try Safari or check network.'; self.updateDiag(); };
-    var p = self.audioEl.play();
-    if (p && p.catch) p.catch(function(e) { self.lastStatus = '❌ [audio] play blocked: ' + e.message; self.updateDiag(); });
+  },
+
+  runDiagnostic: function() {
+    var self = this;
+    var report = [];
+    report.push('Browser: ' + navigator.userAgent.split(' ').slice(-2).join(' '));
+    report.push('speechSynthesis: ' + ('speechSynthesis' in window ? 'YES' : 'NO'));
+    report.push('Voices loaded: ' + this.voices.length);
+    report.push('Preferred voice: ' + (this.preferredVoice ? this.preferredVoice.name + ' (' + this.preferredVoice.lang + ')' : 'NONE FOUND'));
+    report.push('speechSynthesis.speaking: ' + window.speechSynthesis.speaking);
+    report.push('speechSynthesis.paused: ' + window.speechSynthesis.paused);
+    report.push('speechSynthesis.pending: ' + window.speechSynthesis.pending);
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var ctx = AC ? new AC() : null;
+      report.push('AudioContext state: ' + (ctx ? ctx.state : 'unavailable'));
+      if (ctx) ctx.close();
+    } catch(e) { report.push('AudioContext error: ' + e.message); }
+
+    // Actually try to speak and capture events
+    var testUtterance = new SpeechSynthesisUtterance('test');
+    testUtterance.lang = 'en-US';
+    testUtterance.volume = 1.0;
+    if (this.preferredVoice) testUtterance.voice = this.preferredVoice;
+    var events = [];
+    testUtterance.onstart = function() { events.push('onstart'); self.showDiag(report, events); };
+    testUtterance.onend = function() { events.push('onend'); self.showDiag(report, events); };
+    testUtterance.onerror = function(e) { events.push('onerror: ' + (e.error || 'unknown')); self.showDiag(report, events); };
+
+    if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(testUtterance);
+    setTimeout(function() {
+      if (events.length === 0) events.push('NO EVENTS FIRED IN 3s (Chrome is silently blocking)');
+      self.showDiag(report, events);
+    }, 3000);
+  },
+
+  showDiag: function(report, events) {
+    var msg = report.concat(['---', 'Speech events: ' + (events.join(', ') || 'none yet')]).join('\n');
+    alert('🔍 TTS Diagnostic Report:\n\n' + msg + '\n\nIf you see "onstart, onend" but hear nothing:\n1. Check Chrome tab is not muted (right-click tab)\n2. Check system audio output device\n3. Try Safari\n4. Chrome flags: chrome://flags → disable "Text-to-speech Engine"');
   },
 
   speak: function(text, rate) {
@@ -253,9 +287,8 @@ var TTS = {
     var el = document.getElementById('tts-diag');
     if (el) {
       el.innerHTML = '<span>' + this.lastStatus + '</span>' +
-        ' <button id="tts-mode-btn" onclick="TTS.toggleMode()" style="margin-left:10px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff;color:#856404;cursor:pointer;">' +
-        (this.mode === 'audio' ? '🎵 Audio mode (Google TTS)' : '🎤 Synth mode (browser)') + '</button>' +
-        ' <span style="opacity:.7;font-size:.85em;">' + (this.mode === 'audio' ? '(reliable)' : '(voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + ')') + '</span>';
+        ' <button onclick="TTS.runDiagnostic()" style="margin-left:10px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff8e1;color:#856404;cursor:pointer;font-weight:600;">🔍 Test TTS</button>' +
+        ' <span style="opacity:.7;font-size:.85em;">voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + '</span>';
     }
   }
 };
