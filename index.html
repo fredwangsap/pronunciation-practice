@@ -157,19 +157,61 @@ function stopListening(){
 // DATA
 // ═══════════════════════════════
 const ALPHABET=[
-  {l:'A',ipa:'/æ/',word:'apple',sound:'a'},{l:'B',ipa:'/b/',word:'ball',sound:'b'},
-  {l:'C',ipa:'/k/',word:'cat',sound:'c'},{l:'D',ipa:'/d/',word:'dog',sound:'d'},
-  {l:'E',ipa:'/ɛ/',word:'egg',sound:'e'},{l:'F',ipa:'/f/',word:'fish',sound:'f'},
-  {l:'G',ipa:'/g/',word:'go',sound:'g'},{l:'H',ipa:'/h/',word:'hat',sound:'h'},
-  {l:'I',ipa:'/ɪ/',word:'ink',sound:'i'},{l:'J',ipa:'/dʒ/',word:'jump',sound:'j'},
-  {l:'K',ipa:'/k/',word:'kite',sound:'k'},{l:'L',ipa:'/l/',word:'leg',sound:'l'},
-  {l:'M',ipa:'/m/',word:'map',sound:'m'},{l:'N',ipa:'/n/',word:'nose',sound:'n'},
-  {l:'O',ipa:'/ɒ/',word:'orange',sound:'o'},{l:'P',ipa:'/p/',word:'pen',sound:'p'},
-  {l:'Q',ipa:'/kw/',word:'queen',sound:'q'},{l:'R',ipa:'/r/',word:'run',sound:'r'},
-  {l:'S',ipa:'/s/',word:'sun',sound:'s'},{l:'T',ipa:'/t/',word:'ten',sound:'t'},
-  {l:'U',ipa:'/ʌ/',word:'up',sound:'u'},{l:'V',ipa:'/v/',word:'van',sound:'v'},
-  {l:'W',ipa:'/w/',word:'wet',sound:'w'},{l:'X',ipa:'/ks/',word:'box',sound:'x'},
-  {l:'Y',ipa:'/j/',word:'yes',sound:'y'},{l:'Z',ipa:'/z/',word:'zoo',sound:'z'},
+  {l:'A',ipa:'/æ/',word:'apple',sound:'a',tip:'Open mouth wide, tongue flat and low',words2:['ant','add','ask']},
+  {l:'B',ipa:'/b/',word:'ball',sound:'b',tip:'Press lips together, then pop them open with voice',words2:['bed','big','bus']},
+  {l:'C',ipa:'/k/',word:'cat',sound:'c',tip:'Back of tongue touches soft palate, release air (no voice)',words2:['cup','car','cold']},
+  {l:'D',ipa:'/d/',word:'dog',sound:'d',tip:'Tongue tip touches the ridge behind top teeth, with voice',words2:['dad','day','duck']},
+  {l:'E',ipa:'/ɛ/',word:'egg',sound:'e',tip:'Mouth slightly open, tongue in middle height',words2:['end','else','every']},
+  {l:'F',ipa:'/f/',word:'fish',sound:'f',tip:'Top teeth gently touch lower lip, blow air (no voice)',words2:['fun','food','five']},
+  {l:'G',ipa:'/g/',word:'go',sound:'g',tip:'Back of tongue touches soft palate, release with voice',words2:['get','girl','give']},
+  {l:'H',ipa:'/h/',word:'hat',sound:'h',tip:'Open mouth, push air out gently from throat (like fogging a mirror)',words2:['hot','home','help']},
+  {l:'I',ipa:'/ɪ/',word:'ink',sound:'i',tip:'Small smile, tongue slightly raised in front',words2:['it','in','is']},
+  {l:'J',ipa:'/dʒ/',word:'jump',sound:'j',tip:'Tongue touches roof, then releases like "d" + "zh" together',words2:['job','jam','juice']},
+  {l:'K',ipa:'/k/',word:'kite',sound:'k',tip:'Same as C — back of tongue touches soft palate, no voice',words2:['king','keep','kick']},
+  {l:'L',ipa:'/l/',word:'leg',sound:'l',tip:'Tongue tip touches the ridge behind top teeth, air flows around sides',words2:['look','like','let']},
+  {l:'M',ipa:'/m/',word:'map',sound:'m',tip:'Press lips together, hum through your nose',words2:['mum','milk','moon']},
+  {l:'N',ipa:'/n/',word:'nose',sound:'n',tip:'Tongue tip touches ridge behind top teeth, hum through nose',words2:['no','name','new']},
+  {l:'O',ipa:'/ɒ/',word:'orange',sound:'o',tip:'Round lips into a circle, mouth open, tongue low and back',words2:['on','off','odd']},
+  {l:'P',ipa:'/p/',word:'pen',sound:'p',tip:'Press lips together, then pop with a puff of air (no voice)',words2:['put','park','pig']},
+  {l:'Q',ipa:'/kw/',word:'queen',sound:'q',tip:'Say "k" then quickly round lips for "w" — always followed by U',words2:['quick','quiz','quiet']},
+  {l:'R',ipa:'/r/',word:'run',sound:'r',tip:'Tongue curls back slightly, does NOT touch the roof!',words2:['red','rain','room']},
+  {l:'S',ipa:'/s/',word:'sun',sound:'s',tip:'Tongue near top teeth ridge, air hisses through (like a snake)',words2:['see','sit','say']},
+  {l:'T',ipa:'/t/',word:'ten',sound:'t',tip:'Tongue tip taps the ridge behind top teeth, puff of air (no voice)',words2:['top','time','two']},
+  {l:'U',ipa:'/ʌ/',word:'up',sound:'u',tip:'Relaxed open mouth, tongue in centre, short sound',words2:['us','under','ugly']},
+  {l:'V',ipa:'/v/',word:'van',sound:'v',tip:'Top teeth on lower lip (like F), but ADD voice — feel throat buzz!',words2:['very','voice','view']},
+  {l:'W',ipa:'/w/',word:'wet',sound:'w',tip:'Round lips tightly (like blowing a candle), then open quickly',words2:['win','wait','walk']},
+  {l:'X',ipa:'/ks/',word:'box',sound:'x',tip:'Two sounds together: "k" + "s" (usually at end of words)',words2:['six','fox','mix']},
+  {l:'Y',ipa:'/j/',word:'yes',sound:'y',tip:'Tongue raised near roof of mouth, like a quick "ee" then open',words2:['you','year','yell']},
+  {l:'Z',ipa:'/z/',word:'zoo',sound:'z',tip:'Same tongue as S, but ADD voice — feel the buzz!',words2:['zip','zero','zone']},
+];
+
+// Common letter combinations (phonics patterns)
+const COMBOS=[
+  {combo:'sh',ipa:'/ʃ/',sound:'sh',tip:'Lips pushed forward (like telling someone to be quiet: "shh!")',words:['ship','shop','she','fish','wish']},
+  {combo:'ch',ipa:'/tʃ/',sound:'ch',tip:'Start with tongue on roof (like T), then release as "sh"',words:['chip','chair','lunch','much','teacher']},
+  {combo:'th',ipa:'/θ/ or /ð/',sound:'th',tip:'Tongue tip between your teeth! Blow air (think) or add voice (this)',words:['think','three','this','that','the']},
+  {combo:'ck',ipa:'/k/',sound:'k',tip:'Same as K sound — used after a short vowel',words:['back','duck','kick','clock','stick']},
+  {combo:'ng',ipa:'/ŋ/',sound:'ng',tip:'Back of tongue pressed against soft palate, hum through nose',words:['sing','ring','long','thing','morning']},
+  {combo:'oo',ipa:'/uː/ or /ʊ/',sound:'oo',tip:'Round lips tightly. Long: "moon", Short: "book"',words:['moon','food','too','book','look','good']},
+  {combo:'ee',ipa:'/iː/',sound:'ee',tip:'Wide smile, tongue high and forward — long "ee" sound',words:['see','tree','feet','week','sleep']},
+  {combo:'ea',ipa:'/iː/ or /ɛ/',sound:'ea',tip:'Usually long "ee" (eat), sometimes short "e" (head)',words:['eat','read','sea','head','bread','ready']},
+  {combo:'ou',ipa:'/aʊ/',sound:'ou',tip:'Start with mouth open "ah", then round lips to "oo"',words:['out','house','mouse','cloud','round','loud']},
+  {combo:'ow',ipa:'/aʊ/ or /oʊ/',sound:'ow',tip:'Two sounds! "ow" as in cow (ouch!) OR "ow" as in snow (oh)',words:['cow','now','how','snow','show','grow']},
+  {combo:'igh',ipa:'/aɪ/',sound:'igh',tip:'Long "eye" sound — the gh is silent!',words:['night','light','high','right','fight','bright']},
+  {combo:'er',ipa:'/ɜːr/',sound:'er',tip:'Tongue in middle, lips slightly rounded, add R colour',words:['her','water','sister','teacher','dinner','never']},
+  {combo:'ir',ipa:'/ɜːr/',sound:'ir',tip:'Same sound as "er" — tongue middle, lips rounded with R',words:['bird','girl','first','shirt','third','stir']},
+  {combo:'ur',ipa:'/ɜːr/',sound:'ur',tip:'Same sound as "er" and "ir" — all three spell the same sound!',words:['turn','burn','hurt','nurse','purple','church']},
+  {combo:'ar',ipa:'/ɑːr/',sound:'ar',tip:'Open mouth wide, tongue low and back, then add R',words:['car','star','park','far','arm','garden']},
+  {combo:'or',ipa:'/ɔːr/',sound:'or',tip:'Round lips, tongue back and low, then add R',words:['for','door','more','horse','morning','short']},
+  {combo:'ai',ipa:'/eɪ/',sound:'ai',tip:'Long A sound — start with "eh" then glide to "ee"',words:['rain','train','wait','paint','tail','sail']},
+  {combo:'ay',ipa:'/eɪ/',sound:'ay',tip:'Same as "ai" — long A sound, usually at end of words',words:['day','play','say','way','today','stay']},
+  {combo:'oi',ipa:'/ɔɪ/',sound:'oi',tip:'Start with round lips "or" then glide to "ee"',words:['oil','coin','join','point','noise','voice']},
+  {combo:'oy',ipa:'/ɔɪ/',sound:'oy',tip:'Same as "oi" — usually at the end of words',words:['boy','toy','enjoy','joy','annoy']},
+  {combo:'aw',ipa:'/ɔː/',sound:'aw',tip:'Open mouth with round lips, tongue low and back',words:['saw','draw','paw','law','straw','yawn']},
+  {combo:'wh',ipa:'/w/',sound:'wh',tip:'Same as W in most English — round lips then open',words:['what','when','where','why','which','white']},
+  {combo:'wr',ipa:'/r/',sound:'r',tip:'The W is silent! Just say the R sound',words:['write','wrong','wrap','wrist']},
+  {combo:'kn',ipa:'/n/',sound:'n',tip:'The K is silent! Just say the N sound',words:['know','knee','knife','knock','knight']},
+  {combo:'ph',ipa:'/f/',sound:'f',tip:'Same as F — top teeth on lower lip, blow air',words:['phone','photo','elephant','dolphin','alphabet']},
 ];
 
 const SHORT_VOWELS=[
@@ -304,10 +346,22 @@ function renderStage1(){
       <div class="tip"><strong>💡 Remember:</strong> The letter name (A = "ay") is different from the letter sound (A = /æ/ like in "apple"). Focus on the SOUND!</div>
       <h3>Click to hear each letter sound:</h3>
       <div class="sound-grid" id="alpha-grid"></div>
+      <div id="alpha-detail" style="margin-top:14px;padding:14px;background:#f5f5f0;border-radius:10px;display:none;">
+        <div id="alpha-detail-content"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>🔗 Common Letter Combinations (Phonics)</h2>
+      <p>These letter groups make <strong>special sounds</strong> different from individual letters. Click to hear!</p>
+      <div class="tip"><strong>💡 Key idea:</strong> When certain letters come together, they make a brand new sound. For example, S + H = "sh" (not "s" then "h")!</div>
+      <div class="sound-grid" id="combo-grid"></div>
+      <div id="combo-detail" style="margin-top:14px;padding:14px;background:#fff8e1;border-radius:10px;border:2px solid #ffe082;display:none;">
+        <div id="combo-detail-content"></div>
+      </div>
     </div>
     <div class="card">
       <h3>🎤 Try it yourself!</h3>
-      <p>Click a letter above, then click the microphone to say the sound. The app will check if you said it correctly!</p>
+      <p>Click a letter or combination above, then click the microphone to say the word. The app will check if you said it correctly!</p>
       <div class="mic-area">
         <div style="font-size:1.3em;font-weight:700;color:var(--pri-dk);margin-bottom:8px;" id="mic1-target">Click a letter first</div>
         <button class="mic-btn" id="mic1-btn" onclick="recordAlpha()">🎤</button>
@@ -332,8 +386,51 @@ function renderStage1(){
         setTimeout(()=>card.classList.remove('playing'),700);
         document.getElementById('mic1-target').textContent=`Say: "${a.word}"`;
         document.getElementById('mic1-target').dataset.word=a.word;
+        // Show detail panel
+        const detail=document.getElementById('alpha-detail');
+        detail.style.display='block';
+        detail.querySelector('#alpha-detail-content').innerHTML=`
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span style="font-size:2.2em;font-weight:700;color:var(--pri-dk);">${a.l}</span>
+            <span style="font-size:1.2em;color:#666;">${a.ipa}</span>
+          </div>
+          <p style="margin:8px 0;font-size:.9em;"><strong>🗣️ How to say it:</strong> ${a.tip}</p>
+          <p style="font-size:.88em;color:#555;"><strong>Example words:</strong></p>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;">
+            ${[a.word,...a.words2].map(w=>'<button class="btn btn-sm btn-outline" onclick="speak(\''+w+'\',0.65)">🔊 '+w+'</button>').join('')}
+          </div>`;
       };
       grid.appendChild(card);
+    });
+
+    // Combo grid
+    const cgrid=document.getElementById('combo-grid');
+    COMBOS.forEach(c=>{
+      const card=document.createElement('div');
+      card.className='sound-card vowel-card';
+      card.style.minWidth='90px';
+      card.innerHTML=`<span class="letter" style="font-size:1.3em;">${c.combo}</span><span class="ipa">${c.ipa}</span><span class="word">${c.words[0]}</span>`;
+      card.onclick=()=>{
+        speak(c.words[0],0.65);
+        card.classList.add('playing');
+        setTimeout(()=>card.classList.remove('playing'),700);
+        document.getElementById('mic1-target').textContent=`Say: "${c.words[0]}"`;
+        document.getElementById('mic1-target').dataset.word=c.words[0];
+        // Show combo detail
+        const detail=document.getElementById('combo-detail');
+        detail.style.display='block';
+        detail.querySelector('#combo-detail-content').innerHTML=`
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <span style="font-size:2em;font-weight:700;color:var(--orange);">${c.combo}</span>
+            <span style="font-size:1.1em;color:#666;">${c.ipa}</span>
+          </div>
+          <p style="margin:8px 0;font-size:.9em;"><strong>🗣️ How to say it:</strong> ${c.tip}</p>
+          <p style="font-size:.88em;color:#555;"><strong>Example words (click to hear):</strong></p>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;">
+            ${c.words.map(w=>'<button class="btn btn-sm btn-outline" onclick="speak(\''+w+'\',0.65);document.getElementById(\'mic1-target\').textContent=\'Say: \\u0022'+w+'\\u0022\';document.getElementById(\'mic1-target\').dataset.word=\''+w+'\';">🔊 '+w+'</button>').join('')}
+          </div>`;
+      };
+      cgrid.appendChild(card);
     });
   },100);
   return div;
