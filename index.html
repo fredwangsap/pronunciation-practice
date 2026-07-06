@@ -470,8 +470,18 @@ function renderStage2(){
   div.innerHTML=`
     <div class="card">
       <h2>🔊 Stage 2: Vowel Sounds</h2>
-      <p>English has <strong>short</strong> and <strong>long</strong> vowel sounds. Click to hear the difference!</p>
-      <div class="tip"><strong>💡 Short vowels</strong> are quick and sharp. <strong>Long vowels</strong> take more time and your mouth shape changes.</div>
+      <p>English has <strong>5 vowel letters</strong>: they make both <strong>short</strong> and <strong>long</strong> sounds.</p>
+      <div class="tip"><strong>💡 The 5 Vowels are:</strong>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+          <span style="background:var(--pri);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:700;">A</span>
+          <span style="background:var(--pri);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:700;">E</span>
+          <span style="background:var(--pri);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:700;">I</span>
+          <span style="background:var(--pri);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:700;">O</span>
+          <span style="background:var(--pri);color:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:700;">U</span>
+        </div>
+        <p style="margin-top:8px;">Vowels are the "open" sounds — your mouth is open and air flows freely. Every English word has at least one vowel sound!</p>
+        <p style="margin-top:4px;"><strong>Short vowels</strong> are quick and sharp. <strong>Long vowels</strong> take more time and your mouth shape changes.</p>
+      </div>
       <h3>Short Vowels (quick sounds):</h3>
       <div class="sound-grid" id="short-vowels"></div>
       <h3>Long Vowels (stretched sounds):</h3>
@@ -549,8 +559,12 @@ function recordVowel(){
 function renderStage3(){
   const div=document.createElement('div');div.className='stage';div.id='stage-2';
   let html=`<div class="card"><h2>🦷 Stage 3: Consonant Sounds</h2>
-    <p>Consonants are organized by HOW you make them. Click each pair to hear the difference!</p>
-    <div class="tip"><strong>💡 Voiced vs Voiceless:</strong> Put your hand on your throat. Voiced sounds make your throat vibrate (/b/, /d/, /g/). Voiceless sounds don't (/p/, /t/, /k/).</div>`;
+    <p>Consonants are the other <strong>21 letters</strong> — all letters that are NOT vowels (A, E, I, O, U).</p>
+    <div class="tip"><strong>💡 The 21 Consonant Letters are:</strong>
+      <div style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;">${'BCDFGHJKLMNPQRSTVWXYZ'.split('').map(l=>'<span style="background:#1565c0;color:#fff;border-radius:50%;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;font-size:.9em;font-weight:700;">'+l+'</span>').join('')}</div>
+      <p style="margin-top:8px;">Consonant sounds are made when your lips, tongue, or teeth <strong>block or squeeze</strong> the air flow.</p>
+      <p style="margin-top:4px;"><strong>Voiced vs Voiceless:</strong> Put your hand on your throat. Voiced sounds (/b/, /d/, /g/) make your throat vibrate. Voiceless sounds (/p/, /t/, /k/) don't!</p>
+    </div>`;
   CONSONANT_GROUPS.forEach(g=>{
     html+=`<h3>${g.name}</h3>`;
     g.sounds.forEach(s=>{
