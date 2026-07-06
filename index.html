@@ -358,8 +358,18 @@ function renderS1(div){
 function renderS2(div){
   let h=`<div class="card"><h2>🔊 Step 2: All 20 Vowel Sounds</h2>
     <p>The <strong>5 vowel letters</strong> (A E I O U) make <strong>20 different sounds</strong>: 7 short + 5 long + 8 diphthongs.</p>
-    <div class="tip"><strong>💡 Vowels</strong> = open sounds where air flows freely. Your mouth changes SHAPE to make different vowels.<br>
-    • <strong>Short:</strong> Quick and sharp<br>• <strong>Long:</strong> Held longer<br>• <strong>Diphthong:</strong> Two sounds gliding together (your mouth moves!)</div>
+    <div class="tip"><strong>💡 Why 5 letters → 20 sounds?</strong> Each vowel letter can be pronounced multiple ways depending on the word:<br><br>
+    <strong>Letter A</strong> → /æ/ (c<b>a</b>t), /eɪ/ (c<b>a</b>ke), /ɑː/ (c<b>a</b>r), /ɔː/ (w<b>a</b>ll), /ə/ (<b>a</b>bout) — <em>5 sounds from 1 letter!</em><br>
+    <strong>Letter E</strong> → /ɛ/ (b<b>e</b>d), /iː/ (m<b>e</b>), /ɜː/ (h<b>e</b>r), /ə/ (tak<b>e</b>n) — <em>4 sounds</em><br>
+    <strong>Letter I</strong> → /ɪ/ (s<b>i</b>t), /aɪ/ (l<b>i</b>ke), /ɜː/ (b<b>i</b>rd), /ə/ (an<b>i</b>mal) — <em>4 sounds</em><br>
+    <strong>Letter O</strong> → /ɒ/ (h<b>o</b>t), /oʊ/ (g<b>o</b>), /ɔː/ (f<b>o</b>r), /ʌ/ (l<b>o</b>ve), /uː/ (d<b>o</b>) — <em>5 sounds</em><br>
+    <strong>Letter U</strong> → /ʌ/ (c<b>u</b>p), /uː/ (bl<b>u</b>e), /ʊ/ (p<b>u</b>t), /juː/ (c<b>u</b>te), /ə/ (circ<b>u</b>s) — <em>5 sounds</em><br><br>
+    Plus <strong>combinations</strong> of vowels make diphthongs: ai→/eɪ/, ou→/aʊ/, oi→/ɔɪ/, etc.<br>
+    That's how 5 little letters create 20 different sounds!</div>
+    <div class="tip"><strong>💡 The 3 types:</strong><br>
+    • <strong>Short vowels (7):</strong> Quick and sharp — your mouth barely moves<br>
+    • <strong>Long vowels (5):</strong> Held longer — same mouth shape but stretched<br>
+    • <strong>Diphthongs (8):</strong> Two sounds GLIDING together — your mouth MOVES from one shape to another!</div>
   </div><div class="ipa-grid">`;
   VOWELS.forEach(v=>{
     const cls=v.type==='short'?'short':v.type==='long'?'long':'diph';
@@ -379,10 +389,25 @@ function renderS2(div){
 function renderS3(div){
   let h=`<div class="card"><h2>🦷 Step 3: All 24 Consonant Sounds</h2>
     <p>The <strong>21 consonant letters</strong> (B C D F G H J K L M N P Q R S T V W X Y Z) make <strong>24 sounds</strong>.</p>
-    <div class="tip"><strong>💡 Consonants</strong> = sounds where lips, tongue, or teeth BLOCK the air.<br>
-    • <strong>Voiceless:</strong> No throat buzz (whisper-like): /p/ /t/ /k/ /f/ /θ/ /s/ /ʃ/ /tʃ/ /h/<br>
-    • <strong>Voiced:</strong> Throat BUZZES: /b/ /d/ /g/ /v/ /ð/ /z/ /ʒ/ /dʒ/ /m/ /n/ /ŋ/ /l/ /r/ /w/ /j/<br>
-    Put your hand on your throat to feel the difference!</div>
+    <div class="tip"><strong>💡 Why 21 letters → 24 sounds?</strong> Some letters share sounds, and some combinations create NEW sounds:<br><br>
+    <strong>Extra sounds not from a single letter:</strong><br>
+    • <strong>/ŋ/</strong> (si<b>ng</b>) — no single letter makes this! Only "ng" together<br>
+    • <strong>/ʃ/</strong> (<b>sh</b>ip) — "sh" together makes a new sound<br>
+    • <strong>/ʒ/</strong> (mea<b>s</b>ure) — hidden in some words, no letter for it<br>
+    • <strong>/tʃ/</strong> (<b>ch</b>ip) — "ch" together = /t/ + /ʃ/ combined<br>
+    • <strong>/dʒ/</strong> (<b>j</b>ump) — letter J makes this, also "ge" (bri<b>dge</b>)<br>
+    • <strong>/θ/</strong> (<b>th</b>ink) — "th" makes a sound no single letter has!<br>
+    • <strong>/ð/</strong> (<b>th</b>is) — same "th" letters but WITH voice = different sound!<br><br>
+    <strong>Letters that share sounds:</strong><br>
+    • C and K both make /k/ (cat = kat)<br>
+    • C and S both make /s/ (city, sun)<br>
+    • X = /k/ + /s/ together (bo<b>x</b> = "boks")<br>
+    • Q = /k/ + /w/ together (<b>qu</b>een = "kween")<br><br>
+    So: 21 letters − shared sounds + new combo sounds = <strong>24 unique sounds!</strong></div>
+    <div class="tip"><strong>💡 Voiced vs Voiceless — the key concept:</strong><br>
+    • <strong>Voiceless (9):</strong> No throat buzz (whisper-like): /p/ /t/ /k/ /f/ /θ/ /s/ /ʃ/ /tʃ/ /h/<br>
+    • <strong>Voiced (15):</strong> Throat BUZZES: /b/ /d/ /g/ /v/ /ð/ /z/ /ʒ/ /dʒ/ /m/ /n/ /ŋ/ /l/ /r/ /w/ /j/<br><br>
+    👋 <strong>Try this:</strong> Put your hand on your throat. Say "fffff" (no buzz) then "vvvvv" (buzz!). Same mouth position, different voice!</div>
   </div><div class="ipa-grid">`;
   CONSONANTS.forEach(c=>{
     const cls=c.v==='voiceless'?'voiceless':'voiced';
