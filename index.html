@@ -125,34 +125,32 @@ main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 
 <script>
 // ═══════════════════════════════
-// TTS — Chrome/Safari compatible with diagnostics
+// TTS — Dual-path with audio fallback
 // ═══════════════════════════════
+// Primary: speechSynthesis (works in Safari always, Chrome sometimes)
+// Fallback: <audio> element with Google Translate TTS URL (works in ALL browsers)
+// User can toggle between them via the mode button
 var TTS = {
   voices: [],
   preferredVoice: null,
   ready: false,
   audioUnlocked: false,
   lastStatus: 'idle',
+  mode: localStorage.getItem('tts-mode') || 'auto',  // 'auto', 'synth', 'audio'
+  audioEl: null,
 
   init: function() {
     var self = this;
     function loadVoices() {
       self.voices = window.speechSynthesis.getVoices();
       if (self.voices.length > 0) {
-        // Prefer high-quality English voices in this order
         var preferred = ['Google US English', 'Microsoft Aria Online (Natural)', 'Samantha', 'Alex', 'Karen', 'Daniel'];
         for (var i = 0; i < preferred.length; i++) {
           self.preferredVoice = self.voices.find(function(v) { return v.name === preferred[i]; });
           if (self.preferredVoice) break;
         }
-        // Fallback: any en-US voice
-        if (!self.preferredVoice) {
-          self.preferredVoice = self.voices.find(function(v) { return v.lang === 'en-US'; });
-        }
-        // Ultimate fallback: any English voice
-        if (!self.preferredVoice) {
-          self.preferredVoice = self.voices.find(function(v) { return v.lang.startsWith('en'); });
-        }
+        if (!self.preferredVoice) self.preferredVoice = self.voices.find(function(v) { return v.lang === 'en-US'; });
+        if (!self.preferredVoice) self.preferredVoice = self.voices.find(function(v) { return v.lang.startsWith('en'); });
         self.ready = true;
       }
     }
@@ -160,18 +158,19 @@ var TTS = {
     if (window.speechSynthesis.onvoiceschanged !== undefined) {
       window.speechSynthesis.onvoiceschanged = loadVoices;
     }
-    // Chrome resume-every-10s trick (keeps engine alive)
     setInterval(function() {
       if (window.speechSynthesis.paused) window.speechSynthesis.resume();
     }, 10000);
+    // Create hidden audio element for fallback
+    self.audioEl = document.createElement('audio');
+    self.audioEl.style.display = 'none';
+    self.audioEl.preload = 'none';
+    document.body.appendChild(self.audioEl);
   },
 
   unlock: function() {
     if (this.audioUnlocked) return;
     this.audioUnlocked = true;
-    // Force voices to load
-    if (this.voices.length === 0) this.voices = window.speechSynthesis.getVoices();
-    // AudioContext unlock (helps some browsers)
     try {
       var AC = window.AudioContext || window.webkitAudioContext;
       if (AC) {
@@ -183,7 +182,6 @@ var TTS = {
         src.start(0);
       }
     } catch(e) {}
-    // SpeechSynthesis warmup
     try {
       var u = new SpeechSynthesisUtterance(' ');
       u.volume = 0;
@@ -191,53 +189,83 @@ var TTS = {
     } catch(e) {}
   },
 
-  speak: function(text, rate) {
-    this.unlock();
-    rate = rate || 0.7;
+  speakSynth: function(text, rate) {
     var self = this;
-    self.lastStatus = 'requested: ' + text;
-    self.updateDiag();
-
-    // Chrome bug: cancel without a queued utterance can hang. Only cancel if speaking.
     if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
       window.speechSynthesis.cancel();
     }
-    // Chrome bug: paused engine needs resume before speaking
-    if (window.speechSynthesis.paused) {
-      window.speechSynthesis.resume();
-    }
-
+    if (window.speechSynthesis.paused) window.speechSynthesis.resume();
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.rate = rate;
     u.pitch = 1.05;
     u.volume = 1.0;
     if (this.preferredVoice) u.voice = this.preferredVoice;
-
-    u.onstart = function() { self.lastStatus = '🔊 speaking: ' + text; self.updateDiag(); };
-    u.onend = function() { self.lastStatus = '✅ done: ' + text; self.updateDiag(); };
-    u.onerror = function(e) { self.lastStatus = '❌ error: ' + (e.error || 'unknown'); self.updateDiag(); };
-
+    u.onstart = function() { self.lastStatus = '🔊 [synth] speaking: ' + text; self.updateDiag(); };
+    u.onend = function() { self.lastStatus = '✅ [synth] done: ' + text; self.updateDiag(); };
+    u.onerror = function(e) {
+      self.lastStatus = '❌ [synth] error: ' + (e.error || 'unknown') + ' — switching to audio fallback';
+      self.updateDiag();
+      self.speakAudio(text, rate);
+    };
     window.speechSynthesis.speak(u);
+  },
+
+  speakAudio: function(text, rate) {
+    var self = this;
+    var url = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=' + encodeURIComponent(text);
+    self.lastStatus = '🔊 [audio] loading: ' + text;
+    self.updateDiag();
+    self.audioEl.src = url;
+    self.audioEl.playbackRate = rate < 1 ? Math.max(0.5, rate + 0.2) : rate;
+    self.audioEl.onplaying = function() { self.lastStatus = '🔊 [audio] playing: ' + text; self.updateDiag(); };
+    self.audioEl.onended = function() { self.lastStatus = '✅ [audio] done: ' + text; self.updateDiag(); };
+    self.audioEl.onerror = function() { self.lastStatus = '❌ [audio] failed to load. Try Safari or check network.'; self.updateDiag(); };
+    var p = self.audioEl.play();
+    if (p && p.catch) p.catch(function(e) { self.lastStatus = '❌ [audio] play blocked: ' + e.message; self.updateDiag(); });
+  },
+
+  speak: function(text, rate) {
+    this.unlock();
+    rate = rate || 0.7;
+    this.lastStatus = 'requested: ' + text;
+    this.updateDiag();
+    if (this.mode === 'audio') {
+      this.speakAudio(text, rate);
+    } else {
+      this.speakSynth(text, rate);
+    }
+  },
+
+  setMode: function(mode) {
+    this.mode = mode;
+    localStorage.setItem('tts-mode', mode);
+    this.updateDiag();
+    var btn = document.getElementById('tts-mode-btn');
+    if (btn) btn.textContent = mode === 'audio' ? '🎵 Audio mode (Google TTS)' : '🎤 Synth mode (browser)';
+  },
+
+  toggleMode: function() {
+    this.setMode(this.mode === 'audio' ? 'synth' : 'audio');
   },
 
   updateDiag: function() {
     var el = document.getElementById('tts-diag');
     if (el) {
-      el.textContent = this.lastStatus + ' | voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + ' | voices: ' + this.voices.length;
+      el.innerHTML = '<span>' + this.lastStatus + '</span>' +
+        ' <button id="tts-mode-btn" onclick="TTS.toggleMode()" style="margin-left:10px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff;color:#856404;cursor:pointer;">' +
+        (this.mode === 'audio' ? '🎵 Audio mode (Google TTS)' : '🎤 Synth mode (browser)') + '</button>' +
+        ' <span style="opacity:.7;font-size:.85em;">' + (this.mode === 'audio' ? '(reliable)' : '(voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + ')') + '</span>';
     }
   }
 };
 
 TTS.init();
-
-// Auto-unlock on first user interaction
 document.addEventListener('click', function() { TTS.unlock(); }, { once: true });
 document.addEventListener('touchstart', function() { TTS.unlock(); }, { once: true });
+setTimeout(function() { TTS.updateDiag(); }, 100);
 
-function speak(text, rate) {
-  TTS.speak(text, rate);
-}
+function speak(text, rate) { TTS.speak(text, rate); }
 
 // Speech Recognition
 let recognition=null,isRecording=false;
