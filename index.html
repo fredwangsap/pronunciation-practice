@@ -468,6 +468,14 @@ function renderStep2(div){
     h+=`<div class="sentence-box"><button class="btn btn-sm" onclick="speakNormal('${s.text}')">🔊</button> ${words}</div>`;
   });
   h+=`</div>`;
+
+  // GAP 3 FIX: Add rhythm tapping exercise
+  h+=`<div class="card"><h3>🥁 Rhythm Tapping: Tap the Beat!</h3>
+    <p>English has a <strong>DA-da-DA-da</strong> rhythm. Stressed syllables are like strong drum beats. Press the <strong>spacebar</strong> or tap the button along with the rhythm!</p>
+    <div id="rhythm-ex" style="margin:12px 0;"></div>
+    <div class="tip"><strong>💡 Try this:</strong> Listen to the sentence, then tap spacebar on each STRESSED word. The dots will light up green if you tap in rhythm!</div>
+  </div>`;
+
   h+=`<div class="nav"><button class="nav-btn" onclick="goStage(0)">◀ Step 1</button><button class="nav-btn fwd" onclick="goStage(2)">Step 3: Connected Speech ▶</button></div>`;
   div.innerHTML=h;
 
@@ -482,6 +490,35 @@ function renderStep2(div){
       inner+=`</span>`;
       row.innerHTML=inner;ex.appendChild(row);
     });
+
+    // Rhythm tapping exercise
+    const rhythmEx=document.getElementById('rhythm-ex');if(!rhythmEx)return;
+    const rhythmSentences=[
+      {text:'I WANT a BIG CAKE',beats:[1,1,0,1,1]},
+      {text:'She WENT to the PARK',beats:[0,1,0,0,1]},
+      {text:'The CHILDREN are PLAYING',beats:[0,1,0,1]},
+    ];
+    rhythmSentences.forEach((rs,ri)=>{
+      const row=document.createElement('div');
+      row.style.cssText='margin-bottom:14px;padding:12px;background:#f9f9f9;border-radius:10px;border:2px solid #e8e8e8;';
+      const words=rs.text.split(' ');
+      let dotsHtml=words.map((w,wi)=>{
+        const isStrong=rs.beats[wi]===1;
+        return `<span style="display:inline-flex;flex-direction:column;align-items:center;margin:0 4px;">
+          <span id="rdot-${ri}-${wi}" style="width:${isStrong?'18px':'12px'};height:${isStrong?'18px':'12px'};border-radius:50%;background:${isStrong?'#1565c0':'#ccc'};display:inline-block;margin-bottom:4px;transition:all .2s;"></span>
+          <span style="font-size:.8em;${isStrong?'font-weight:700;color:var(--pri-dk);':'color:#999;'}">${w}</span>
+        </span>`;
+      }).join('');
+      row.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-sm" onclick="playRhythm(${ri})">▶ Play</button>
+        <button class="btn btn-sm btn-outline" onclick="startTapping(${ri})">🥁 Tap Along</button>
+        <div style="display:flex;align-items:flex-end;gap:2px;flex-wrap:wrap;" id="rhythm-dots-${ri}">${dotsHtml}</div>
+      </div>`;
+      rhythmEx.appendChild(row);
+    });
+
+    // Store rhythm data globally
+    window._rhythmData=rhythmSentences;
   },50);
 }
 
@@ -503,6 +540,45 @@ function chkStress(){
   const fb=document.getElementById('fb-stress');
   fb.className=ok===STRESS_WORDS.length?'fb ok':'fb part';
   fb.textContent=ok===STRESS_WORDS.length?`🎉 Perfect! ${ok}/${STRESS_WORDS.length}`:`👍 ${ok}/${STRESS_WORDS.length}. Green = correct stress.`;
+}
+
+// Rhythm functions
+function playRhythm(ri){
+  const rs=window._rhythmData[ri];
+  const words=rs.text.split(' ');
+  let i=0;
+  const interval=setInterval(()=>{
+    if(i>=words.length){clearInterval(interval);return;}
+    const dot=document.getElementById(`rdot-${ri}-${i}`);
+    if(dot){dot.style.background=rs.beats[i]?'#ffd700':'#90caf9';dot.style.transform='scale(1.4)';
+      setTimeout(()=>{dot.style.transform='scale(1)';},300);}
+    if(rs.beats[i])speak(words[i],1.0);
+    i++;
+  },500);
+}
+function startTapping(ri){
+  const rs=window._rhythmData[ri];
+  const words=rs.text.split(' ');
+  let beatIdx=0,startTime=Date.now();
+  // Reset dots
+  words.forEach((_,wi)=>{const d=document.getElementById(`rdot-${ri}-${wi}`);if(d){d.style.background=rs.beats[wi]?'#1565c0':'#ccc';}});
+  // Play the sentence
+  speakNormal(rs.text);
+  // Listen for spacebar taps
+  const handler=(e)=>{
+    if(e.code!=='Space'||beatIdx>=words.length)return;
+    e.preventDefault();
+    const dot=document.getElementById(`rdot-${ri}-${beatIdx}`);
+    if(dot){
+      if(rs.beats[beatIdx]){dot.style.background='#4caf50';dot.style.transform='scale(1.5)';}
+      else{dot.style.background='#ff5722';dot.style.transform='scale(1.3)';}
+      setTimeout(()=>{dot.style.transform='scale(1)';},200);
+    }
+    beatIdx++;
+    if(beatIdx>=words.length){document.removeEventListener('keydown',handler);}
+  };
+  document.addEventListener('keydown',handler);
+  setTimeout(()=>document.removeEventListener('keydown',handler),5000);
 }
 
 // ═══════════════════════════════
@@ -530,8 +606,30 @@ function renderStep3(div){
     </div>`;
   });
   h+=`</div>`;
+
+  // GAP 2 FIX: Add mic practice to Connected Speech
+  h+=`<div class="card"><h3>🎤 Practice: Say It Naturally</h3>
+    <p>Try saying these linked phrases naturally — the speech recognition checks if you sound connected!</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;" id="link-words-s3"></div>
+    <div class="mic-area">
+      <div style="font-size:1.1em;font-weight:600;color:var(--pri-dk);margin-bottom:8px;" id="mic3-target">Click a phrase above</div>
+      <button class="mic-btn" id="mic3-btn" onclick="genericRecord('mic3',document.getElementById('mic3-target').dataset.word,true)">🎤</button>
+      <div class="mic-status" id="mic3-status">Click to record</div>
+      <div id="mic3-result"></div>
+    </div>
+  </div>`;
+
   h+=`<div class="nav"><button class="nav-btn" onclick="goStage(1)">◀ Step 2</button><button class="nav-btn fwd" onclick="goStage(3)">Step 4: Shadowing ▶</button></div>`;
   div.innerHTML=h;
+
+  setTimeout(()=>{
+    const lw=document.getElementById('link-words-s3');if(!lw)return;
+    LINKING_EXAMPLES.slice(0,6).forEach(ex=>{
+      const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=ex.written;
+      b.onclick=()=>{speakNormal(ex.written);setMicTarget('mic3',ex.written);};
+      lw.appendChild(b);
+    });
+  },50);
 }
 
 // ═══════════════════════════════
@@ -622,6 +720,36 @@ function renderStep5(div){
     </div>
   </div>`;
 
+  // GAP 1 FIX: Audio recording + playback for self-comparison
+  h+=`<div class="card"><h3>🎙️ Record & Compare</h3>
+    <p>Record yourself saying a word or sentence, then <strong>play it back</strong> and compare with the native pronunciation side by side!</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;" id="rec-words"></div>
+    <div style="text-align:center;margin:14px 0;padding:16px;background:#f5f5f5;border-radius:12px;border:2px dashed #ccc;">
+      <div style="font-size:1.1em;font-weight:700;color:var(--pri-dk);margin-bottom:10px;" id="rec-target">Click a word above to practice</div>
+      <div style="display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
+        <div style="text-align:center;">
+          <div style="font-size:.75em;color:#888;margin-bottom:4px;">Native:</div>
+          <button class="btn btn-sm" id="rec-native-btn" onclick="hearRecTarget()">🔊 Hear Native</button>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:.75em;color:#888;margin-bottom:4px;">Your recording:</div>
+          <button class="mic-btn" id="rec-mic-btn" onclick="toggleRecording()" style="width:50px;height:50px;font-size:1.2em;">🎙️</button>
+        </div>
+      </div>
+      <div class="mic-status" id="rec-status">Click 🎙️ to start recording</div>
+      <div id="rec-playback" style="margin-top:10px;display:none;">
+        <p style="font-size:.82em;color:var(--green);font-weight:600;margin-bottom:6px;">✅ Recording saved! Play it back:</p>
+        <audio id="rec-audio" controls style="width:100%;max-width:300px;"></audio>
+        <div style="margin-top:8px;">
+          <button class="btn btn-sm btn-outline" onclick="hearRecTarget()">🔊 Hear Native Again</button>
+          <button class="btn btn-sm btn-outline" onclick="clearRecording()">🗑️ Delete & Retry</button>
+        </div>
+      </div>
+    </div>
+    <div class="warn"><strong>💡 How to use:</strong><br>
+    1. Click a word/sentence → 2. Click 🔊 to hear the native version → 3. Click 🎙️ to record yourself → 4. Play back your recording → 5. Compare! Do you sound the same?</div>
+  </div>`;
+
   h+=`<div class="card"><h3>📋 Daily Practice Checklist (15–20 min)</h3>
     <ul style="padding-left:20px;margin-top:8px;line-height:2;">
       <li>🔤 Review 5 sounds — focus on your weak ones (3 min)</li>
@@ -642,6 +770,14 @@ function renderStep5(div){
       const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=w;
       b.onclick=()=>{speak(w,0.6);setMicTarget('mic5',w);};
       vtt.appendChild(b);
+    });
+    // Record & Compare section words
+    const recW=document.getElementById('rec-words');if(!recW)return;
+    const recWords=['ship','sheep','think','three','light','right','bird','nurse','beautiful','comfortable','I love it','turn off the light'];
+    recWords.forEach(w=>{
+      const b=document.createElement('button');b.className='btn btn-sm btn-outline';b.textContent=w;
+      b.onclick=()=>{document.getElementById('rec-target').textContent=w;document.getElementById('rec-target').dataset.word=w;speak(w,0.65);};
+      recW.appendChild(b);
     });
   },50);
 }
@@ -778,6 +914,62 @@ function genericRecord(prefix,target,isSentence){
       }
     }
   },err=>{btn.classList.remove('recording');st.textContent=err;});
+}
+
+// ═══════════════════════════════
+// MEDIARECORDER: Record & Playback
+// ═══════════════════════════════
+let mediaRecorder=null,audioChunks=[],recStream=null;
+
+function hearRecTarget(){
+  const word=document.getElementById('rec-target').dataset.word;
+  if(word)speak(word,0.65);
+}
+
+async function toggleRecording(){
+  const btn=document.getElementById('rec-mic-btn');
+  const status=document.getElementById('rec-status');
+  const playback=document.getElementById('rec-playback');
+
+  if(mediaRecorder&&mediaRecorder.state==='recording'){
+    // Stop recording
+    mediaRecorder.stop();
+    btn.classList.remove('recording');
+    btn.textContent='🎙️';
+    status.textContent='Processing...';
+    return;
+  }
+
+  // Start recording
+  try{
+    recStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    mediaRecorder=new MediaRecorder(recStream);
+    audioChunks=[];
+    mediaRecorder.ondataavailable=(e)=>{if(e.data.size>0)audioChunks.push(e.data);};
+    mediaRecorder.onstop=()=>{
+      const blob=new Blob(audioChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(blob);
+      const audio=document.getElementById('rec-audio');
+      audio.src=url;
+      playback.style.display='block';
+      status.textContent='Done! Play back your recording and compare.';
+      // Stop mic access
+      recStream.getTracks().forEach(t=>t.stop());
+    };
+    mediaRecorder.start();
+    btn.classList.add('recording');
+    btn.textContent='⏹️';
+    status.textContent='🔴 Recording... Click ⏹️ to stop';
+    playback.style.display='none';
+  }catch(e){
+    status.textContent='⚠️ Microphone access denied. Please allow microphone.';
+  }
+}
+
+function clearRecording(){
+  document.getElementById('rec-playback').style.display='none';
+  document.getElementById('rec-status').textContent='Click 🎙️ to start recording';
+  document.getElementById('rec-audio').src='';
 }
 
 // START
