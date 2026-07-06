@@ -294,7 +294,7 @@ const TONGUE_TWISTERS=[
 // RENDER ENGINE
 // ═══════════════════════════════
 let currentStage=0;
-const STAGES=['Alphabet Sounds','Vowel Sounds','Consonant Sounds','Syllables & Stress','Sentences & Rhythm','Fluency Practice'];
+const STAGES=['Alphabet Sounds','Vowel Sounds','Consonant Sounds','Syllables & Stress','Sentences & Rhythm','Fluency Practice','🎮 Pronunciation Game'];
 
 function init(){
   buildStageTabs();
@@ -332,6 +332,7 @@ function renderAllStages(){
   main.appendChild(renderStage4());
   main.appendChild(renderStage5());
   main.appendChild(renderStage6());
+  main.appendChild(renderStage7());
 }
 
 // ═══════════════════════════════
@@ -778,6 +779,246 @@ function recordTwister(){
     if(pct>=75){result.innerHTML=`<span class="mic-result ok">✅ ${pct}% accuracy! Well done! "${text}"</span>`;}
     else{result.innerHTML=`<span class="mic-result bad">🔄 ${pct}% — Keep trying! You said: "${text}"</span>`;}
   },(err)=>{btn.classList.remove('recording');status.textContent=err;});
+}
+
+// ═══════════════════════════════
+// STAGE 7: PRONUNCIATION GAME
+// ═══════════════════════════════
+const GAME_WORDS=[
+  // Level 1: Simple CVC words (letter sounds)
+  {word:'cat',level:1,patterns:['c→/k/','a→/æ/','t→/t/'],hint:'3 simple letter sounds'},
+  {word:'dog',level:1,patterns:['d→/d/','o→/ɒ/','g→/g/'],hint:'3 simple letter sounds'},
+  {word:'pen',level:1,patterns:['p→/p/','e→/ɛ/','n→/n/'],hint:'3 simple letter sounds'},
+  {word:'bus',level:1,patterns:['b→/b/','u→/ʌ/','s→/s/'],hint:'3 simple letter sounds'},
+  {word:'hat',level:1,patterns:['h→/h/','a→/æ/','t→/t/'],hint:'3 simple letter sounds'},
+  {word:'run',level:1,patterns:['r→/r/','u→/ʌ/','n→/n/'],hint:'3 simple letter sounds'},
+  {word:'big',level:1,patterns:['b→/b/','i→/ɪ/','g→/g/'],hint:'3 simple letter sounds'},
+  {word:'hot',level:1,patterns:['h→/h/','o→/ɒ/','t→/t/'],hint:'3 simple letter sounds'},
+  // Level 2: Common combos
+  {word:'ship',level:2,patterns:['sh→/ʃ/','i→/ɪ/','p→/p/'],hint:'sh makes one sound: "shh"'},
+  {word:'fish',level:2,patterns:['f→/f/','i→/ɪ/','sh→/ʃ/'],hint:'sh at the end'},
+  {word:'chip',level:2,patterns:['ch→/tʃ/','i→/ɪ/','p→/p/'],hint:'ch = t + sh together'},
+  {word:'think',level:2,patterns:['th→/θ/','i→/ɪ/','nk→/ŋk/'],hint:'th = tongue between teeth'},
+  {word:'ring',level:2,patterns:['r→/r/','i→/ɪ/','ng→/ŋ/'],hint:'ng = back of tongue, hum'},
+  {word:'duck',level:2,patterns:['d→/d/','u→/ʌ/','ck→/k/'],hint:'ck makes one /k/ sound'},
+  {word:'shop',level:2,patterns:['sh→/ʃ/','o→/ɒ/','p→/p/'],hint:'sh = lips forward, "shh"'},
+  {word:'that',level:2,patterns:['th→/ð/','a→/æ/','t→/t/'],hint:'th here is voiced (buzz)'},
+  // Level 3: Long vowels & combos
+  {word:'night',level:3,patterns:['n→/n/','igh→/aɪ/','t→/t/'],hint:'igh = long "eye" sound, gh is silent'},
+  {word:'rain',level:3,patterns:['r→/r/','ai→/eɪ/','n→/n/'],hint:'ai = long A sound'},
+  {word:'moon',level:3,patterns:['m→/m/','oo→/uː/','n→/n/'],hint:'oo = round lips, long "oo"'},
+  {word:'tree',level:3,patterns:['tr→/tr/','ee→/iː/'],hint:'ee = wide smile, long "ee"'},
+  {word:'boat',level:3,patterns:['b→/b/','oa→/oʊ/','t→/t/'],hint:'oa = long O sound'},
+  {word:'house',level:3,patterns:['h→/h/','ou→/aʊ/','se→/s/'],hint:'ou = "ah" then "oo"'},
+  {word:'snow',level:3,patterns:['sn→/sn/','ow→/oʊ/'],hint:'ow here = long O (like "go")'},
+  {word:'light',level:3,patterns:['l→/l/','igh→/aɪ/','t→/t/'],hint:'igh = long "eye", gh silent'},
+  // Level 4: R-controlled & tricky
+  {word:'bird',level:4,patterns:['b→/b/','ir→/ɜːr/','d→/d/'],hint:'ir = tongue middle + R'},
+  {word:'star',level:4,patterns:['st→/st/','ar→/ɑːr/'],hint:'ar = mouth wide open + R'},
+  {word:'horse',level:4,patterns:['h→/h/','or→/ɔːr/','se→/s/'],hint:'or = round lips + R'},
+  {word:'nurse',level:4,patterns:['n→/n/','ur→/ɜːr/','se→/s/'],hint:'ur = same as ir and er'},
+  {word:'water',level:4,patterns:['w→/w/','a→/ɔː/','t→/t/','er→/ər/'],hint:'er at end = weak "uh" + R'},
+  {word:'teacher',level:4,patterns:['t→/t/','ea→/iː/','ch→/tʃ/','er→/ər/'],hint:'ea=long ee, ch=tch, er=weak'},
+  {word:'phone',level:4,patterns:['ph→/f/','o→/oʊ/','ne→silent'],hint:'ph = same as F, e is silent'},
+  {word:'knife',level:4,patterns:['kn→/n/','i→/aɪ/','fe→/f/'],hint:'k is silent! Just say "nife"'},
+  // Level 5: Challenge words
+  {word:'elephant',level:5,patterns:['e→/ɛ/','l→/l/','e→/ə/','ph→/f/','a→/ə/','nt→/nt/'],hint:'ph=F, unstressed vowels become "uh"'},
+  {word:'beautiful',level:5,patterns:['b→/b/','eau→/juː/','t→/t/','i→/ə/','ful→/fəl/'],hint:'eau = "you", stress on BEAU'},
+  {word:'knight',level:5,patterns:['kn→/n/','igh→/aɪ/','t→/t/'],hint:'k silent, gh silent! Say "nite"'},
+  {word:'daughter',level:5,patterns:['d→/d/','augh→/ɔː/','t→/t/','er→/ər/'],hint:'augh = "aw" sound, gh silent'},
+  {word:'through',level:5,patterns:['thr→/θr/','ough→/uː/'],hint:'th + r together, ough = "oo"'},
+  {word:'island',level:5,patterns:['i→/aɪ/','s→silent','l→/l/','a→/ə/','nd→/nd/'],hint:'s is silent! Say "eye-lund"'},
+  {word:'chocolate',level:5,patterns:['ch→/tʃ/','o→/ɒ/','c→/k/','l→/l/','ate→/ət/'],hint:'3 syllables: CHOC-late (middle "o" disappears)'},
+  {word:'Wednesday',level:5,patterns:['W→/w/','e→/ɛ/','d→silent','n→/n/','es→/z/','d→/d/','ay→/eɪ/'],hint:'First d is silent! Say "WENZ-day"'},
+];
+
+let gameState={level:1,score:0,streak:0,total:0,current:null,history:[]};
+
+function renderStage7(){
+  const div=document.createElement('div');div.className='stage';div.id='stage-6';
+  div.innerHTML=`
+    <div class="card">
+      <h2>🎮 Pronunciation Game</h2>
+      <p>A random word appears — use what you learned about letter sounds and combinations to <strong>guess how to pronounce it</strong>, then say it into the microphone!</p>
+      <div class="tip"><strong>💡 How to play:</strong><br>
+      1. Look at the word and its letter patterns<br>
+      2. Think about each sound using the rules you learned<br>
+      3. Click "Show Hints" if you need help<br>
+      4. Click 🔊 to hear the correct pronunciation<br>
+      5. Click 🎤 to say it yourself — speech recognition checks if you got it!</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span class="badge" style="background:rgba(45,106,79,.1);border-color:var(--pri);color:var(--pri);">Level <span id="g-level">1</span>/5</span>
+        <span class="badge" style="background:rgba(201,162,39,.1);border-color:var(--gold);color:#856404;">Score: <span id="g-score">0</span></span>
+        <span class="badge" style="background:rgba(21,101,192,.1);border-color:var(--blue);color:var(--blue);">Streak: <span id="g-streak">0</span>🔥</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="g-progress" style="width:0%"></div></div>
+      <div id="g-word-area" style="margin:20px 0;">
+        <div id="g-word" style="font-size:clamp(2em,8vw,3.5em);font-weight:700;color:var(--pri-dk);letter-spacing:3px;margin-bottom:6px;"></div>
+        <div id="g-level-label" style="font-size:.8em;color:#888;margin-bottom:10px;"></div>
+        <div id="g-patterns" style="display:none;margin:12px 0;"></div>
+        <div id="g-hint" style="display:none;background:#fff8e1;border:2px solid #ffe082;border-radius:8px;padding:8px 12px;font-size:.85em;color:#856404;margin:8px auto;max-width:400px;"></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0;">
+        <button class="btn btn-outline" onclick="showGameHints()">💡 Show Hints</button>
+        <button class="btn btn-outline" onclick="hearGameWord()">🔊 Hear It</button>
+        <button class="btn" onclick="skipGameWord()">⏭️ Skip</button>
+      </div>
+      <div class="mic-area" style="margin-top:14px;">
+        <p style="font-size:.88em;color:#666;margin-bottom:8px;">Say the word into your microphone:</p>
+        <button class="mic-btn" id="g-mic-btn" onclick="recordGame()">🎤</button>
+        <div class="mic-status" id="g-mic-status">Click to record your pronunciation</div>
+        <div id="g-mic-result" style="margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="card" id="g-history-card" style="display:none;">
+      <h3>📊 Your Results</h3>
+      <div id="g-history"></div>
+    </div>
+    <div class="card">
+      <h3>⚙️ Settings</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <span style="font-size:.88em;">Start at level:</span>
+        <button class="btn btn-sm btn-outline" onclick="setGameLevel(1)">1 (Easy)</button>
+        <button class="btn btn-sm btn-outline" onclick="setGameLevel(2)">2</button>
+        <button class="btn btn-sm btn-outline" onclick="setGameLevel(3)">3</button>
+        <button class="btn btn-sm btn-outline" onclick="setGameLevel(4)">4</button>
+        <button class="btn btn-sm btn-outline" onclick="setGameLevel(5)">5 (Hard)</button>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="goStage(5)">◀ Stage 6</button>
+      <span style="font-size:.85em;color:var(--pri);">🎮 Have fun practising!</span>
+    </div>`;
+  setTimeout(()=>loadGameWord(),200);
+  return div;
+}
+
+function setGameLevel(lvl){
+  gameState.level=lvl;
+  gameState.score=0;gameState.streak=0;gameState.total=0;gameState.history=[];
+  document.getElementById('g-score').textContent=0;
+  document.getElementById('g-streak').textContent=0;
+  document.getElementById('g-history-card').style.display='none';
+  loadGameWord();
+}
+
+function loadGameWord(){
+  // Pick a word from current level (or below for warm-up)
+  const pool=GAME_WORDS.filter(w=>w.level<=gameState.level);
+  // Weight towards current level
+  const weighted=pool.filter(w=>w.level===gameState.level);
+  const usePool=(Math.random()<0.7&&weighted.length>0)?weighted:pool;
+  const word=usePool[Math.floor(Math.random()*usePool.length)];
+  gameState.current=word;
+
+  document.getElementById('g-word').textContent=word.word;
+  document.getElementById('g-level-label').textContent=`Level ${word.level} word`;
+  document.getElementById('g-level').textContent=gameState.level;
+  document.getElementById('g-score').textContent=gameState.score;
+  document.getElementById('g-streak').textContent=gameState.streak;
+  document.getElementById('g-progress').style.width=Math.min(100,gameState.total*10)+'%';
+
+  // Hide hints
+  document.getElementById('g-patterns').style.display='none';
+  document.getElementById('g-hint').style.display='none';
+  document.getElementById('g-mic-result').innerHTML='';
+  document.getElementById('g-mic-status').textContent='Click to record your pronunciation';
+}
+
+function showGameHints(){
+  const word=gameState.current;
+  if(!word)return;
+  const pEl=document.getElementById('g-patterns');
+  pEl.style.display='block';
+  pEl.innerHTML=`<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">${word.patterns.map(p=>{
+    const[letters,sound]=p.split('→');
+    return `<span style="background:#e8f5e9;border:2px solid #a5d6a7;border-radius:8px;padding:4px 10px;font-size:.88em;"><strong style="color:var(--pri-dk);">${letters}</strong> <span style="color:#666;">→</span> <em style="color:var(--orange);">${sound}</em></span>`;
+  }).join('')}</div>`;
+  const hEl=document.getElementById('g-hint');
+  hEl.style.display='block';
+  hEl.textContent='💡 '+word.hint;
+}
+
+function hearGameWord(){
+  if(!gameState.current)return;
+  speak(gameState.current.word,0.65);
+}
+
+function skipGameWord(){
+  addGameHistory(gameState.current.word,false,'skipped');
+  gameState.streak=0;
+  gameState.total++;
+  loadGameWord();
+}
+
+function recordGame(){
+  if(!gameState.current)return;
+  const target=gameState.current.word;
+  const btn=document.getElementById('g-mic-btn');
+  const status=document.getElementById('g-mic-status');
+  const result=document.getElementById('g-mic-result');
+
+  if(isRecording){stopListening();btn.classList.remove('recording');status.textContent='Click to record';return;}
+  btn.classList.add('recording');
+  status.textContent='🔴 Listening... Say the word now!';
+  result.innerHTML='';
+
+  startListening((text)=>{
+    btn.classList.remove('recording');
+    status.textContent='Click to record your pronunciation';
+    const spoken=text.toLowerCase().trim();
+    const expected=target.toLowerCase();
+
+    // Check if spoken text contains the target word
+    if(spoken===expected || spoken.includes(expected) || expected.includes(spoken)){
+      // Correct!
+      const points=gameState.current.level*10;
+      gameState.score+=points;
+      gameState.streak++;
+      gameState.total++;
+      result.innerHTML=`<span class="mic-result ok">✅ Correct! You said "${text}" — +${points} points! ${gameState.streak>=3?'🔥 '+gameState.streak+' streak!':''}</span>`;
+      addGameHistory(target,true,text);
+
+      // Level up after 5 correct in a row
+      if(gameState.streak>=5 && gameState.level<5){
+        gameState.level++;
+        gameState.streak=0;
+        setTimeout(()=>{result.innerHTML+=`<br><span class="mic-result ok" style="background:#e3f2fd;color:var(--blue);border-color:#90caf9;">⬆️ Level Up! Now at Level ${gameState.level}!</span>`;},500);
+      }
+      setTimeout(()=>loadGameWord(),2000);
+    } else {
+      // Wrong
+      gameState.streak=0;
+      gameState.total++;
+      result.innerHTML=`<span class="mic-result bad">❌ You said "${text}" — the word is "${target}". Click 🔊 to hear it!</span>`;
+      addGameHistory(target,false,text);
+      setTimeout(()=>speak(target,0.6),1000);
+    }
+  },(err)=>{
+    btn.classList.remove('recording');
+    status.textContent=err;
+  });
+}
+
+function addGameHistory(word,correct,spoken){
+  gameState.history.unshift({word,correct,spoken,time:new Date()});
+  if(gameState.history.length>20)gameState.history.pop();
+  renderGameHistory();
+}
+
+function renderGameHistory(){
+  const card=document.getElementById('g-history-card');
+  const el=document.getElementById('g-history');
+  if(gameState.history.length===0){card.style.display='none';return;}
+  card.style.display='block';
+  el.innerHTML=gameState.history.slice(0,10).map(h=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #eee;font-size:.85em;">
+      <span style="font-size:1.1em;">${h.correct?'✅':'❌'}</span>
+      <strong style="color:var(--pri-dk);">${h.word}</strong>
+      <span style="color:#888;">— you said: "${h.spoken}"</span>
+    </div>`).join('');
 }
 
 // START
