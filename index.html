@@ -371,14 +371,15 @@ function renderS2(div){
     • <strong>Long vowels (5):</strong> Held longer — same mouth shape but stretched<br>
     • <strong>Diphthongs (8):</strong> Two sounds GLIDING together — your mouth MOVES from one shape to another!</div>
   </div><div class="ipa-grid">`;
-  VOWELS.forEach(v=>{
+  VOWELS.forEach((v,vi)=>{
     const cls=v.type==='short'?'short':v.type==='long'?'long':'diph';
     const fromHtml=v.from.map(f=>`<span style="display:inline-block;background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#e65100;font-weight:600;">${f}</span>`).join('');
-    h+=`<div class="ipa-card ${cls}" onclick="this.querySelector('.from-info').style.display=this.querySelector('.from-info').style.display==='none'?'block':'none'">
+    h+=`<div class="ipa-card ${cls}">
       <div><span class="sym">${v.sym}</span><span class="type-badge">${v.type}</span></div>
       <div class="desc">🗣️ ${v.how}</div>
       <div class="words">${v.ex.map(w=>spkBtn(w)).join('')}</div>
-      <div class="from-info" style="display:none;margin-top:8px;padding:8px;background:#fffde7;border-radius:8px;border:1px solid #fff176;">
+      <button class="ex-btn" style="margin-top:8px;background:#fffde7;border-color:#ffe082;color:#e65100;" onclick="event.stopPropagation();var p=document.getElementById('vfrom-${vi}');p.style.display=p.style.display==='none'?'block':'none';">📝 Show/Hide Spellings</button>
+      <div class="from-info" id="vfrom-${vi}" style="display:none;margin-top:8px;padding:8px;background:#fffde7;border-radius:8px;border:1px solid #fff176;">
         <div style="font-size:.75em;font-weight:700;color:#e65100;margin-bottom:4px;">📝 This sound can be spelled as:</div>
         <div style="display:flex;flex-wrap:wrap;gap:2px;">${fromHtml}</div>
       </div>
@@ -414,14 +415,15 @@ function renderS3(div){
     • <strong>Voiced (15):</strong> Throat BUZZES: /b/ /d/ /g/ /v/ /ð/ /z/ /ʒ/ /dʒ/ /m/ /n/ /ŋ/ /l/ /r/ /w/ /j/<br><br>
     👋 <strong>Try this:</strong> Put your hand on your throat. Say "fffff" (no buzz) then "vvvvv" (buzz!). Same mouth position, different voice!</div>
   </div><div class="ipa-grid">`;
-  CONSONANTS.forEach(c=>{
+  CONSONANTS.forEach((c,ci)=>{
     const cls=c.v==='voiceless'?'voiceless':'voiced';
     const fromHtml=c.from.map(f=>`<span style="display:inline-block;background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#1565c0;font-weight:600;">${f}</span>`).join('');
-    h+=`<div class="ipa-card ${cls}" onclick="this.querySelector('.from-info').style.display=this.querySelector('.from-info').style.display==='none'?'block':'none'">
+    h+=`<div class="ipa-card ${cls}">
       <div><span class="sym">${c.sym}</span><span class="type-badge">${c.type} · ${c.v}</span></div>
       <div class="desc">🗣️ ${c.how}</div>
       <div class="words">${c.ex.map(w=>spkBtn(w)).join('')}</div>
-      <div class="from-info" style="display:none;margin-top:8px;padding:8px;background:#e8f4fd;border-radius:8px;border:1px solid #90caf9;">
+      <button class="ex-btn" style="margin-top:8px;background:#e8f4fd;border-color:#90caf9;color:#1565c0;" onclick="event.stopPropagation();var p=document.getElementById('cfrom-${ci}');p.style.display=p.style.display==='none'?'block':'none';">📝 Show/Hide Spellings</button>
+      <div class="from-info" id="cfrom-${ci}" style="display:none;margin-top:8px;padding:8px;background:#e8f4fd;border-radius:8px;border:1px solid #90caf9;">
         <div style="font-size:.75em;font-weight:700;color:#1565c0;margin-bottom:4px;">📝 This sound can be spelled as:</div>
         <div style="display:flex;flex-wrap:wrap;gap:2px;">${fromHtml}</div>
       </div>
