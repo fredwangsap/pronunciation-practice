@@ -399,7 +399,7 @@ function renderS2(div){
     const cls=v.type==='short'?'short':v.type==='long'?'long':'diph';
     const fromHtml=v.from.map(f=>`<span style="display:inline-block;background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#e65100;font-weight:600;">${f}</span>`).join('');
     h+=`<div class="ipa-card ${cls}">
-      <div style="display:flex;align-items:center;gap:8px;"><button class="ex-btn" style="font-size:1.1em;padding:6px 12px;background:#f0fdf4;border-color:#2d6a4f;" onclick="event.stopPropagation();speak('${v.ex[0]}',0.6)">🔊</button><span class="sym">${v.sym}</span><span class="type-badge">${v.type}</span></div>
+      <div><span class="sym">${v.sym}</span><span class="type-badge">${v.type}</span></div>
       <div class="desc">🗣️ ${v.how}</div>
       <div class="words">${v.ex.map(w=>spkBtn(w)).join('')}</div>
       <button class="ex-btn" style="margin-top:8px;background:#fffde7;border-color:#ffe082;color:#e65100;" onclick="event.stopPropagation();var p=document.getElementById('vfrom-${vi}');p.style.display=p.style.display==='none'?'block':'none';">📝 Show/Hide Spellings</button>
@@ -443,7 +443,7 @@ function renderS3(div){
     const cls=c.v==='voiceless'?'voiceless':'voiced';
     const fromHtml=c.from.map(f=>`<span style="display:inline-block;background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#1565c0;font-weight:600;">${f}</span>`).join('');
     h+=`<div class="ipa-card ${cls}">
-      <div style="display:flex;align-items:center;gap:8px;"><button class="ex-btn" style="font-size:1.1em;padding:6px 12px;background:#f0fdf4;border-color:#2d6a4f;" onclick="event.stopPropagation();speak('${c.ex[0]}',0.6)">🔊</button><span class="sym">${c.sym}</span><span class="type-badge">${c.type} · ${c.v}</span></div>
+      <div><span class="sym">${c.sym}</span><span class="type-badge">${c.type} · ${c.v}</span></div>
       <div class="desc">🗣️ ${c.how}</div>
       <div class="words">${c.ex.map(w=>spkBtn(w)).join('')}</div>
       <button class="ex-btn" style="margin-top:8px;background:#e8f4fd;border-color:#90caf9;color:#1565c0;" onclick="event.stopPropagation();var p=document.getElementById('cfrom-${ci}');p.style.display=p.style.display==='none'?'block':'none';">📝 Show/Hide Spellings</button>
