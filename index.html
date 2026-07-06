@@ -366,47 +366,74 @@ function renderStage1(){
       <div class="tip"><strong>💡 Why learn the IPA?</strong><br>
       • English spelling is tricky — "ough" can sound different in: th<strong>ough</strong>, thr<strong>ough</strong>, c<strong>ough</strong>, r<strong>ough</strong><br>
       • The IPA gives you ONE symbol for ONE sound — always the same!<br>
-      • Every dictionary uses IPA: when you see a new word, just read the IPA to know how to say it</div>
-      <h3>Vowel Sounds in IPA:</h3>
+      • Every dictionary uses IPA: when you see a new word, just read the IPA to know how to say it<br>
+      • English has <strong>44 sounds in total</strong>: 20 vowel sounds + 24 consonant sounds</div>
+      <h3>All 20 Vowel Sounds:</h3>
+      <p style="font-size:.82em;color:#666;margin-bottom:6px;">7 short vowels + 5 long vowels + 8 diphthongs (two sounds gliding together)</p>
       <table class="verb-table" style="margin:10px 0;font-size:.85em;">
-        <tr><th>IPA Symbol</th><th>Sound</th><th>Example</th><th>Click to hear</th></tr>
-        <tr><td>/æ/</td><td>short a</td><td>c<strong>a</strong>t</td><td><button class="btn btn-sm" onclick="speak('cat',0.6)">🔊</button></td></tr>
-        <tr><td>/ɛ/</td><td>short e</td><td>b<strong>e</strong>d</td><td><button class="btn btn-sm" onclick="speak('bed',0.6)">🔊</button></td></tr>
-        <tr><td>/ɪ/</td><td>short i</td><td>s<strong>i</strong>t</td><td><button class="btn btn-sm" onclick="speak('sit',0.6)">🔊</button></td></tr>
-        <tr><td>/ɒ/</td><td>short o</td><td>h<strong>o</strong>t</td><td><button class="btn btn-sm" onclick="speak('hot',0.6)">🔊</button></td></tr>
-        <tr><td>/ʌ/</td><td>short u</td><td>c<strong>u</strong>p</td><td><button class="btn btn-sm" onclick="speak('cup',0.6)">🔊</button></td></tr>
-        <tr><td>/eɪ/</td><td>long a</td><td>c<strong>a</strong>ke</td><td><button class="btn btn-sm" onclick="speak('cake',0.6)">🔊</button></td></tr>
-        <tr><td>/iː/</td><td>long e</td><td>s<strong>ee</strong></td><td><button class="btn btn-sm" onclick="speak('see',0.6)">🔊</button></td></tr>
-        <tr><td>/aɪ/</td><td>long i</td><td>l<strong>i</strong>ke</td><td><button class="btn btn-sm" onclick="speak('like',0.6)">🔊</button></td></tr>
-        <tr><td>/oʊ/</td><td>long o</td><td>g<strong>o</strong></td><td><button class="btn btn-sm" onclick="speak('go',0.6)">🔊</button></td></tr>
-        <tr><td>/uː/</td><td>long u</td><td>bl<strong>ue</strong></td><td><button class="btn btn-sm" onclick="speak('blue',0.6)">🔊</button></td></tr>
-        <tr><td>/aʊ/</td><td>ou/ow</td><td>h<strong>ou</strong>se</td><td><button class="btn btn-sm" onclick="speak('house',0.6)">🔊</button></td></tr>
-        <tr><td>/ɔɪ/</td><td>oi/oy</td><td>b<strong>oy</strong></td><td><button class="btn btn-sm" onclick="speak('boy',0.6)">🔊</button></td></tr>
-        <tr><td>/ɜːr/</td><td>er/ir/ur</td><td>b<strong>ir</strong>d</td><td><button class="btn btn-sm" onclick="speak('bird',0.6)">🔊</button></td></tr>
-        <tr><td>/ə/</td><td>schwa (weak)</td><td><strong>a</strong>bout</td><td><button class="btn btn-sm" onclick="speak('about',0.6)">🔊</button></td></tr>
+        <tr><th>#</th><th>IPA</th><th>Type</th><th>Example</th><th>Hear</th></tr>
+        <tr><td>1</td><td>/æ/</td><td>short</td><td>c<strong>a</strong>t, h<strong>a</strong>t</td><td><button class="btn btn-sm" onclick="speak('cat',0.6)">🔊</button></td></tr>
+        <tr><td>2</td><td>/ɛ/</td><td>short</td><td>b<strong>e</strong>d, r<strong>e</strong>d</td><td><button class="btn btn-sm" onclick="speak('bed',0.6)">🔊</button></td></tr>
+        <tr><td>3</td><td>/ɪ/</td><td>short</td><td>s<strong>i</strong>t, f<strong>i</strong>sh</td><td><button class="btn btn-sm" onclick="speak('sit',0.6)">🔊</button></td></tr>
+        <tr><td>4</td><td>/ɒ/</td><td>short</td><td>h<strong>o</strong>t, d<strong>o</strong>g</td><td><button class="btn btn-sm" onclick="speak('hot',0.6)">🔊</button></td></tr>
+        <tr><td>5</td><td>/ʌ/</td><td>short</td><td>c<strong>u</strong>p, b<strong>u</strong>s</td><td><button class="btn btn-sm" onclick="speak('cup',0.6)">🔊</button></td></tr>
+        <tr><td>6</td><td>/ʊ/</td><td>short</td><td>b<strong>oo</strong>k, p<strong>u</strong>t</td><td><button class="btn btn-sm" onclick="speak('book',0.6)">🔊</button></td></tr>
+        <tr><td>7</td><td>/ə/</td><td>short (schwa)</td><td><strong>a</strong>bout, teach<strong>er</strong></td><td><button class="btn btn-sm" onclick="speak('about',0.6)">🔊</button></td></tr>
+        <tr style="background:#e3f2fd;"><td>8</td><td>/iː/</td><td>long</td><td>s<strong>ee</strong>, tr<strong>ee</strong></td><td><button class="btn btn-sm" onclick="speak('see',0.6)">🔊</button></td></tr>
+        <tr style="background:#e3f2fd;"><td>9</td><td>/ɑː/</td><td>long</td><td>c<strong>ar</strong>, f<strong>ar</strong></td><td><button class="btn btn-sm" onclick="speak('car',0.6)">🔊</button></td></tr>
+        <tr style="background:#e3f2fd;"><td>10</td><td>/ɔː/</td><td>long</td><td>c<strong>all</strong>, d<strong>oor</strong></td><td><button class="btn btn-sm" onclick="speak('call',0.6)">🔊</button></td></tr>
+        <tr style="background:#e3f2fd;"><td>11</td><td>/uː/</td><td>long</td><td>bl<strong>ue</strong>, f<strong>oo</strong>d</td><td><button class="btn btn-sm" onclick="speak('blue',0.6)">🔊</button></td></tr>
+        <tr style="background:#e3f2fd;"><td>12</td><td>/ɜː/</td><td>long</td><td>b<strong>ir</strong>d, h<strong>er</strong></td><td><button class="btn btn-sm" onclick="speak('bird',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>13</td><td>/eɪ/</td><td>diphthong</td><td>c<strong>a</strong>ke, d<strong>ay</strong></td><td><button class="btn btn-sm" onclick="speak('cake',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>14</td><td>/aɪ/</td><td>diphthong</td><td>l<strong>i</strong>ke, n<strong>igh</strong>t</td><td><button class="btn btn-sm" onclick="speak('like',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>15</td><td>/ɔɪ/</td><td>diphthong</td><td>b<strong>oy</strong>, c<strong>oi</strong>n</td><td><button class="btn btn-sm" onclick="speak('boy',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>16</td><td>/aʊ/</td><td>diphthong</td><td>h<strong>ou</strong>se, c<strong>ow</strong></td><td><button class="btn btn-sm" onclick="speak('house',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>17</td><td>/oʊ/</td><td>diphthong</td><td>g<strong>o</strong>, h<strong>o</strong>me</td><td><button class="btn btn-sm" onclick="speak('go',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>18</td><td>/ɪə/</td><td>diphthong</td><td><strong>ear</strong>, h<strong>ere</strong></td><td><button class="btn btn-sm" onclick="speak('ear',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>19</td><td>/eə/</td><td>diphthong</td><td><strong>air</strong>, th<strong>ere</strong></td><td><button class="btn btn-sm" onclick="speak('air',0.6)">🔊</button></td></tr>
+        <tr style="background:#fff3e0;"><td>20</td><td>/ʊə/</td><td>diphthong</td><td>t<strong>our</strong>, p<strong>ure</strong></td><td><button class="btn btn-sm" onclick="speak('tour',0.6)">🔊</button></td></tr>
       </table>
-      <h3>Consonant Sounds in IPA:</h3>
+      <h3>All 24 Consonant Sounds:</h3>
+      <p style="font-size:.82em;color:#666;margin-bottom:6px;">Organized by how you make them. Pairs show voiceless (no buzz) / voiced (throat buzzes).</p>
       <table class="verb-table" style="margin:10px 0;font-size:.85em;">
-        <tr><th>IPA Symbol</th><th>Sound</th><th>Example</th><th>Click to hear</th></tr>
-        <tr><td>/p/ - /b/</td><td>lips pop</td><td><strong>p</strong>en / <strong>b</strong>all</td><td><button class="btn btn-sm" onclick="speak('pen',0.6)">🔊</button></td></tr>
-        <tr><td>/t/ - /d/</td><td>tongue tap</td><td><strong>t</strong>en / <strong>d</strong>og</td><td><button class="btn btn-sm" onclick="speak('ten',0.6)">🔊</button></td></tr>
-        <tr><td>/k/ - /g/</td><td>back tongue</td><td><strong>c</strong>at / <strong>g</strong>o</td><td><button class="btn btn-sm" onclick="speak('cat',0.6)">🔊</button></td></tr>
-        <tr><td>/f/ - /v/</td><td>teeth on lip</td><td><strong>f</strong>ish / <strong>v</strong>an</td><td><button class="btn btn-sm" onclick="speak('fish',0.6)">🔊</button></td></tr>
-        <tr><td>/θ/ - /ð/</td><td>tongue between teeth</td><td><strong>th</strong>ink / <strong>th</strong>is</td><td><button class="btn btn-sm" onclick="speak('think',0.6)">🔊</button></td></tr>
-        <tr><td>/s/ - /z/</td><td>hiss / buzz</td><td><strong>s</strong>un / <strong>z</strong>oo</td><td><button class="btn btn-sm" onclick="speak('sun',0.6)">🔊</button></td></tr>
-        <tr><td>/ʃ/ - /ʒ/</td><td>sh / zh</td><td><strong>sh</strong>ip / mea<strong>s</strong>ure</td><td><button class="btn btn-sm" onclick="speak('ship',0.6)">🔊</button></td></tr>
-        <tr><td>/tʃ/ - /dʒ/</td><td>ch / j</td><td><strong>ch</strong>ip / <strong>j</strong>ump</td><td><button class="btn btn-sm" onclick="speak('chip',0.6)">🔊</button></td></tr>
-        <tr><td>/m/ /n/ /ŋ/</td><td>nasal hums</td><td><strong>m</strong>ap / <strong>n</strong>o / si<strong>ng</strong></td><td><button class="btn btn-sm" onclick="speak('sing',0.6)">🔊</button></td></tr>
-        <tr><td>/l/ - /r/</td><td>liquids</td><td><strong>l</strong>eg / <strong>r</strong>un</td><td><button class="btn btn-sm" onclick="speak('leg',0.6)">🔊</button></td></tr>
-        <tr><td>/w/ - /j/</td><td>glides</td><td><strong>w</strong>et / <strong>y</strong>es</td><td><button class="btn btn-sm" onclick="speak('wet',0.6)">🔊</button></td></tr>
-        <tr><td>/h/</td><td>breath</td><td><strong>h</strong>at</td><td><button class="btn btn-sm" onclick="speak('hat',0.6)">🔊</button></td></tr>
+        <tr><th>#</th><th>IPA</th><th>Type</th><th>How to make it</th><th>Example</th><th>Hear</th></tr>
+        <tr><td>1</td><td>/p/</td><td>stop (voiceless)</td><td>Lips pop, no voice</td><td><strong>p</strong>en, cu<strong>p</strong></td><td><button class="btn btn-sm" onclick="speak('pen',0.6)">🔊</button></td></tr>
+        <tr><td>2</td><td>/b/</td><td>stop (voiced)</td><td>Lips pop, WITH voice</td><td><strong>b</strong>all, ca<strong>b</strong></td><td><button class="btn btn-sm" onclick="speak('ball',0.6)">🔊</button></td></tr>
+        <tr><td>3</td><td>/t/</td><td>stop (voiceless)</td><td>Tongue taps ridge, no voice</td><td><strong>t</strong>en, ca<strong>t</strong></td><td><button class="btn btn-sm" onclick="speak('ten',0.6)">🔊</button></td></tr>
+        <tr><td>4</td><td>/d/</td><td>stop (voiced)</td><td>Tongue taps ridge, WITH voice</td><td><strong>d</strong>og, be<strong>d</strong></td><td><button class="btn btn-sm" onclick="speak('dog',0.6)">🔊</button></td></tr>
+        <tr><td>5</td><td>/k/</td><td>stop (voiceless)</td><td>Back tongue hits soft palate, no voice</td><td><strong>c</strong>at, boo<strong>k</strong></td><td><button class="btn btn-sm" onclick="speak('cat',0.6)">🔊</button></td></tr>
+        <tr><td>6</td><td>/g/</td><td>stop (voiced)</td><td>Back tongue hits soft palate, WITH voice</td><td><strong>g</strong>o, bi<strong>g</strong></td><td><button class="btn btn-sm" onclick="speak('go',0.6)">🔊</button></td></tr>
+        <tr><td>7</td><td>/f/</td><td>fricative (voiceless)</td><td>Top teeth on lower lip, blow</td><td><strong>f</strong>ish, lea<strong>f</strong></td><td><button class="btn btn-sm" onclick="speak('fish',0.6)">🔊</button></td></tr>
+        <tr><td>8</td><td>/v/</td><td>fricative (voiced)</td><td>Top teeth on lower lip, buzz</td><td><strong>v</strong>an, lo<strong>v</strong>e</td><td><button class="btn btn-sm" onclick="speak('van',0.6)">🔊</button></td></tr>
+        <tr><td>9</td><td>/θ/</td><td>fricative (voiceless)</td><td>Tongue between teeth, blow</td><td><strong>th</strong>ink, ba<strong>th</strong></td><td><button class="btn btn-sm" onclick="speak('think',0.6)">🔊</button></td></tr>
+        <tr><td>10</td><td>/ð/</td><td>fricative (voiced)</td><td>Tongue between teeth, buzz</td><td><strong>th</strong>is, mo<strong>th</strong>er</td><td><button class="btn btn-sm" onclick="speak('this',0.6)">🔊</button></td></tr>
+        <tr><td>11</td><td>/s/</td><td>fricative (voiceless)</td><td>Tongue near ridge, hiss like a snake</td><td><strong>s</strong>un, bu<strong>s</strong></td><td><button class="btn btn-sm" onclick="speak('sun',0.6)">🔊</button></td></tr>
+        <tr><td>12</td><td>/z/</td><td>fricative (voiced)</td><td>Tongue near ridge, buzz like a bee</td><td><strong>z</strong>oo, i<strong>s</strong></td><td><button class="btn btn-sm" onclick="speak('zoo',0.6)">🔊</button></td></tr>
+        <tr><td>13</td><td>/ʃ/</td><td>fricative (voiceless)</td><td>Lips forward, wide tongue, "shh!"</td><td><strong>sh</strong>ip, fi<strong>sh</strong></td><td><button class="btn btn-sm" onclick="speak('ship',0.6)">🔊</button></td></tr>
+        <tr><td>14</td><td>/ʒ/</td><td>fricative (voiced)</td><td>Lips forward, wide tongue, buzz</td><td>mea<strong>s</strong>ure, vi<strong>si</strong>on</td><td><button class="btn btn-sm" onclick="speak('measure',0.6)">🔊</button></td></tr>
+        <tr><td>15</td><td>/tʃ/</td><td>affricate (voiceless)</td><td>Start like /t/ then release as /ʃ/</td><td><strong>ch</strong>ip, lun<strong>ch</strong></td><td><button class="btn btn-sm" onclick="speak('chip',0.6)">🔊</button></td></tr>
+        <tr><td>16</td><td>/dʒ/</td><td>affricate (voiced)</td><td>Start like /d/ then release as /ʒ/</td><td><strong>j</strong>ump, bri<strong>dge</strong></td><td><button class="btn btn-sm" onclick="speak('jump',0.6)">🔊</button></td></tr>
+        <tr><td>17</td><td>/m/</td><td>nasal</td><td>Lips together, hum through nose</td><td><strong>m</strong>ap, swi<strong>m</strong></td><td><button class="btn btn-sm" onclick="speak('map',0.6)">🔊</button></td></tr>
+        <tr><td>18</td><td>/n/</td><td>nasal</td><td>Tongue on ridge, hum through nose</td><td><strong>n</strong>ose, su<strong>n</strong></td><td><button class="btn btn-sm" onclick="speak('nose',0.6)">🔊</button></td></tr>
+        <tr><td>19</td><td>/ŋ/</td><td>nasal</td><td>Back tongue up, hum through nose</td><td>si<strong>ng</strong>, thi<strong>ng</strong></td><td><button class="btn btn-sm" onclick="speak('sing',0.6)">🔊</button></td></tr>
+        <tr><td>20</td><td>/l/</td><td>lateral</td><td>Tongue tip on ridge, air flows around sides</td><td><strong>l</strong>eg, ba<strong>ll</strong></td><td><button class="btn btn-sm" onclick="speak('leg',0.6)">🔊</button></td></tr>
+        <tr><td>21</td><td>/r/</td><td>approximant</td><td>Tongue curls back, does NOT touch roof</td><td><strong>r</strong>un, ca<strong>r</strong></td><td><button class="btn btn-sm" onclick="speak('run',0.6)">🔊</button></td></tr>
+        <tr><td>22</td><td>/w/</td><td>glide</td><td>Round lips tightly, then open quickly</td><td><strong>w</strong>et, s<strong>w</strong>im</td><td><button class="btn btn-sm" onclick="speak('wet',0.6)">🔊</button></td></tr>
+        <tr><td>23</td><td>/j/</td><td>glide</td><td>Tongue high and forward, quick "ee" then open</td><td><strong>y</strong>es, <strong>u</strong>se</td><td><button class="btn btn-sm" onclick="speak('yes',0.6)">🔊</button></td></tr>
+        <tr><td>24</td><td>/h/</td><td>glottal</td><td>Open throat, gentle breath out</td><td><strong>h</strong>at, <strong>h</strong>ome</td><td><button class="btn btn-sm" onclick="speak('hat',0.6)">🔊</button></td></tr>
       </table>
-      <div class="tip"><strong>💡 How to use IPA in a dictionary:</strong><br>
+      <div class="tip"><strong>💡 That's all 44 sounds of English!</strong> (20 vowels + 24 consonants)<br><br>
+      <strong>How to use IPA in a dictionary:</strong><br>
       When you look up a word like "knight", the dictionary shows: <strong>/naɪt/</strong><br>
-      • /n/ = the "n" sound (k is silent!)<br>
-      • /aɪ/ = the long "eye" sound<br>
-      • /t/ = the "t" sound<br>
-      So "knight" = "nite" — now you know exactly how to say it! 🎉</div>
+      • /n/ = sound #18 (tongue on ridge, hum)<br>
+      • /aɪ/ = sound #14 (the diphthong in "like")<br>
+      • /t/ = sound #3 (tongue taps ridge)<br>
+      So "knight" = "nite" — the K and GH are silent! Now you know exactly how to say it! 🎉<br><br>
+      <strong>Another example:</strong> "thought" = <strong>/θɔːt/</strong><br>
+      • /θ/ = sound #9 (tongue between teeth, blow)<br>
+      • /ɔː/ = sound #10 (the long vowel in "call")<br>
+      • /t/ = sound #3 (tongue taps ridge)<br>
+      The "ough" makes just one sound: /ɔː/!</div>
     </div>
     <div class="card">
       <h3>🎤 Try it yourself!</h3>
