@@ -124,11 +124,35 @@ main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 
 <script>
 // ═══════════════════════════════
-// TTS
+// TTS (with Chrome desktop fix)
 // ═══════════════════════════════
-function speak(text,rate=0.7){
+// Chrome desktop bug: speechSynthesis gets "paused/stuck" state.
+// Fix: resume it on first user interaction + use a warm-up utterance.
+(function chromeTTSFix(){
+  var fixed=false;
+  function warmup(){
+    if(fixed)return;
+    fixed=true;
+    var u=new SpeechSynthesisUtterance('');
+    u.volume=0;
+    speechSynthesis.speak(u);
+    speechSynthesis.cancel();
+    document.removeEventListener('click',warmup);
+    document.removeEventListener('touchstart',warmup);
+  }
+  document.addEventListener('click',warmup);
+  document.addEventListener('touchstart',warmup);
+  // Also fix Chrome's pause-after-15s bug
+  setInterval(function(){
+    if(speechSynthesis.speaking&&!speechSynthesis.paused)return;
+    speechSynthesis.resume();
+  },5000);
+})();
+
+function speak(text,rate){
+  rate=rate||0.7;
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
+  var u=new SpeechSynthesisUtterance(text);
   u.lang='en-US';u.rate=rate;u.pitch=1.05;
   speechSynthesis.speak(u);
 }
