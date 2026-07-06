@@ -185,53 +185,53 @@ const LETTERS=[
 ];
 
 const VOWELS=[
-{n:1,sym:'/æ/',type:'short',how:'Open mouth WIDE, tongue flat and low. Like saying "ahh" at the doctor but shorter.',ex:['cat','hat','man','bad','ran','apple','hand','black']},
-{n:2,sym:'/ɛ/',type:'short',how:'Mouth slightly open. Tongue in the middle — not too high, not too low.',ex:['bed','red','ten','pen','leg','head','bread','said']},
-{n:3,sym:'/ɪ/',type:'short',how:'Small smile. Tongue slightly raised at the front. Quick and short!',ex:['sit','big','lip','hit','pin','fish','give','swim']},
-{n:4,sym:'/ɒ/',type:'short',how:'Round your lips into a circle. Mouth open. Tongue low and back.',ex:['hot','dog','pot','box','top','stop','clock','sock']},
-{n:5,sym:'/ʌ/',type:'short',how:'Relaxed open mouth. Tongue in the centre. Like a surprised "uh!"',ex:['cup','bus','run','sun','fun','love','money','come']},
-{n:6,sym:'/ʊ/',type:'short',how:'Lips slightly rounded but relaxed. Quick and light.',ex:['book','look','good','put','push','pull','foot','wood']},
-{n:7,sym:'/ə/',type:'short',how:'The LAZIEST sound! Mouth barely open, totally relaxed. The most common English sound!',ex:['about','banana','teacher','water','sofa','computer','famous','again']},
-{n:8,sym:'/iː/',type:'long',how:'Wide smile! Tongue HIGH and forward. Hold it longer than /ɪ/.',ex:['see','tree','me','eat','read','sleep','feet','cheese']},
-{n:9,sym:'/ɑː/',type:'long',how:'Open mouth WIDE. Tongue low and back. Say "ahhh" and hold it.',ex:['car','far','star','park','arm','heart','father','garden']},
-{n:10,sym:'/ɔː/',type:'long',how:'Round your lips. Tongue low and back. Hold the sound.',ex:['call','door','four','more','horse','water','walk','talk']},
-{n:11,sym:'/uː/',type:'long',how:'Lips TIGHTLY rounded forward (like a small circle). Hold it.',ex:['blue','food','moon','too','school','room','juice','true']},
-{n:12,sym:'/ɜː/',type:'long',how:'Tongue in the centre of mouth. Lips slightly rounded. Like "errr".',ex:['bird','her','nurse','turn','word','world','learn','early']},
-{n:13,sym:'/eɪ/',type:'diphthong',how:'Start with "eh" then GLIDE to "ee". Two sounds in one!',ex:['cake','day','rain','name','make','play','train','eight']},
-{n:14,sym:'/aɪ/',type:'diphthong',how:'Start with "ah" then GLIDE to "ee". Like saying "eye"!',ex:['like','time','fly','night','my','ride','five','ice']},
-{n:15,sym:'/ɔɪ/',type:'diphthong',how:'Start with round "or" then GLIDE to "ee".',ex:['boy','toy','coin','join','noise','voice','enjoy','point']},
-{n:16,sym:'/aʊ/',type:'diphthong',how:'Start with "ah" (open) then GLIDE to round "oo". Like "ow!" when hurt.',ex:['house','cow','out','now','down','town','cloud','mouth']},
-{n:17,sym:'/oʊ/',type:'diphthong',how:'Start with "oh" then GLIDE to round "oo". Like saying "oh!"',ex:['go','no','home','boat','show','snow','road','coat']},
-{n:18,sym:'/ɪə/',type:'diphthong',how:'Start with short "ih" then GLIDE to weak "uh".',ex:['ear','here','near','deer','beer','fear','clear','idea']},
-{n:19,sym:'/eə/',type:'diphthong',how:'Start with "eh" then GLIDE to weak "uh".',ex:['air','there','care','hair','pair','share','chair','wear']},
-{n:20,sym:'/ʊə/',type:'diphthong',how:'Start with short "oo" then GLIDE to weak "uh".',ex:['tour','pure','sure','cure','poor','moor']},
+{n:1,sym:'/æ/',type:'short',how:'Open mouth WIDE, tongue flat and low. Like saying "ahh" at the doctor but shorter.',ex:['cat','hat','man','bad','ran','apple','hand','black'],from:['a (cat, hat, man, black)']},
+{n:2,sym:'/ɛ/',type:'short',how:'Mouth slightly open. Tongue in the middle — not too high, not too low.',ex:['bed','red','ten','pen','leg','head','bread','said'],from:['e (bed, red, ten)','ea (head, bread, dead)','ai (said)']},
+{n:3,sym:'/ɪ/',type:'short',how:'Small smile. Tongue slightly raised at the front. Quick and short!',ex:['sit','big','lip','hit','pin','fish','give','swim'],from:['i (sit, big, fish)','y (gym, myth)','u (busy, business)','ui (build, guitar)']},
+{n:4,sym:'/ɒ/',type:'short',how:'Round your lips into a circle. Mouth open. Tongue low and back.',ex:['hot','dog','pot','box','top','stop','clock','sock'],from:['o (hot, dog, box)','a (want, was, watch)']},
+{n:5,sym:'/ʌ/',type:'short',how:'Relaxed open mouth. Tongue in the centre. Like a surprised "uh!"',ex:['cup','bus','run','sun','fun','love','money','come'],from:['u (cup, bus, run)','o (love, come, money, son)','ou (young, touch, country)']},
+{n:6,sym:'/ʊ/',type:'short',how:'Lips slightly rounded but relaxed. Quick and light.',ex:['book','look','good','put','push','pull','foot','wood'],from:['oo (book, look, good)','u (put, push, pull, full)','ou (could, would, should)']},
+{n:7,sym:'/ə/',type:'short',how:'The LAZIEST sound! Mouth barely open, totally relaxed. The most common English sound!',ex:['about','banana','teacher','water','sofa','computer','famous','again'],from:['a (about, banana, again)','e (taken, open, the)','i (animal, pencil)','o (computer, today)','u (circus, supply)','er (teacher, water)','or (doctor, actor)','ar (sugar, popular)']},
+{n:8,sym:'/iː/',type:'long',how:'Wide smile! Tongue HIGH and forward. Hold it longer than /ɪ/.',ex:['see','tree','me','eat','read','sleep','feet','cheese'],from:['ee (see, tree, feet, cheese)','ea (eat, read, beach, team)','e (me, he, she, be)','ie (believe, piece, field)','ey (key, monkey)','i (machine, police)']},
+{n:9,sym:'/ɑː/',type:'long',how:'Open mouth WIDE. Tongue low and back. Say "ahhh" and hold it.',ex:['car','far','star','park','arm','heart','father','garden'],from:['ar (car, star, park, garden)','a (father, bath, class)','ear (heart)','al (calm, half, palm)']},
+{n:10,sym:'/ɔː/',type:'long',how:'Round your lips. Tongue low and back. Hold the sound.',ex:['call','door','four','more','horse','water','walk','talk'],from:['or (for, door, horse, morning)','ore (more, store, before)','oor (door, floor)','our (four, pour, your)','al (call, walk, talk, all)','aw (saw, draw, law)','au (cause, autumn)','ough (thought, bought)','ar (war, warm, quarter)']},
+{n:11,sym:'/uː/',type:'long',how:'Lips TIGHTLY rounded forward (like a small circle). Hold it.',ex:['blue','food','moon','too','school','room','juice','true'],from:['oo (food, moon, school, room)','ue (blue, true, glue)','u (June, rule, rude)','ew (new, flew, grew)','ui (juice, fruit)','o (do, who, move)','ough (through)']},
+{n:12,sym:'/ɜː/',type:'long',how:'Tongue in the centre of mouth. Lips slightly rounded. Like "errr".',ex:['bird','her','nurse','turn','word','world','learn','early'],from:['ir (bird, first, girl, shirt)','er (her, term, person)','ur (nurse, turn, hurt, purple)','or (word, world, work, worm)','ear (learn, early, earth)']},
+{n:13,sym:'/eɪ/',type:'diphthong',how:'Start with "eh" then GLIDE to "ee". Two sounds in one!',ex:['cake','day','rain','name','make','play','train','eight'],from:['a_e (cake, make, name, late)','ai (rain, train, wait, paint)','ay (day, play, say, stay)','ey (they, grey, obey)','eigh (eight, weight, neighbour)','ea (great, break, steak)']},
+{n:14,sym:'/aɪ/',type:'diphthong',how:'Start with "ah" then GLIDE to "ee". Like saying "eye"!',ex:['like','time','fly','night','my','ride','five','ice'],from:['i_e (like, time, ride, five)','igh (night, light, right, high)','y (fly, my, try, sky, why)','ie (die, tie, lie, pie)','i (find, kind, mind, child)','uy (buy, guy)','eye (eye)']},
+{n:15,sym:'/ɔɪ/',type:'diphthong',how:'Start with round "or" then GLIDE to "ee".',ex:['boy','toy','coin','join','noise','voice','enjoy','point'],from:['oi (coin, join, noise, point, oil)','oy (boy, toy, enjoy, joy, annoy)']},
+{n:16,sym:'/aʊ/',type:'diphthong',how:'Start with "ah" (open) then GLIDE to round "oo". Like "ow!" when hurt.',ex:['house','cow','out','now','down','town','cloud','mouth'],from:['ou (house, out, cloud, mouth, round)','ow (cow, now, down, town, how, brown)']},
+{n:17,sym:'/oʊ/',type:'diphthong',how:'Start with "oh" then GLIDE to round "oo". Like saying "oh!"',ex:['go','no','home','boat','show','snow','road','coat'],from:['o (go, no, so, old, cold)','o_e (home, bone, phone, nose)','oa (boat, road, coat, toast)','ow (show, snow, grow, low, know)','oe (toe, goes)','ough (though, dough)']},
+{n:18,sym:'/ɪə/',type:'diphthong',how:'Start with short "ih" then GLIDE to weak "uh".',ex:['ear','here','near','deer','beer','fear','clear','idea'],from:['ear (ear, near, fear, clear)','eer (deer, beer, steer)','ere (here, mere, severe)','ea (idea, real, theatre)']},
+{n:19,sym:'/eə/',type:'diphthong',how:'Start with "eh" then GLIDE to weak "uh".',ex:['air','there','care','hair','pair','share','chair','wear'],from:['air (air, hair, pair, fair, chair)','are (care, share, dare, rare)','ear (wear, bear, pear)','ere (there, where)']},
+{n:20,sym:'/ʊə/',type:'diphthong',how:'Start with short "oo" then GLIDE to weak "uh".',ex:['tour','pure','sure','cure','poor','moor'],from:['our (tour, tourist)','ure (pure, sure, cure)','oor (poor, moor)']},
 ];
 
 const CONSONANTS=[
-{n:1,sym:'/p/',type:'stop',v:'voiceless',how:'Press lips together, then POP them open with a puff of air. NO throat buzz.',ex:['pen','cup','play','pig','people','stop']},
-{n:2,sym:'/b/',type:'stop',v:'voiced',how:'Same as /p/ but ADD voice. Feel your throat buzz!',ex:['ball','cab','big','baby','book','job']},
-{n:3,sym:'/t/',type:'stop',v:'voiceless',how:'Tongue tip TAPS the ridge behind top teeth. Puff of air. No buzz.',ex:['ten','cat','time','top','teacher','sit']},
-{n:4,sym:'/d/',type:'stop',v:'voiced',how:'Same as /t/ but ADD voice. Feel the buzz!',ex:['dog','bed','day','door','did','good']},
-{n:5,sym:'/k/',type:'stop',v:'voiceless',how:'BACK of tongue hits the soft palate (roof). No buzz.',ex:['cat','book','kick','school','clock','back']},
-{n:6,sym:'/g/',type:'stop',v:'voiced',how:'Same as /k/ but ADD voice. Feel the buzz!',ex:['go','big','game','girl','dog','egg']},
-{n:7,sym:'/f/',type:'fricative',v:'voiceless',how:'Top teeth on lower lip. Blow air through. No buzz.',ex:['fish','leaf','five','off','family','laugh']},
-{n:8,sym:'/v/',type:'fricative',v:'voiced',how:'Same as /f/ but ADD voice. Feel the buzz on your lip!',ex:['van','love','very','give','over','have']},
-{n:9,sym:'/θ/',type:'fricative',v:'voiceless',how:'Tongue tip BETWEEN your teeth! Blow air. No buzz. (Hard for many learners!)',ex:['think','bath','three','mouth','teeth','birthday']},
-{n:10,sym:'/ð/',type:'fricative',v:'voiced',how:'Same as /θ/ but ADD voice. Tongue between teeth + buzz!',ex:['this','that','mother','father','weather','brother']},
-{n:11,sym:'/s/',type:'fricative',v:'voiceless',how:'Tongue near ridge. Air HISSES through. Like a snake: sssss!',ex:['sun','bus','see','nice','class','face']},
-{n:12,sym:'/z/',type:'fricative',v:'voiced',how:'Same as /s/ but ADD voice. Like a bee: zzzzz!',ex:['zoo','is','nose','music','easy','because']},
-{n:13,sym:'/ʃ/',type:'fricative',v:'voiceless',how:'Lips pushed FORWARD. Wide tongue. Like telling someone "shhhh!"',ex:['ship','fish','she','wash','nation','special']},
-{n:14,sym:'/ʒ/',type:'fricative',v:'voiced',how:'Same as /ʃ/ but ADD voice. Buzzy "zh" sound.',ex:['measure','vision','usual','treasure','decision','television']},
-{n:15,sym:'/tʃ/',type:'affricate',v:'voiceless',how:'Start like /t/ then release as /ʃ/. Like "t-sh" fast together.',ex:['chip','lunch','church','watch','teacher','catch']},
-{n:16,sym:'/dʒ/',type:'affricate',v:'voiced',how:'Start like /d/ then release as /ʒ/. Like "d-zh" fast together.',ex:['jump','bridge','page','age','orange','manager']},
-{n:17,sym:'/m/',type:'nasal',v:'voiced',how:'Press lips together. Hum through your NOSE. Mmmmm!',ex:['map','swim','mum','home','morning','remember']},
-{n:18,sym:'/n/',type:'nasal',v:'voiced',how:'Tongue tip on ridge. Hum through your NOSE. Nnnnn!',ex:['nose','sun','name','run','dinner','nine']},
-{n:19,sym:'/ŋ/',type:'nasal',v:'voiced',how:'BACK of tongue pressed up. Hum through nose. Like end of "sing".',ex:['sing','ring','thing','morning','finger','young']},
-{n:20,sym:'/l/',type:'lateral',v:'voiced',how:'Tongue tip on ridge. Air flows around the SIDES of your tongue.',ex:['leg','ball','like','feel','little','family']},
-{n:21,sym:'/r/',type:'approximant',v:'voiced',how:'Tongue curls back. Does NOT touch anything! Lips slightly rounded.',ex:['run','car','red','right','very','around']},
-{n:22,sym:'/w/',type:'glide',v:'voiced',how:'Round lips TIGHTLY (small circle), then open quickly.',ex:['wet','swim','want','water','window','always']},
-{n:23,sym:'/j/',type:'glide',v:'voiced',how:'Tongue HIGH and forward. Quick "ee" sound then open to next vowel.',ex:['yes','you','year','use','Europe','beautiful']},
-{n:24,sym:'/h/',type:'glottal',v:'voiceless',how:'Open throat wide. Gentle breath out. Like panting after running.',ex:['hat','home','help','behind','happy','who']},
+{n:1,sym:'/p/',type:'stop',v:'voiceless',how:'Press lips together, then POP them open with a puff of air. NO throat buzz.',ex:['pen','cup','play','pig','people','stop'],from:['p (pen, pig, play)','pp (happy, apple, supper)']},
+{n:2,sym:'/b/',type:'stop',v:'voiced',how:'Same as /p/ but ADD voice. Feel your throat buzz!',ex:['ball','cab','big','baby','book','job'],from:['b (ball, big, book)','bb (rabbit, cabbage, hobby)']},
+{n:3,sym:'/t/',type:'stop',v:'voiceless',how:'Tongue tip TAPS the ridge behind top teeth. Puff of air. No buzz.',ex:['ten','cat','time','top','teacher','sit'],from:['t (ten, top, time)','tt (butter, kitten, little)','ed (walked, stopped, watched)']},
+{n:4,sym:'/d/',type:'stop',v:'voiced',how:'Same as /t/ but ADD voice. Feel the buzz!',ex:['dog','bed','day','door','did','good'],from:['d (dog, day, door)','dd (middle, add, odd)','ed (played, opened, called)']},
+{n:5,sym:'/k/',type:'stop',v:'voiceless',how:'BACK of tongue hits the soft palate (roof). No buzz.',ex:['cat','book','kick','school','clock','back'],from:['c (cat, cup, car, class)','k (kite, king, book)','ck (back, clock, kick)','ch (school, Christmas)','q/qu (queen, quiz = /kw/)']},
+{n:6,sym:'/g/',type:'stop',v:'voiced',how:'Same as /k/ but ADD voice. Feel the buzz!',ex:['go','big','game','girl','dog','egg'],from:['g (go, game, girl, big)','gg (egg, bigger,agger)','gh (ghost, ghetto)']},
+{n:7,sym:'/f/',type:'fricative',v:'voiceless',how:'Top teeth on lower lip. Blow air through. No buzz.',ex:['fish','leaf','five','off','family','laugh'],from:['f (fish, five, family)','ff (off, coffee, different)','ph (phone, photo, elephant)','gh (laugh, cough, enough)']},
+{n:8,sym:'/v/',type:'fricative',v:'voiced',how:'Same as /f/ but ADD voice. Feel the buzz on your lip!',ex:['van','love','very','give','over','have'],from:['v (van, very, love, give)','ve (have, give, live)']},
+{n:9,sym:'/θ/',type:'fricative',v:'voiceless',how:'Tongue tip BETWEEN your teeth! Blow air. No buzz. (Hard for many learners!)',ex:['think','bath','three','mouth','teeth','birthday'],from:['th (think, three, bath, mouth, teeth, birthday)']},
+{n:10,sym:'/ð/',type:'fricative',v:'voiced',how:'Same as /θ/ but ADD voice. Tongue between teeth + buzz!',ex:['this','that','mother','father','weather','brother'],from:['th (this, that, the, mother, father, weather)']},
+{n:11,sym:'/s/',type:'fricative',v:'voiceless',how:'Tongue near ridge. Air HISSES through. Like a snake: sssss!',ex:['sun','bus','see','nice','class','face'],from:['s (sun, see, sit, bus)','ss (class, miss, boss)','c (city, nice, face, circle)','sc (science, scene)']},
+{n:12,sym:'/z/',type:'fricative',v:'voiced',how:'Same as /s/ but ADD voice. Like a bee: zzzzz!',ex:['zoo','is','nose','music','easy','because'],from:['z (zoo, zero, zone)','zz (pizza, buzz, jazz)','s (is, was, nose, music, easy)','se (because, these, cheese)']},
+{n:13,sym:'/ʃ/',type:'fricative',v:'voiceless',how:'Lips pushed FORWARD. Wide tongue. Like telling someone "shhhh!"',ex:['ship','fish','she','wash','nation','special'],from:['sh (ship, fish, she, wash, push)','ti (nation, station, action)','ci (special, official, musician)','ssi (mission, passion)','si (pension)','ch (machine, chef)']},
+{n:14,sym:'/ʒ/',type:'fricative',v:'voiced',how:'Same as /ʃ/ but ADD voice. Buzzy "zh" sound.',ex:['measure','vision','usual','treasure','decision','television'],from:['s (measure, treasure, usual, leisure)','si (vision, television, decision, occasion)']},
+{n:15,sym:'/tʃ/',type:'affricate',v:'voiceless',how:'Start like /t/ then release as /ʃ/. Like "t-sh" fast together.',ex:['chip','lunch','church','watch','teacher','catch'],from:['ch (chip, church, cheese, teacher)','tch (watch, catch, match, kitchen)','t (nature, future, picture)']},
+{n:16,sym:'/dʒ/',type:'affricate',v:'voiced',how:'Start like /d/ then release as /ʒ/. Like "d-zh" fast together.',ex:['jump','bridge','page','age','orange','manager'],from:['j (jump, job, juice, jam)','g (page, age, orange, large)','ge (bridge, fridge, badge)','dg (bridge, fridge, edge, judge)']},
+{n:17,sym:'/m/',type:'nasal',v:'voiced',how:'Press lips together. Hum through your NOSE. Mmmmm!',ex:['map','swim','mum','home','morning','remember'],from:['m (map, mum, home, morning)','mm (swim, hammer, summer)','mb (climb, lamb, thumb — b is silent!)']},
+{n:18,sym:'/n/',type:'nasal',v:'voiced',how:'Tongue tip on ridge. Hum through your NOSE. Nnnnn!',ex:['nose','sun','name','run','dinner','nine'],from:['n (nose, name, sun, run)','nn (dinner, funny, penny)','kn (know, knife, knee, knight — k silent!)','gn (sign, gnome — g silent!)']},
+{n:19,sym:'/ŋ/',type:'nasal',v:'voiced',how:'BACK of tongue pressed up. Hum through nose. Like end of "sing".',ex:['sing','ring','thing','morning','finger','young'],from:['ng (sing, ring, thing, morning, young)','n before k (think, bank, drink, pink)']},
+{n:20,sym:'/l/',type:'lateral',v:'voiced',how:'Tongue tip on ridge. Air flows around the SIDES of your tongue.',ex:['leg','ball','like','feel','little','family'],from:['l (leg, like, love, feel)','ll (ball, little, tell, wall)']},
+{n:21,sym:'/r/',type:'approximant',v:'voiced',how:'Tongue curls back. Does NOT touch anything! Lips slightly rounded.',ex:['run','car','red','right','very','around'],from:['r (run, red, right, very)','rr (carry, mirror, sorry)','wr (write, wrong, wrap — w silent!)']},
+{n:22,sym:'/w/',type:'glide',v:'voiced',how:'Round lips TIGHTLY (small circle), then open quickly.',ex:['wet','swim','want','water','window','always'],from:['w (wet, want, water, window)','wh (what, when, where, why, which)','u after q (queen, quick, quiz)','o (one, once)']},
+{n:23,sym:'/j/',type:'glide',v:'voiced',how:'Tongue HIGH and forward. Quick "ee" sound then open to next vowel.',ex:['yes','you','year','use','Europe','beautiful'],from:['y (yes, you, year, young)','u (use, cute, music, Europe, beautiful)','ew (new, few)']},
+{n:24,sym:'/h/',type:'glottal',v:'voiceless',how:'Open throat wide. Gentle breath out. Like panting after running.',ex:['hat','home','help','behind','happy','who'],from:['h (hat, home, help, happy, behind)','wh (who, whole, whose)']},
 ];
 
 const COMBOS=[
@@ -373,10 +373,15 @@ function renderS2(div){
   </div><div class="ipa-grid">`;
   VOWELS.forEach(v=>{
     const cls=v.type==='short'?'short':v.type==='long'?'long':'diph';
-    h+=`<div class="ipa-card ${cls}">
+    const fromHtml=v.from.map(f=>`<span style="display:inline-block;background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#e65100;font-weight:600;">${f}</span>`).join('');
+    h+=`<div class="ipa-card ${cls}" onclick="this.querySelector('.from-info').style.display=this.querySelector('.from-info').style.display==='none'?'block':'none'">
       <div><span class="sym">${v.sym}</span><span class="type-badge">${v.type}</span></div>
       <div class="desc">🗣️ ${v.how}</div>
       <div class="words">${v.ex.map(w=>spkBtn(w)).join('')}</div>
+      <div class="from-info" style="display:none;margin-top:8px;padding:8px;background:#fffde7;border-radius:8px;border:1px solid #fff176;">
+        <div style="font-size:.75em;font-weight:700;color:#e65100;margin-bottom:4px;">📝 This sound can be spelled as:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2px;">${fromHtml}</div>
+      </div>
     </div>`;
   });
   h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(0)">◀ Step 1</button><button class="nav-btn fwd" onclick="goStage(2)">Step 3: Consonants ▶</button></div>`;
@@ -411,10 +416,15 @@ function renderS3(div){
   </div><div class="ipa-grid">`;
   CONSONANTS.forEach(c=>{
     const cls=c.v==='voiceless'?'voiceless':'voiced';
-    h+=`<div class="ipa-card ${cls}">
+    const fromHtml=c.from.map(f=>`<span style="display:inline-block;background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:2px 8px;font-size:.78em;margin:2px;color:#1565c0;font-weight:600;">${f}</span>`).join('');
+    h+=`<div class="ipa-card ${cls}" onclick="this.querySelector('.from-info').style.display=this.querySelector('.from-info').style.display==='none'?'block':'none'">
       <div><span class="sym">${c.sym}</span><span class="type-badge">${c.type} · ${c.v}</span></div>
       <div class="desc">🗣️ ${c.how}</div>
       <div class="words">${c.ex.map(w=>spkBtn(w)).join('')}</div>
+      <div class="from-info" style="display:none;margin-top:8px;padding:8px;background:#e8f4fd;border-radius:8px;border:1px solid #90caf9;">
+        <div style="font-size:.75em;font-weight:700;color:#1565c0;margin-bottom:4px;">📝 This sound can be spelled as:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2px;">${fromHtml}</div>
+      </div>
     </div>`;
   });
   h+=`</div><div class="nav"><button class="nav-btn" onclick="goStage(1)">◀ Step 2</button><button class="nav-btn fwd" onclick="goStage(3)">Step 4: Combinations ▶</button></div>`;
