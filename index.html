@@ -123,9 +123,6 @@ main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 <div id="tts-diag" style="background:#fff8e1;border-bottom:1px solid #ffe082;padding:4px 12px;font-size:.72em;color:#856404;font-family:monospace;text-align:center;">Loading TTS...</div>
 <main id="main"></main>
 
-<!-- ResponsiveVoice: reliable cross-browser TTS (works when Chrome speechSynthesis fails) -->
-<script src="https://code.responsivevoice.org/responsivevoice.js?key=free"></script>
-
 <script>
 // ═══════════════════════════════
 // TTS — Dual-path with audio fallback
@@ -136,24 +133,23 @@ main{max-width:920px;margin:10px auto 40px;padding:0 12px;}
 var TTS = {
   voices: [],
   preferredVoice: null,
-  ready: false,
   audioUnlocked: false,
   lastStatus: 'idle',
-  useResponsiveVoice: true,
+  isChrome: /Chrome/.test(navigator.userAgent) && !/Edg|OPR/.test(navigator.userAgent),
+  chromeFailed: false,
 
   init: function() {
     var self = this;
     function loadVoices() {
       self.voices = window.speechSynthesis.getVoices();
       if (self.voices.length > 0) {
-        var preferred = ['Google US English', 'Microsoft Aria Online (Natural)', 'Samantha', 'Alex', 'Karen', 'Daniel'];
+        var preferred = ['Google US English', 'Samantha', 'Alex', 'Karen', 'Daniel'];
         for (var i = 0; i < preferred.length; i++) {
           self.preferredVoice = self.voices.find(function(v) { return v.name === preferred[i]; });
           if (self.preferredVoice) break;
         }
         if (!self.preferredVoice) self.preferredVoice = self.voices.find(function(v) { return v.lang === 'en-US'; });
         if (!self.preferredVoice) self.preferredVoice = self.voices.find(function(v) { return v.lang.startsWith('en'); });
-        self.ready = true;
       }
     }
     loadVoices();
@@ -193,75 +189,66 @@ var TTS = {
     self.lastStatus = 'requested: ' + text;
     self.updateDiag();
 
-    if (this.useResponsiveVoice && typeof responsiveVoice !== 'undefined' && responsiveVoice.voiceSupport()) {
-      self.lastStatus = '🔊 [ResponsiveVoice] speaking: ' + text;
-      self.updateDiag();
-      try {
-        responsiveVoice.cancel();
-        responsiveVoice.speak(text, 'US English Female', {
-          rate: rate + 0.2,
-          pitch: 1.0,
-          volume: 1.0,
-          onstart: function() { self.lastStatus = '🔊 [RV] speaking: ' + text; self.updateDiag(); },
-          onend: function() { self.lastStatus = '✅ [RV] done: ' + text; self.updateDiag(); },
-          onerror: function() {
-            self.lastStatus = '❌ [RV] failed — falling back to speechSynthesis';
-            self.updateDiag();
-            self.speakSynth(text, rate);
-          }
-        });
-        return;
-      } catch(e) {
-        self.lastStatus = '⚠️ RV threw: ' + e.message + ' — using speechSynthesis';
-        self.updateDiag();
-      }
-    }
-    this.speakSynth(text, rate);
-  },
-
-  speakSynth: function(text, rate) {
-    var self = this;
     if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
       window.speechSynthesis.cancel();
     }
     if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
     u.rate = rate;
     u.pitch = 1.05;
     u.volume = 1.0;
     if (this.preferredVoice) u.voice = this.preferredVoice;
-    u.onstart = function() { self.lastStatus = '🔊 [synth] speaking: ' + text; self.updateDiag(); };
-    u.onend = function() { self.lastStatus = '✅ [synth] done: ' + text; self.updateDiag(); };
-    u.onerror = function(e) { self.lastStatus = '❌ [synth] error: ' + (e.error || 'unknown'); self.updateDiag(); };
-    window.speechSynthesis.speak(u);
-  },
 
-  toggleMode: function() {
-    this.useResponsiveVoice = !this.useResponsiveVoice;
-    this.updateDiag();
+    var eventFired = false;
+    u.onstart = function() { eventFired = true; self.lastStatus = '🔊 speaking: ' + text; self.updateDiag(); };
+    u.onend = function() { eventFired = true; self.lastStatus = '✅ done: ' + text; self.updateDiag(); };
+    u.onerror = function(e) { self.lastStatus = '❌ error: ' + (e.error || 'unknown'); self.updateDiag(); };
+
+    window.speechSynthesis.speak(u);
+
+    if (this.isChrome) {
+      setTimeout(function() {
+        if (!eventFired && !window.speechSynthesis.speaking) {
+          self.chromeFailed = true;
+          self.lastStatus = '⚠️ Chrome TTS silent — try Safari or click 🔍 for help';
+          self.updateDiag();
+        }
+      }, 2000);
+    }
   },
 
   runDiagnostic: function() {
-    var self = this;
-    var report = [];
-    report.push('Browser: ' + navigator.userAgent.split(' ').slice(-2).join(' '));
-    report.push('speechSynthesis: ' + ('speechSynthesis' in window ? 'YES' : 'NO'));
-    report.push('Voices loaded: ' + this.voices.length);
-    report.push('Preferred voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'NONE'));
-    report.push('ResponsiveVoice loaded: ' + (typeof responsiveVoice !== 'undefined' ? 'YES' : 'NO'));
-    report.push('ResponsiveVoice supported: ' + (typeof responsiveVoice !== 'undefined' && responsiveVoice.voiceSupport() ? 'YES' : 'NO'));
-    report.push('Current mode: ' + (this.useResponsiveVoice ? 'ResponsiveVoice' : 'speechSynthesis'));
-    alert('🔍 TTS Report:\n\n' + report.join('\n') + '\n\nClick OK, then click any word. If still silent:\n- Check tab is not muted\n- Try Safari\n- Toggle mode with button in yellow bar');
+    var lines = [];
+    lines.push('=== TTS Diagnostic ===');
+    lines.push('Browser: ' + (this.isChrome ? 'Chrome' : 'Other'));
+    lines.push('speechSynthesis: ' + ('speechSynthesis' in window ? 'YES' : 'NO'));
+    lines.push('Voices loaded: ' + this.voices.length);
+    lines.push('Selected voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'NONE'));
+    lines.push('');
+    if (this.isChrome && this.chromeFailed) {
+      lines.push('⚠️ Chrome is silently failing TTS.');
+      lines.push('');
+      lines.push('Try these solutions in order:');
+      lines.push('1. Right-click Chrome tab → check "Unmute site"');
+      lines.push('2. chrome://settings/content/sound → allow this site');
+      lines.push('3. Disable ad-blocker/privacy extensions');
+      lines.push('4. Quit Chrome completely and reopen');
+      lines.push('5. Use Safari — TTS works reliably there');
+    } else {
+      lines.push('✅ TTS appears functional');
+      lines.push('Click any word to hear pronunciation');
+    }
+    alert(lines.join('\n'));
   },
 
   updateDiag: function() {
     var el = document.getElementById('tts-diag');
     if (el) {
-      var mode = this.useResponsiveVoice ? '🎵 ResponsiveVoice' : '🎤 Browser Synth';
       el.innerHTML = '<span>' + this.lastStatus + '</span>' +
-        ' <button onclick="TTS.toggleMode()" style="margin-left:8px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff;color:#856404;cursor:pointer;">' + mode + '</button>' +
-        ' <button onclick="TTS.runDiagnostic()" style="margin-left:5px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff8e1;color:#856404;cursor:pointer;">🔍 Test</button>';
+        ' <button onclick="TTS.runDiagnostic()" style="margin-left:10px;padding:2px 8px;font-size:.9em;border-radius:12px;border:1px solid #856404;background:#fff8e1;color:#856404;cursor:pointer;font-weight:600;">🔍 Help</button>' +
+        ' <span style="opacity:.7;font-size:.85em;">voice: ' + (this.preferredVoice ? this.preferredVoice.name : 'none') + '</span>';
     }
   }
 };
