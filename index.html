@@ -189,34 +189,54 @@ var TTS = {
     self.lastStatus = 'requested: ' + text;
     self.updateDiag();
 
-    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
-      window.speechSynthesis.cancel();
+    // Detach handlers from previous utterance BEFORE canceling
+    // (Chrome fires onerror:canceled otherwise, which shows as an error)
+    if (self.currentUtterance) {
+      self.currentUtterance.onstart = null;
+      self.currentUtterance.onend = null;
+      self.currentUtterance.onerror = null;
+      self.currentUtterance = null;
     }
+
+    var needsCancel = window.speechSynthesis.speaking || window.speechSynthesis.pending;
+    if (needsCancel) window.speechSynthesis.cancel();
     if (window.speechSynthesis.paused) window.speechSynthesis.resume();
 
-    var u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
-    u.rate = rate;
-    u.pitch = 1.05;
-    u.volume = 1.0;
-    if (this.preferredVoice) u.voice = this.preferredVoice;
+    // Chrome needs a delay after cancel() before speak() to avoid race conditions
+    var delay = (this.isChrome && needsCancel) ? 150 : 0;
 
-    var eventFired = false;
-    u.onstart = function() { eventFired = true; self.lastStatus = '🔊 speaking: ' + text; self.updateDiag(); };
-    u.onend = function() { eventFired = true; self.lastStatus = '✅ done: ' + text; self.updateDiag(); };
-    u.onerror = function(e) { self.lastStatus = '❌ error: ' + (e.error || 'unknown'); self.updateDiag(); };
+    setTimeout(function() {
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = rate;
+      u.pitch = 1.05;
+      u.volume = 1.0;
+      if (self.preferredVoice) u.voice = self.preferredVoice;
 
-    window.speechSynthesis.speak(u);
+      var eventFired = false;
+      u.onstart = function() { eventFired = true; self.lastStatus = '🔊 speaking: ' + text; self.updateDiag(); };
+      u.onend = function() { eventFired = true; self.lastStatus = '✅ done: ' + text; self.updateDiag(); self.currentUtterance = null; };
+      u.onerror = function(e) {
+        // Ignore "canceled" — it means user clicked a new word (expected behavior)
+        if (e.error === 'canceled' || e.error === 'interrupted') return;
+        self.lastStatus = '❌ error: ' + (e.error || 'unknown');
+        self.updateDiag();
+      };
 
-    if (this.isChrome) {
-      setTimeout(function() {
-        if (!eventFired && !window.speechSynthesis.speaking) {
-          self.chromeFailed = true;
-          self.lastStatus = '⚠️ Chrome TTS silent — try Safari or click 🔍 for help';
-          self.updateDiag();
-        }
-      }, 2000);
-    }
+      self.currentUtterance = u;
+      window.speechSynthesis.speak(u);
+
+      if (self.isChrome) {
+        setTimeout(function() {
+          if (!eventFired && !window.speechSynthesis.speaking && self.currentUtterance === u) {
+            self.chromeFailed = true;
+            self.lastStatus = '⚠️ Chrome TTS silent — try Safari or click 🔍 for help';
+            self.updateDiag();
+          }
+        }, 2000);
+      }
+    }, delay);
+  },
   },
 
   runDiagnostic: function() {
