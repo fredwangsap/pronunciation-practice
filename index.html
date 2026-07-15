@@ -286,32 +286,59 @@ function speak(text, rate) { TTS.speak(text, rate); }
 
 // ═══════════════════════════════
 // Isolated phoneme playback (one of the 44 sounds)
-// Browser TTS can't pronounce raw IPA (e.g. "/æ/"), so each of the 44
-// phonemes maps to a tuned pronounceable form:
-//  • continuants are sustained (/s/→"sssss", /m/→"mmmm")
-//  • stops/affricates use the standard phonics form with a light schwa (/p/→"puh")
-//  • vowels use held approximations (/iː/→"eee", /ɔː/→"aww")
-// The example-word buttons remain the reliable reference for each sound.
+// PRIMARY: real recorded audio clips in audio/<slug>.mp3 (human voice,
+// sourced from the Oxford Dictionary phoneme recordings). Each of the 44
+// phonemes maps to a short "sound on its own" recording.
+// FALLBACK: if a clip is missing or cannot play, we fall back to the
+// browser speechSynthesis engine using a tuned pronounceable form.
+// The example-word buttons remain a reliable reference for each sound.
 // ═══════════════════════════════
-const PHONEME_SAY = {
+const PHONEME_AUDIO = {
   // 20 vowels
+  '/iː/':'ee','/ɪ/':'ih','/ɛ/':'eh','/æ/':'ae','/ɑː/':'ah','/ɒ/':'o','/ɔː/':'aw',
+  '/ʊ/':'uu','/uː/':'oo','/ʌ/':'uh','/ɜː/':'er','/ə/':'schwa',
+  '/eɪ/':'ay','/aɪ/':'eye','/ɔɪ/':'oy','/aʊ/':'ow','/oʊ/':'oh',
+  '/ɪə/':'eer','/eə/':'air','/ʊə/':'oor',
+  // 24 consonants
+  '/p/':'p','/b/':'b','/t/':'t','/d/':'d','/k/':'k','/g/':'g',
+  '/tʃ/':'ch','/dʒ/':'dj','/f/':'f','/v/':'v','/θ/':'th','/ð/':'dh',
+  '/s/':'s','/z/':'z','/ʃ/':'sh','/ʒ/':'zh','/h/':'h',
+  '/m/':'m','/n/':'n','/ŋ/':'ng','/l/':'l','/r/':'r','/w/':'w','/j/':'y'
+};
+const PHONEME_SAY = {
+  // fallback pronounceable forms (used only if the recording fails to load)
   '/æ/':'aah','/ɛ/':'ehh','/ɪ/':'ih','/ɒ/':'ah','/ʌ/':'uh','/ʊ/':'uu','/ə/':'uh',
   '/iː/':'eee','/ɑː/':'aaah','/ɔː/':'aww','/uː/':'oooo','/ɜː/':'err',
   '/eɪ/':'ay','/aɪ/':'eye','/ɔɪ/':'oy','/aʊ/':'ow','/oʊ/':'oh',
   '/ɪə/':'ear','/eə/':'air','/ʊə/':'oor',
-  // 24 consonants
   '/p/':'puh','/b/':'buh','/t/':'tuh','/d/':'duh','/k/':'kuh','/g/':'guh',
   '/f/':'fff','/v/':'vvv','/θ/':'thh','/ð/':'thuh','/s/':'sssss','/z/':'zzzz',
   '/ʃ/':'shhh','/ʒ/':'zhuh','/tʃ/':'chuh','/dʒ/':'juh',
   '/m/':'mmmm','/n/':'nnnn','/ŋ/':'ngng','/l/':'lll','/r/':'rrr',
   '/w/':'wuh','/j/':'yuh','/h/':'huh'
 };
+let phonemeAudioEl = null;
 function speakPhoneme(sym, el){
-  const say = PHONEME_SAY[sym] || sym.replace(/\//g,'');
   if (el){
     el.classList.add('playing');
     setTimeout(function(){ el.classList.remove('playing'); }, 900);
   }
+  const slug = PHONEME_AUDIO[sym];
+  if (slug){
+    try {
+      if (!phonemeAudioEl) phonemeAudioEl = new Audio();
+      phonemeAudioEl.pause();
+      phonemeAudioEl.currentTime = 0;
+      phonemeAudioEl.src = 'audio/' + slug + '.mp3';
+      const pr = phonemeAudioEl.play();
+      if (pr && pr.catch) pr.catch(function(){ speakPhonemeFallback(sym); });
+      return;
+    } catch(e) { /* fall through to TTS */ }
+  }
+  speakPhonemeFallback(sym);
+}
+function speakPhonemeFallback(sym){
+  const say = PHONEME_SAY[sym] || sym.replace(/\//g,'');
   TTS.speak(say, 0.5);
 }
 
@@ -539,7 +566,7 @@ function renderS1(div){
 // ═══════════════════════════════
 function renderS2(div){
   let h=`<div class="card"><h2>🔊 Step 2: All 20 Vowel Sounds</h2>
-    <p>The <strong>5 vowel letters</strong> (A E I O U) make <strong>20 different sounds</strong>: 7 short + 5 long + 8 diphthongs. <strong style="color:var(--orange);">👉 Tap the big 🔊 symbol on any card to hear that sound.</strong></p>
+    <p>The <strong>5 vowel letters</strong> (A E I O U) make <strong>20 different sounds</strong>: 7 short + 5 long + 8 diphthongs. <strong style="color:var(--orange);">👉 Tap the big 🔊 symbol on any card to hear a real recording of that sound.</strong></p>
     <div class="tip"><strong>💡 Why 5 letters → 20 sounds?</strong> Each vowel letter can be pronounced multiple ways depending on the word:<br><br>
     <strong>Letter A</strong> → /æ/ (c<b>a</b>t), /eɪ/ (c<b>a</b>ke), /ɑː/ (c<b>a</b>r), /ɔː/ (w<b>a</b>ll), /ə/ (<b>a</b>bout) — <em>5 sounds from 1 letter!</em><br>
     <strong>Letter E</strong> → /ɛ/ (b<b>e</b>d), /iː/ (m<b>e</b>), /ɜː/ (h<b>e</b>r), /ə/ (tak<b>e</b>n) — <em>4 sounds</em><br>
@@ -576,7 +603,7 @@ function renderS2(div){
 // ═══════════════════════════════
 function renderS3(div){
   let h=`<div class="card"><h2>🦷 Step 3: All 24 Consonant Sounds</h2>
-    <p>The <strong>21 consonant letters</strong> (B C D F G H J K L M N P Q R S T V W X Y Z) make <strong>24 sounds</strong>. <strong style="color:var(--orange);">👉 Tap the big 🔊 symbol on any card to hear that sound.</strong></p>
+    <p>The <strong>21 consonant letters</strong> (B C D F G H J K L M N P Q R S T V W X Y Z) make <strong>24 sounds</strong>. <strong style="color:var(--orange);">👉 Tap the big 🔊 symbol on any card to hear a real recording of that sound.</strong></p>
     <div class="tip"><strong>💡 Why 21 letters → 24 sounds?</strong> Some letters share sounds, and some combinations create NEW sounds:<br><br>
     <strong>Extra sounds not from a single letter:</strong><br>
     • <strong>/ŋ/</strong> (si<b>ng</b>) — no single letter makes this! Only "ng" together<br>
